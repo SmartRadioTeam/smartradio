@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
-include("class/testmobile.php");
 include("../class/conf.php");
 include("tem/hand.htm");
 ?>
@@ -16,7 +15,7 @@ include("tem/t.php");
 ?>
 <div class="container" id="body" style="width: 90%;">
 <?php 
-include ("../class/bsmessage.php");
+include ("class/bsmessage.php");
 include("post.php"); 
 include("lostandfound.php");
 ?>
