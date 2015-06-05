@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
-setcookie('adminua','touch',time()+315360000,"/");
-if(!isset($_COOKIE['login'])){header("location:login.php");}
+include("login.php");
 include("../../class/conf.php");
 include("tem/hand.htm");
 include ("change.php");
@@ -31,7 +30,7 @@ while($row=mysql_fetch_array($query)){
         联系电话：".urldecode($row[tel])."<br><br>
         信息：".urldecode($row[message])."<br><br>
         投稿者ip：".'<a href="http://www.ip138.com/ips138.asp?ip='.urldecode($row[ip]).'">'.urldecode($row[ip])."</a><hr>";
-    echo '<form action="../class/dellost.php" method="post" enctype="multipart/form-data">
+    echo '<form action="class/dellost.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="'.$row[id].'">
         <input type="hidden" name="mod" value="lost">
         <input type="submit" name="submit" class="btn btn-primary" value="删除" />

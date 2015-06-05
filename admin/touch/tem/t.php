@@ -19,12 +19,11 @@ echo PROJECTNAME;
 $url = $_SERVER['PHP_SELF']; 
 $filename= substr( $url , strrpos($url , '/')+1 ); 
 ?>
-    <li<?php if($filename=="index.php"){echo ' class="active"';}?>><a href="index.php">今日播放</a></li>
-<li<?php if($filename=="afterday.php"){echo ' class="active"';}?>><a href="afterday.php">全部点播</a></li>
-<li<?php if($filename=="today.php"){echo ' class="active"';}?>><a href="#today"data-toggle="modal">点播搜索</a></li>
+    <li<?php if($filename=="index.php"&&!isset($_GET['mode'])){echo ' class="active"';}?>><a href="index.php">今日播放</a></li>
+<li<?php if($filename=="index.php"&&$_GET['mode']=="selectall"){echo ' class="active"';}?>><a href="index.php?mode=selectall">全部点播</a></li>
+<li<?php if($filename=="index.php"&&$_GET['mode']=="search"){echo ' class="active"';}?>><a href="#today"data-toggle="modal">点播搜索</a></li>
 	<li<?php if($filename=="lostandfound.php"){echo ' class="active"';}?>><a href="lostandfound.php">寻物启示</a></li>
 	<li<?php if($filename=="hsong.php"){echo ' class="active"';}?>><a href="hsong.php">禁播歌曲管理</a></li>
-	<li<?php if($filename=="post.php"){echo ' class="active"';}?>><a href="post.php">自动点歌系统管理</a></li>
 	<li><a href="#off"data-toggle="modal">系统设置</a></li>
 	<li><a href="../class/outlogin.php">退出</a></li>
           </ul>

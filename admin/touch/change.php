@@ -9,7 +9,7 @@ function changepost($id,$name,$user,$to,$message){
             <h3 class="modal-title">修改点歌单</h3>
           </div>
       <div class="modal-body">
-      <form id="form1" name="form1" action="../class/changedate.php" method="post">
+      <form id="form1" name="form1" action="class/changedate.php" method="post">
     <font color="#000000">歌曲名：</font><input type="text"name="name" value="'.$name.'"><br><br>
     <font color="#000000">点歌人：</font><input type="text"name="user" value="'.$user.'"><br><br>
     <font color="#000000">送给：</font><input type="text"name="to" value="'.$to.'"><br><br>

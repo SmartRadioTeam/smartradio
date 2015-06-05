@@ -2,14 +2,12 @@
 error_reporting(0); 
 
 /*基础配置*/
-define("PROJECTNAME", "三明学院点歌台"); //网站名称（请不要超过8个中文字符）
-define("PASSWORD", "sanmingxueyuanradio");//后台密码
-define("IMGDEFURL", "/def");//pc端清新版底图数量
-define("IMGACGURL", "/acg");//pc端动漫版底图数量
-define("MYSQLHOST", "localhost");//数据库地址
-define("MYSQLUSER", "qwe7002");//数据库用户名
-define("MYSQLPASSWORD", "123456");//数据库密码
-define("MYSQLDB", "qwe7002_smxyradio");//数据库名称
+define("PROJECTNAME", "三明学院点歌台");//项目名称
+define("MYSQLHOST", "localhost");//主数据库地址
+define("MYSQLUSER", "qwe7002");//主数据库用户名
+define("MYSQLPASSWORD", "123456");//主数据库密码
+define("MYSQLDB", "qwe7002_smxyradio");//主数据库名称
+define("DBSWITCH", "MYSQL");//主数据库类型
 /*提示文本配置*/
 define("SUBMITYES", "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！"); //提交成功
 define("SUBMITNO", "服务器错误！请通知管理员！管理员qq：381511791"); //提交失败

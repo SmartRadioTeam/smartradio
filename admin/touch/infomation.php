@@ -3,7 +3,7 @@
 <div class="alert alert-info">
 <font color="#000000">
 <?php
-if(!isset($_COOKIE['login'])){header("location:login.php");}
+include("login.php");
 include("../../class/conn.php");
 $sql = "SELECT * FROM `message`";
 $query = mysql_query($sql,$con);
@@ -52,11 +52,6 @@ $query = mysql_query($sql,$con);
 &nbsp;&nbsp <input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
 <hr>
-恢复初始化：
-<form name=myform action="../class/del.php" method="post">
-输入登录密码恢复初始化（此操作将清空所有数据并且无法恢复！请慎用！）<input type="text"name="pw">&nbsp;&nbsp <input type="submit" value="提交" class="btn btn-danger" >
-</form>
-<hr>
 <a href="../class/cleanmusic.php" class="btn btn-danger" >清除已播放/无法播放记录</a>
         <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -75,7 +70,7 @@ $query = mysql_query($sql,$con);
         <h3 class="modal-title">点播搜索</h3>
       </div>
       <div class="modal-body">
-<form action="today.php" method="post" enctype="multipart/form-data">
+<form action="index.php?mod=search" method="post" enctype="multipart/form-data">
 <?php
 echo '<select name="time" style="width:100px;">';
 $i=1;

@@ -11,7 +11,7 @@ echo '<a href="#" class="btn btn-primary">抱歉，系统拒绝新的点歌，�
 echo '<a href="#post" class="btn btn-primary" data-toggle="collapse">我要点歌</a>&nbsp&nbsp<a href="#lostandfound" class="btn btn-primary" data-toggle="collapse">寻物启示信息发布</a>
 <div id="post" class="collapse" style="height:0px;">
 <div class="anime img-thumbnail" id="anime">
-	  <form id="form1" name="form1" action="../class/update.php" method="post">
+	  <form id="form1" name="form1" action="class/update.php" method="post">
 	  <font color="#000000">歌曲名：</font><input type="text"name="name"><br><br>
 	  <font color="#000000">点歌人：</font><input type="text"name="user"><br><br>
 	 <font color="#000000">送给：</font><input type="text"name="to"><br><br>

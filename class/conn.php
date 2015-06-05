@@ -1,9 +1,10 @@
-﻿<?php
+<?php
 include("conf.php");
-error_reporting(0); 
-$con = mysql_connect(MYSQLHOST,MYSQLUSER,MYSQLPASSWORD);
-if (!$con)
-  {
-  die('Could not connect: ' . mysql_error());
-  }
-mysql_select_db(MYSQLDB);
+switch (DBSWITCH) {
+    case "MYSQL":
+	include("dbconn/mysql_conn.php");
+        break;
+    case "MSSQL":
+        include("dbconn/mssql_conn.php");
+        break;
+}

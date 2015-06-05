@@ -1,6 +1,6 @@
 ﻿<div id="lostandfound" class="collapse" style="height:0px;">
 <div class="anime img-thumbnail" id="anime">
-<form  action="../class/lostandfound.php" method="post">
+<form  action="class/lostandfound.php" method="post">
 	  <font color="#000000">申报人：</font><input type="text"name="user"><br><br>
 	  <font color="#000000">电话：</font><input type="text"name="tel"><br><br>
 	  <font color="#000000">物品信息:</font><input id="inputbox" name="message" onkeyup="checkLength2(this);"><br><br>
