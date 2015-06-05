@@ -1,8 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
-setcookie('adminua','post.php',time()+315360000,"/");
-include("../login.php");
+if(!isset($_COOKIE['login'])){header("location:login.php");}
 include("../../class/conf.php");
 include("tem/hand.htm");
 ?>
@@ -19,7 +18,7 @@ include ("infomation.php");
 <a href="#postmsg" data-toggle="modal" class="btn btn-primary" >添加自动点歌信息</a>
 <script type="text/javascript"> 
 function submit(){
-document.form2.submit();
+    document.form2.submit();
 }
 </script> 
 <div id="postmsg" class="modal fade">
@@ -53,16 +52,15 @@ include("../../class/conn.php");
 $sql = "SELECT * FROM `songtable`";
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
-echo '<div class="anime img-thumbnail" id="anime">';
-echo '歌曲名：'.urldecode($row[song]).'<br><br>
-点歌人：'.urldecode($row[user]).'<br><br>
-想说的话:'.urldecode($row[message]).'<hr>';
-echo '<form action="../class/delauto.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="id" value="'.$row[id].'">
-<input type="submit" name="submit" class="btn btn-danger" value="删除自动化文本" />
-</form>';
-echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
-
+    echo '<div class="anime img-thumbnail" id="anime">';
+    echo '歌曲名：'.urldecode($row[song]).'<br><br>
+        点歌人：'.urldecode($row[user]).'<br><br>
+        想说的话:'.urldecode($row[message]).'<hr>';
+    echo '<form action="../class/delauto.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="'.$row[id].'">
+        <input type="submit" name="submit" class="btn btn-danger" value="删除自动化文本" />
+        </form>';
+    echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
 }
 mysql_close($con);
 ?>

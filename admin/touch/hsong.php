@@ -1,8 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
-setcookie('adminua','hsong.php',time()+315360000,"/");
-include("../login.php");
+if(!isset($_COOKIE['login'])){header("location:login.php");}
 include("../../class/conf.php");
 include("tem/hand.htm");
 ?>
@@ -30,9 +29,9 @@ document.form2.submit();
         <h3 class="modal-title">添加禁播歌曲</h3>
       </div>
       <div class="modal-body">
-<form id="form2" name="form2" action="../class/updateersong.php" method="post">
-歌曲名：<input type="text"name="name"><br><br>
-</form>
+          <form id="form2" name="form2" action="../class/updateersong.php" method="post">
+              歌曲名：<input type="text"name="name"><br><br>
+          </form>
         <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 		<input type="button" name="Submit" class="btn btn-success" value="提交" onclick="submit();" />
@@ -51,13 +50,14 @@ include("../../class/conn.php");
 $sql = "SELECT * FROM `ersong`";
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
-echo '<div class="anime img-thumbnail" id="anime">';
-echo '歌曲名：'.urldecode($row[name]).'<hr>';
-echo '<form action="../class/catchdel.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="id" value="'.$row[id].'">
-<input type="submit" name="submit" class="btn btn-danger" value="删除" />
-</form>';
-echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
+    echo '<div class="anime img-thumbnail" id="anime">';
+    echo '歌曲名：'.urldecode($row[name]).'<hr>';
+    echo '<form action="../class/del.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="'.$row[id].'">
+    <input type="hidden" name="mod" value="catch">
+    <input type="submit" name="submit" class="btn btn-danger" value="删除" />
+    </form>';
+    echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
 
 }
 mysql_close($con);

@@ -1,4 +1,4 @@
-﻿<br>
+<br>
 <br>
 <div class="alert alert-info">
 <font color="#000000">
@@ -8,7 +8,7 @@ include("../../class/conn.php");
 $sql = "SELECT * FROM `message`";
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
-echo "<strong>通知：</strong>".urldecode($row[message])."";
+    echo "<strong>通知：</strong>".urldecode($row[message]);
 }
 mysql_close($con);
 ?>
@@ -31,11 +31,11 @@ $sql = "SELECT * FROM `takeoff` WHERE `id`=0";
 $query=mysql_query($sql,$con);
 $backcount=mysql_num_rows($query); 
 if($backcount==0){
-echo '打开：<input type="radio" name="off" value="0">&nbsp;&nbsp;
-关闭：<input type="radio" name="off" value="1" checked>&nbsp;&nbsp;';
+    echo '打开：<input type="radio" name="off" value="0">&nbsp;&nbsp;
+        关闭：<input type="radio" name="off" value="1" checked>&nbsp;&nbsp;';
 }else{
-echo '打开：<input type="radio" name="off" value="0" checked>&nbsp;&nbsp;
-关闭：<input type="radio" name="off" value="1">&nbsp;&nbsp;';
+    echo '打开：<input type="radio" name="off" value="0" checked>&nbsp;&nbsp;
+        关闭：<input type="radio" name="off" value="1">&nbsp;&nbsp;';
 }
 ?>
 	<input type="submit" name="Submit" class="btn btn-success" value="提交" />
@@ -46,9 +46,9 @@ echo '打开：<input type="radio" name="off" value="0" checked>&nbsp;&nbsp;
 <input type="text" name="message" value="<?php include("../../class/conn.php");
 $sql = "SELECT * FROM `message`";
 $query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
-echo urldecode($row[message]);
-}?>">
+    while($row=mysql_fetch_array($query)){
+        echo urldecode($row[message]);
+    }?>">
 &nbsp;&nbsp <input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
 <hr>
@@ -78,33 +78,33 @@ echo urldecode($row[message]);
 <form action="today.php" method="post" enctype="multipart/form-data">
 <?php
 echo '<select name="time" style="width:100px;">';
-	  $i=1;
-	  $today=date("m",time());
-	  while($i!=13){
-	  if(strlen($i)==1){
-	  $i='0'.$i;
-	  }
-	  if($today==$i){
-	  echo '<option value ="'.$i.'" selected="selected">'.$i.'月</option>';
-	  }else{
-	  echo '<option value ="'.$i.'">'.$i.'月</option>';
-	  }
-	  $i=$i+1;
-	  }
-	  echo '</select>&nbsp;&nbsp;<select name="day" style="width:100px;">';
-	    $i=1;
-		$today=date("d",time());
-	  while($i!=32){
-	   if(strlen($i)==1){
-	  $i='0'.$i;
-	  }
-	  if($today==$i){
-	  echo '<option value ="'.$i.'" selected="selected">'.$i.'日</option>';
-	  }else{
-	  echo '<option value ="'.$i.'">'.$i.'日</option>';
-	  }
-	  $i=$i+1;
-	  }
+$i=1;
+$today=date("m",time());
+    while($i!=13){
+        if(strlen($i)==1){
+            $i='0'.$i;
+        }
+        if($today==$i){
+            echo '<option value ="'.$i.'" selected="selected">'.$i.'月</option>';
+	    }else{
+            echo '<option value ="'.$i.'">'.$i.'月</option>';
+        }
+        $i=$i+1;
+    }
+echo '</select>&nbsp;&nbsp;<select name="day" style="width:100px;">';
+$i=1;
+$today=date("d",time());
+    while($i!=32){
+        if(strlen($i)==1){
+            $i='0'.$i;
+        }
+        if($today==$i){
+            echo '<option value ="'.$i.'" selected="selected">'.$i.'日</option>';
+        }else{
+            echo '<option value ="'.$i.'">'.$i.'日</option>';
+        }
+        $i=$i+1;
+        }
 	  echo '</select>&nbsp;&nbsp;';?>
 	          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -120,6 +120,6 @@ include("../../class/conn.php");
 $sql = "SELECT * FROM `timetable`";
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
-echo '<div class="alert alert-success">上次清理数据库时间：'.$row[deltime].'</div>';
+    echo '<div class="alert alert-success">上次清理数据库时间：'.$row[deltime].'</div>';
 }
 mysql_close($con);?>
