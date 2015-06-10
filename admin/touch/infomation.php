@@ -51,8 +51,6 @@ $query = mysql_query($sql,$con);
     }?>">
 &nbsp;&nbsp <input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
-<hr>
-<a href="../class/cleanmusic.php" class="btn btn-danger" >清除已播放/无法播放记录</a>
         <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 		      </div>

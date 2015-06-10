@@ -1,3 +1,5 @@
-﻿<script>
-window.location.href="/touch";
-</script>
+﻿<?php
+header("HTTP/1.1 301 Moved Permanently");
+header("Location: /user");
+exit();
+?>

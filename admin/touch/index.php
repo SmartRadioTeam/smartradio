@@ -42,9 +42,6 @@ if(!isset($mode){
 }else if($mode=="selectall"){
     $sql = "SELECT * FROM `radio`";
 }
-    
-}
-
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
     echo '<div class="anime img-thumbnail" id="anime">';
@@ -57,7 +54,8 @@ while($row=mysql_fetch_array($query)){
         echo '<span class="label label-success">已播放</span>';
     }
     if($info=="2"){
-        echo '<span class="label label-danger">无法播放</span>';}
+        echo '<span class="label label-danger">无法播放</span>';
+    }
         echo "<br><br>
         提交时间：".urldecode($row[uptime])."<br><br>
         希望播放的时间：".str_replace('-', '月', urldecode($row[time]))."日 ".urldecode($row[option])."<br><br>
@@ -85,11 +83,9 @@ while($row=mysql_fetch_array($query)){
         <input type="hidden" name="id" value="'.$row[id].'">
         <input type="hidden" name="mod" value="init">
         <input type="submit" name="submit" class="btn btn-primary" value="直接删除" />
-        </form>
-        ';
-
+        </form>';
 echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
-
+}
 mysql_close($con);
 ?>
  </div>
