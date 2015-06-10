@@ -15,7 +15,7 @@ include("tem/t.php");
 ?>
 <div class="container" id="body" style="width: 90%;">
 <?php 
-include ("class/bsmessage.php");
+include ("class/message.php");
 include("post.php"); 
 include("lostandfound.php");
 ?>

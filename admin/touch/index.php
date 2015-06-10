@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
-$url = $_SERVER['PHP_SELF']; 
-$filename= substr( $url , strrpos($url , '/')+1 );
-setcookie('backpage',$filename,null,"/");
 include("login.php");
 include("../../class/conf.php");
 include("tem/hand.htm");

@@ -27,6 +27,34 @@ function changepost($id,$name,$user,$to,$message){
     </div>';
     echo '<a href="#A'.$id.'"data-toggle="modal" class="btn btn-info">修改点歌单</a><br><br>';
 }
+function changelaf($id,$user,$tel,$message){
+    echo'
+    <div id="A'.$id.'" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 class="modal-title">修改失物招领</h3>
+          </div>
+      <div class="modal-body">
+      <form id="form1" name="form1" action="class/changedate.php" method="post">
+    <font color="#000000">申报人：</font><input type="text"name="user" value="'.$user.'"><br><br>
+    <font color="#000000">电话：</font><input type="text"name="tel" value="'.$tel.'"><br><br>
+    <font color="#000000">信息:</font><input name="message" onkeyup="checkLength(this);" value="'.$message.'"><br><br>
+    <font color="#000000">文字最大长度: 140. 还剩: <span id="chLeft"></span></font>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <input type="submit" name="submit" class="btn btn-success" value="保存" />
+        <input type="hidden" name="id" value="'.$id.'">
+        </form>
+      </div>
+    </div>
+    </div>
+    </div>';
+    echo '<a href="#A'.$id.'"data-toggle="modal" class="btn btn-info">修改点歌单</a><br><br>';
+}
+?>
 ?>
 <script type="text/javascript"> 
 function checkLength(which) { 
