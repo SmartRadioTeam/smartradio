@@ -1,4 +1,4 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container" style="width: 90%;">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,6 +18,7 @@ echo PROJECTNAME;
 <?php 
 $url = $_SERVER['PHP_SELF']; 
 $filename= substr( $url , strrpos($url , '/')+1 ); 
+setcookie('backpage',$filename,null,"/");
 ?>
     <li<?php if($filename=="index.php"&&!isset($_GET['mode'])){echo ' class="active"';}?>><a href="index.php">今日播放</a></li>
 <li<?php if($filename=="index.php"&&$_GET['mode']=="selectall"){echo ' class="active"';}?>><a href="index.php?mode=selectall">全部点播</a></li>

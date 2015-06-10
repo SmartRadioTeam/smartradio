@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
+$url = $_SERVER['PHP_SELF']; 
+$filename= substr( $url , strrpos($url , '/')+1 );
+setcookie('backpage',$filename,null,"/");
 include("login.php");
 include("../../class/conf.php");
 include("tem/hand.htm");
@@ -18,7 +21,6 @@ if(!isset($mode)){
 }
 echo '<title>'.$tittles.' - <?php echo PROJECTNAME;?>管理中心 - Powered by smuradio</title>';
 ?>
-
 <body>
 <?php 
 include("tem/t.php");
@@ -33,14 +35,18 @@ include ("infomation.php");
 date_default_timezone_set ('PRC');
 if(!isset($mode){
     $today=date("m-d",time());
-    $sql = "SELECT * FROM `radio`WHERE `time`='$today'";  
 }else if($mode=="search"){
     $day=$_POST['day'];
     $time=$_POST['time'];
-    $today=$time.'-'.$day;
-    $sql = "SELECT * FROM `radio` WHERE `time`='$today'";
-}else if($mode=="selectall"){
+    $today=$time.'-'.$day; 
+}
+if(isset($today)){
+
+}
+if($mode=="selectall"){
     $sql = "SELECT * FROM `radio`";
+}else{
+    $sql = "SELECT * FROM `radio` WHERE `time`='$today'";
 }
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){

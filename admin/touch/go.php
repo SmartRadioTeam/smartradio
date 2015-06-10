@@ -6,6 +6,8 @@ include("../class/conf.php"); ?>
 <?php
 if(isset($_GET["url"])){
     $url=$_GET["url"];
+}else if(isset($_COOKIE["backpage"])){
+	$url=$_COOKIE["backpage"]);
 }else{
     $url="./";
 }
