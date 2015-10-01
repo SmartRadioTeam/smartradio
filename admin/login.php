@@ -1,4 +1,3 @@
-<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
 $temple='<!DOCTYPE html>
             <html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
