@@ -37,7 +37,7 @@ while($row=mysql_fetch_array($query)){
         </form>';
         changelaf($row[id],urldecode($row[user]),urldecode($row[tel]),urldecode($row[message]));
     echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
-    }
+}
 mysql_close($con);
 ?>
  </div>
