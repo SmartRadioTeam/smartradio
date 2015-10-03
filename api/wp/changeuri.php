@@ -7,8 +7,8 @@ $old=iconv("UTF-8","gbk//TRANSLIT",$old);
 $new=iconv("UTF-8","gbk//TRANSLIT",$new);
 $new=urlencode($new);
 $old=urlencode($old);
-$sql = "UPDATE `".MYSQLDB."`.`radio` SET `uri` = '$new' WHERE `radio`.`uri` = '".$old."';";
+$sql = "UPDATE `radio` SET `uri` = '$new' WHERE `uri` = '".$old."';";
 $result = mysql_query($sql,$con);
-$sql="ALTER TABLE  `radio` ORDER BY  `info`";
+$sql="ALTER TABLE `radio` ORDER BY  `info`";
 mysql_query($sql,$con);
 ?>	

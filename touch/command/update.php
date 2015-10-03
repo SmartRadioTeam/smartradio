@@ -1,18 +1,25 @@
 ﻿<?php
-include("../../class/conn.php");
-include("../../class/conf.php");
+include("class_include.php");
+date_default_timezone_set ('PRC');
 //判断是否被关闭
 $sql = "SELECT * FROM `takeoff` WHERE `id`=0";
-$query=mysql_query($sql,$con);
-$backcount=mysql_num_rows($query); 
+$sql =DB_Select("takeoff",array("id"=>"=0"));
+$query=DB_Query($sql,$con);
+$backcount=DB_Num_Rows($query);
 if($backcount==0){
-	header("Location: go.php?echo=".urlencode("抱歉，系统拒绝新的点歌，详情请见公告！"));
+    System_messagebox("抱歉，系统拒绝新的点歌，详情请见公告！","message","/touch/");
+	exit();
+}
+switch($_POST["mod"]){
+	case "requestmusicpost":
+		requestmusicpost();
+		break;
+	case "LostandfoundPost":
+		LostandfoundPost();
+		break;
 }
 
 function requestmusicpost(){
-	$cip=getip();
-	date_default_timezone_set ('PRC');
-	$uptime=date("Y-m-d H:i:s",time());
 	$user=$_POST['user'];
 	$message=$_POST['message'];
 	$name=$_POST['name'];
@@ -21,22 +28,18 @@ function requestmusicpost(){
 	$option=$_POST['option'];
 	$day=$_POST['day'];
 	//过滤
-	$user = str_replace('<', '', $user);
-	$user = str_replace('>', '', $user);
-	$name = str_replace('<', '', $name);
-	$name = str_replace('>', '', $name);
-	$message = str_replace('<', '', $message);
-	$message = str_replace('>', '', $message);
-	$to = str_replace('<', '', $to);
-	$to = str_replace('>', '', $to);
+	$user = Xss_replace($user);
+	$name = Xss_replace($name);
+	$message = Xss_replace($message);
+	$to = Xss_replace($to);
 	$time=$time.'-'.$day;
 	if($name==""||$user==""||$message==""||$to==""){  
-		header("Location: go.php?echo=".urlencode("信息不能为空"));
-		//todo
+		System_messagebox("信息不能为空","message","/touch/");
+		exit();
 	}
 	if(strlen($message)>280){
-		header("Location: go.php?echo=".urlencode("祝福超过140字，请修改后重新提交！"));
-		//todo
+		System_messagebox("祝福超过140字，请修改后重新提交！","message","/touch/");
+		exit();
 	}
 	//url转码
 	$user=urlencode($user);
@@ -44,83 +47,78 @@ function requestmusicpost(){
 	$message=urlencode($message);
 	$to=urlencode($to);
 	$time=urlencode($time);
-	$uptime=urlencode($uptime);
-	$cip=urlencode($cip);
+	$uptime=urlencode(date("Y-m-d H:i:s",time()));
+	$cip=urlencode(getip());
 	$option=urlencode($option);
-
-	$sql = "SELECT * FROM `ersong` WHERE `name` LIKE '$name'";
-	$query=mysql_query($sql,$con);
-	$backcount=mysql_num_rows($query); 
+	//检查是否为禁播歌曲
+	$sql = DB_Select("ersong",array("name"=>"LIKE "."'".$name."'"));
+	$query=DB_Query($sql,$con);
+	$backcount=DB_Num_Rows($query); 
 	if($backcount!=0){
-		header("Location: go.php?echo=".urlencode(SUBMITHSONG));
+		System_messagebox("您点播的歌曲为禁止点播歌曲，无法提交到点歌台。请更换后再提交！","message","/touch/");
+		exit();
 	}
-	//写入
-	$sql = "SELECT * FROM `radio` WHERE `user` LIKE '$user' AND `name` LIKE '$name' AND `message` LIKE '$message' AND `to` LIKE '$to' AND `time` LIKE '$time'";
-	$query=mysql_query($sql,$con);
-	if(mysql_num_rows($query)>=1){
-		header("Location: go.php?echo=".urlencode("请不要重复提交歌曲！谢谢！"));
+
+	//检测是否重复提交
+	$sql = DB_Select("radio",array("user"=>"LIKE "."'".$user."'","name"=>"LIKE "."'".$name."'"));
+	$query=DB_Query($sql,$con);
+	if(DB_Num_Rows($query)>=1){
+		System_messagebox("请不要重复提交歌曲！谢谢！","message","/touch/");
+		exit();
 	}
-	$sql = "INSERT INTO `radio` (`user`, `name`, `message`,`to`,`time`,`uptime`,`ip`,`info`,`option`) VALUES ('$user', '$name', '$message', '$to', '$time','$uptime','$cip','0','$option');";
-	$result = mysql_query($sql,$con);
+
+	//写入数据库
+	$sql = DB_Insert("radio",array("user"=>$user,"name"=>$name,"message"=>$message,"to"=>$to,"time"=>$time,"uptime"=>$uptime,"ip"=>$cip,"info"=>"0","option"=>$option));
+	//$sql = "INSERT INTO `radio` (`user`, `name`, `message`,`to`,`time`,`uptime`,`ip`,`info`,`option`) VALUES ('$user', '$name', '$message', '$to', '$time','$uptime','$cip','0','$option');";
+	$result = DB_Query($sql,$con);
 	if($result){
-		header("Location: go.php?echo=".urlencode(SUBMITYES));
-		$sql="ALTER TABLE  `radio` ORDER BY  `info`";
-		mysql_query($sql,$con);
+		//$sql="ALTER TABLE  `radio` ORDER BY  `info`";
+		//mysql_query($sql,$con);
+		System_messagebox("您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","success","/touch/");
+		exit();
 	}else{
-		header("Location: go.php?echo=".urlencode(SUBMITNO));
+		System_messagebox("服务器错误！请通知管理员！管理员qq：381511791","message","/touch/");
+		exit();
 	}
 }
 
 function LostandfoundPost(){
-	$cip=getip();
-	date_default_timezone_set ('PRC');
 	$uptime=date("Y-m-d H:i:s",time());
 	$user=$_POST['user'];
 	$message=$_POST['message'];
 	$tel=$_POST['tel'];
 	//过滤
-	$user = str_replace('<', '', $user);
-	$user = str_replace('>', '', $user);
-	$tel = str_replace('<', '', $tel);
-	$tel = str_replace('>', '', $tel);
-	$message = str_replace('<', '', $message);
-	$message = str_replace('>', '', $message);
+	$user = Xss_replace($user);
+	$tel = Xss_replace($tel);
+	$message = Xss_replace($message);
 	if($tel==""||$user==""||$message==""){  
-		header("Location: go.php?echo=".urlencode("信息不能为空"));
-	}else{
+		System_messagebox("信息不能为空","message","/touch/");
+		exit();
+	}
 	if(strlen($message)>280){
-		header("Location: go.php?echo=".urlencode("祝福超过140字，请修改后重新提交！"));
-		}else{
-			//url转码
-			$user=urlencode($user);
-			$tel=urlencode($tel);
-			$message=urlencode($message);
-			$time=urlencode($time);
-			$uptime=urlencode($uptime);
-			//写入
-			$sql = "INSERT INTO `lostandfound` (`user`, `tel`, `message`,`uptime`,`ip`) VALUES ('$user', '$tel', '$message','$uptime','$cip');";
-			$result = mysql_query($sql,$con);
-			if($result){
-				header("Location: go.php?echo=".urlencode(SUBMITYES));
-				$sql="ALTER TABLE  `lostandfound` ORDER BY  `info`";
-				mysql_query($sql,$con);
-			}else{
-				header("Location: go.php?echo=".urlencode(SUBMITNO));
-			}
-		}
+		System_messagebox("祝福超过140字，请修改后重新提交！","message","/touch/");
+		exit();
+	}
+	//url转码
+	$user=urlencode($user);
+	$tel=urlencode($tel);
+	$message=urlencode($message);
+	$uptime=urlencode(date("Y-m-d H:i:s",time()));
+	$cip=urlencode(getip());
+	//写入
+	$sql = DB_Insert("lostandfound",array("user"=>$user,"tel"=>$tel,"message"=>$message,"uptime"=>$uptime,"ip"=>$cip));
+	//$sql = "INSERT INTO `lostandfound` (`user`, `tel`, `message`,`uptime`,`ip`) VALUES ('$user', '$tel', '$message','$uptime','$cip');";
+	$result = mysql_query($sql,$con);
+	if($result){
+		//$sql="ALTER TABLE  `lostandfound` ORDER BY  `info`";
+		//mysql_query($sql,$con);
+		System_messagebox("您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","success","/touch/");
+		exit();
+	}else{
+		System_messagebox("服务器错误！请通知管理员！管理员qq：381511791","message","/touch/");
+		exit();
 	}
 }
 
-function getip(){
-	if(!empty($_SERVER["HTTP_CLIENT_IP"])){
-		$cip = $_SERVER["HTTP_CLIENT_IP"];
-	}else if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
-		$cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-	}else if(!empty($_SERVER["REMOTE_ADDR"])){
-		$cip = $_SERVER["REMOTE_ADDR"];
-	}else{
-		$cip = "NULL";
-	}
-	return $cip;
-}
+
 ?>
