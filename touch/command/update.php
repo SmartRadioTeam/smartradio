@@ -1,5 +1,9 @@
 ﻿<?php
-include("class_include.php");
+include("../../config/init.php");
+include("../../connect/init.php");
+include("../../".Package_Net."/net_getip.php");
+include("../../".Package_System."/messagebox/messagebox.php");
+include("../../".Package_Xss_Replace."xss_replace");
 date_default_timezone_set ('PRC');
 //判断是否被关闭
 $sql = "SELECT * FROM `takeoff` WHERE `id`=0";
