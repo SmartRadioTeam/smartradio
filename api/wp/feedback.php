@@ -1,9 +1,5 @@
-﻿<?php
-if($_GET['key']!="wp8"){
-	echo "error key";
-	exit();
-}
-include_once("../../class/conn.php");
+<?php
+include("class_include.php");
 $message=$_GET['message'];
 $message=urlencode($message);
 $sql="INSERT INTO `".MYSQLDB."`.`feedback` (`message`) VALUES ('$message');";

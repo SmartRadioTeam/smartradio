@@ -1,13 +1,15 @@
-﻿<?php
-include("../../class/conn.php");
-$sql = "SELECT * FROM `timetable`";
-$query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
-	echo $row[deltime];
+<?php
+include("class_include.php");
+//$sql = "SELECT * FROM `timetable`";
+$sql = DB_Select("timetable");
+$query = DB_Query($sql,$con);
+while($row=DB_Fetch_Array($query)){
+	echo $row["deltime"];
 }
-$sql = "SELECT * FROM `message`";
-$query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
-	echo "|".urldecode($row[message]);
+//$sql = "SELECT * FROM `message`";
+$sql = DB_Select("message");
+$query = DB_Query($sql,$con);
+while($row=DB_Fetch_Array($query)){
+	echo "|".urldecode($row["message"]);
 }
 ?>
