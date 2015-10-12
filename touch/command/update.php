@@ -114,9 +114,8 @@ function LostandfoundPost(){
 	//$sql = "INSERT INTO `lostandfound` (`user`, `tel`, `message`,`uptime`,`ip`) VALUES ('$user', '$tel', '$message','$uptime','$cip');";
 	$result = mysql_query($sql,$con);
 	if($result){
-		//$sql="ALTER TABLE  `lostandfound` ORDER BY  `info`";
-		//mysql_query($sql,$con);
-		System_messagebox("您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","success","/touch/");
+	   //排序任务交给前端处理
+	   		System_messagebox("您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","success","/touch/");
 		exit();
 	}else{
 		System_messagebox("服务器错误！请通知管理员！管理员qq：381511791","message","/touch/");
