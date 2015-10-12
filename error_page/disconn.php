@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>数据库错误 - Powered by 睿翼通ERP</title>
+    <title>数据库错误 - Powered by Smuradio</title>
     <link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/library/bootstrap/public/sticky-footer.css" rel="stylesheet">
   </head>
