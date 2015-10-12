@@ -31,7 +31,7 @@ function DB_Insert($table,$arr_values){
 	}
 	return "INSERT INTO `".$table."` (".$keys.") VALUES (".$vals.");";
 }
-function DB_Select($table,$where=null,$limit="",$filter="*",$orderby=""){
+function DB_Select($table,$where=null,$limit="",$filter="*",$orderby=null){
 	if($where==null){
 		if($limit!=""){
 			$returnsql = "SELECT ".$filter." FROM `".$table."` LIMIT ".$limit;
@@ -54,7 +54,7 @@ function DB_Select($table,$where=null,$limit="",$filter="*",$orderby=""){
 			$returnsql= "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres.";";
 		}
 	}
-	if($orderby!=""){
+	if($orderby!=null){
 	   $returnsql .= "ORDER BY ´".$orderby."´";
 	}
 	return $returnsql
