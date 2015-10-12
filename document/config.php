@@ -2,8 +2,8 @@
 define("REWRITE", false);
 
 $Config = array(
-          'Title' => '睿翼通 ERP 说明文档',
-          'FooterInfo' => '睿欧科技有限公司'
+          'Title' => 'smuradio 说明文档',
+          'FooterInfo' => 'Inside-Yume 团队作品'
 	      );
 
 $Pages = array('index' => '首页'
