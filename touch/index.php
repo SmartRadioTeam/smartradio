@@ -17,10 +17,10 @@ switch ($info){
       echo '<span class="label label-danger">无法播放</span>';
       break;
 }
-echo "<br><br>
-歌曲名：".urldecode($row["name"])."<br><br>
-点歌人：".urldecode($row["user"])."<br><br>
-送给：".urldecode($row["to"])."<br><br>
+echo "
+歌曲名：".urldecode($row["name"])."
+点歌人：".urldecode($row["user"])."
+送给：".urldecode($row["to"])."
 最想对TA说:「".urldecode($row["message"])."」";
 }
 ?>

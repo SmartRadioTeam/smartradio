@@ -17,9 +17,10 @@ while($row=DB_Fetch_Array($query)){
 }
 //todo 失物招领与寻物启事显示模式修改
 $sql = "SELECT * FROM `lostandfound` ORDER BY RAND() LIMIT 1;";
+$sql = DB_Select("lostandfound",1);
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
-$messages="来自".urldecode($row[user])."同学的寻物启示：".urldecode($row[message])."请有拾到者拨打电话：".urldecode($row[tel])."。谢谢！（本信息将滚动播出，如需了解更多信息请刷新页面。）";
+$messages="来自".urldecode($row["user"])."同学的寻物启示：".urldecode($row["message"])."请有拾到者拨打电话：".urldecode($row["tel"])."。谢谢！（本信息将滚动播出，如需了解更多信息请刷新页面。）";
 	echo '<div class="alert alert-danger">
 	<font color="#000000"><strong></strong>'.$messages."</font>
 	</div>";

@@ -31,12 +31,12 @@ function DB_Insert($table,$arr_values){
 	}
 	return "INSERT INTO `".$table."` (".$keys.") VALUES (".$vals.");";
 }
-function DB_Select($table,$where=null,$limit="",$filter="*"){
+function DB_Select($table,$where=null,$limit="",$filter="*",$orderby=""){
 	if($where==null){
 		if($limit!=""){
-			return "SELECT ".$filter." FROM `".$table."` LIMIT ".$limit;
+			$returnsql = "SELECT ".$filter." FROM `".$table."` LIMIT ".$limit;
 		}else{
-			return "SELECT ".$filter." FROM `".$table."`";
+			$returnsql = "SELECT ".$filter." FROM `".$table."`";
 		}
 	}else{
 		$id=1;
@@ -49,11 +49,15 @@ function DB_Select($table,$where=null,$limit="",$filter="*"){
 			}
 		}
 		if($limit!=""){
-			return "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres." LIMIT ".$limit.";";
+			$returnsql= "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres." LIMIT ".$limit.";";
 		}else{
-			return "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres.";";
+			$returnsql= "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres.";";
 		}
 	}
+	if($orderby!=""){
+	   $returnsql .= "ORDER BY ´".$orderby."´";
+	}
+	return $returnsql
 }
 function DB_Delete($table,$where){
 	$id=1;
