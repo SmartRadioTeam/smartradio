@@ -1,18 +1,21 @@
-﻿<br>
+<br>
 <?php
-include("../../class/conn.php");
-$sql = "SELECT * FROM `timetable`";
-$query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
+include("class_include.php");
+//$sql = "SELECT * FROM `timetable`";
+$sql = DB_Selsect("timetable");
+$query = DB_Query($sql,$con);
+while($row=DB_Fetch_Array($query)){
 	echo '<div class="alert alert-success">上次自动清理数据库时间：'.$row[deltime].'</div>';
 }
-$sql = "SELECT * FROM `message`";
-$query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
+//$sql = "SELECT * FROM `message`";
+$sql = DB_Select("message");
+$query = DB_Query($sql,$con);
+while($row=DB_Fetch_Array($query)){
 	echo '<div class="alert alert-info">
 	<font color="#000000"><strong>通知：</strong>'.urldecode($row[message])."</font>
 	</div>";
 }
+//todo 失物招领与寻物启事显示模式修改
 $sql = "SELECT * FROM `lostandfound` ORDER BY RAND() LIMIT 1;";
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
