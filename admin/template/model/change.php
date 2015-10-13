@@ -29,10 +29,10 @@ function changelaf($id,$user,$tel,$message){
 ?>
 <script type="text/javascript"> 
 function checkLength(which) { 
-var maxChars = 140; 
-if (which.value.length > maxChars) 
-which.value = which.value.substring(0,maxChars); 
-var curr = maxChars - which.value.length; 
-document.getElementById("chLeft").innerHTML = curr.toString(); 
+  var maxChars = 140; 
+  if (which.value.length > maxChars) 
+  which.value = which.value.substring(0,maxChars); 
+  var curr = maxChars - which.value.length; 
+  document.getElementById("chLeft").innerHTML = curr.toString(); 
 } 
 </script> 

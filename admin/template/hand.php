@@ -13,6 +13,7 @@
     <?
     switch(Location_Filename){
     	case "index.php":
+            include("model/fream.php");
     		if(!isset($_GET['mode']){
     			$tittles = "今日播放";
     		}
