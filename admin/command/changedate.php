@@ -1,7 +1,5 @@
 <?php
-include("../login.php");
-include("../../../class/conn.php");
-include("../../../class/conf.php");
+include("class_include.php");
 $id=$_POST["id"];
 $user=$_POST['user'];
 $name=$_POST['name'];
@@ -28,8 +26,6 @@ if(strlen($message)>280){
     $result = mysql_query($sql,$con);
     if($result){
         header("Location: ../go.php");
-        $sql="ALTER TABLE  `radio` ORDER BY  `info`";
-        mysql_query($sql,$con);
     }else{
         echo SUBMITNO;
     }
