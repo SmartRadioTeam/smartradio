@@ -30,15 +30,9 @@
     echo '<title>'.$tittles.' - <?php echo Project_Name;?>管理中心 - Powered by smuradio</title>';
     ?>
 </head>
-<?
-include ("change.php");
-?>
 <body>
 <?php 
 include("navi.php");
 ?>
 <div class="container" id="body" style="width: 90%;">
-<?php 
-include ("infomation.php");
-?>
 <br>
