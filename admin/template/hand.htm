@@ -11,6 +11,34 @@
     <script src="./js/mobile.js" type="text/javascrpt"></script>
     <script src="./js/reformobile.js" type="text/javascript"></script>
     <?
+    switch(Location_Filename){
+    	case "index.php":
+    		if(!isset($_GET['mode']){
+    			$tittles = "今日播放";
+    		}
+    		if($_GET['mode'] == "selectall"){
+    			$tittles = "全部点播";
+    		}
+    		if($_GET['mode']=="search"){
+    			$tittles = "点播搜索";
+    		}
+    		break;
+    	case "lostandfound.php":
+    		$tittles = "失物招领";
+    		break;
+    }
     echo '<title>'.$tittles.' - <?php echo Project_Name;?>管理中心 - Powered by smuradio</title>';
     ?>
 </head>
+<?
+include ("change.php");
+?>
+<body>
+<?php 
+include("navi.php");
+?>
+<div class="container" id="body" style="width: 90%;">
+<?php 
+include ("infomation.php");
+?>
+<br>

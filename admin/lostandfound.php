@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
 include("class_include.php");
-include("tem/hand.htm");
-include ("change.php");
 ?>
-<title>寻物启示 - <?php echo PROJECTNAME;?>管理中心 - Powered by smuradio</title>
-<body>
-<?php 
-include("tem/t.php");
-?>
-<div class="container" id="body" style="width: 90%;">
-<?php 
-include ("infomation.php");
-?>
-<br>
 <div>
 <?php
 date_default_timezone_set ('PRC');
