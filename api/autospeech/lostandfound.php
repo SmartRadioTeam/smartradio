@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set ('PRC');
-include("../../class/conn.php");
+include("../../config/init.php");
+include("../../connect/init.php");
 //$sql = "SELECT * FROM `lostandfound`";
 $sql = DB_Select("lostandfound");
 $query = DB_Query($sql,$con);
