@@ -17,7 +17,7 @@ $temple='<!DOCTYPE html>
                   </form>
                 </div>
         </body></html>';
-include("../class/conf.php");
+include("class_include.php");
 error_reporting(0);
 $username=$_POST['username'];
 $password=$_POST['password'];
@@ -41,7 +41,7 @@ $password=md5($password);
         echo '<script type="text/javascript" >alert("您的用户名或密码有错，请重新输入！");</script>';
     }
 }else{
-    header('location:/touch/index.php');
+    header('location:index.php');
 }
 ?>
 <title>登录 - <?php echo PROJECTNAME;?>管理中心 - Powered by smuradio</title>
