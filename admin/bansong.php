@@ -22,10 +22,9 @@ while($row=mysql_fetch_array($query)){
  </div>
 <hr>
 </div>
-<script type="text/javascript">reformobile()</script></div>
+</div>
 </div>
     </div>
 <?php
-include("tem/foot.htm");
+include("template/foot.htm");
 ?>
-</body></html>

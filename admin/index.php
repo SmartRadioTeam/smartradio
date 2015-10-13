@@ -26,13 +26,12 @@ while($row=mysql_fetch_array($query)){
 	frame($row["id"],$row["info"],$row["uptime"],$row["time"],$row["option"],$row["name"],$row["user"],$row["to"],$row["message"],$row["ip"]);
 }
 ?>
- </div>
+</div>
 <hr>
 </div>
-<script type="text/javascript">reformobile()</script></div>
+</div>
 </div>
     </div>
 <?php
 include("tem/foot.htm");
 ?>
-</body></html>

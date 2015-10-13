@@ -4,9 +4,7 @@ error_reporting(0);
 $username=$_POST['username'];
 $password=$_POST['password'];
 if(!isset($_COOKIE['login'])){
-    if($password==""||$username==""){
-        echo $temple;
-    }else{
+    if($password!=""||$username!=""){
         $username=md5($username);
         $password=md5($password);
         $sql = "SELECT * FROM `adminuser` WHERE `usermd5`=$username";
@@ -26,7 +24,8 @@ if(!isset($_COOKIE['login'])){
         }else{
             $message = '您的用户名输入错误，请重新输入！'; 
         }
-
+    }else{
+        $message = '请输入完整信息'; 
     }
 }else{
     header('location:index.php');
