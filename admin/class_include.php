@@ -1,9 +1,11 @@
 <?php
-if(!isset($_COOKIE['login'])){
+if(!isset($_COOKIE['login'])&&Location_Filename!="login.php"){
 	header("location:login.php");
 	exit();
 }
 include("../config/init.php");
 include("../connect/init.php");
-include("/template/head.php");
+if(Location_Filename!="login.php"){
+	include("/template/head.php");
+}
 ?>

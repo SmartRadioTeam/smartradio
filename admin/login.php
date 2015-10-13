@@ -1,22 +1,4 @@
 <?php
-$temple='<!DOCTYPE html>
-            <html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link href="../library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-                <link href="./touch/css/login.css" rel="stylesheet">
-              </head>
-              <body>
-                <div class="container">
-                  <form class="form-signin" role="form" method="post">
-                    <h2 class="form-signin-heading">登录管理中心</h2>
-                    <input type="text" name="username" class="form-control" placeholder="用户名" required="">
-                    <input type="password" name="password" class="form-control" placeholder="密码" required="">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-                  </form>
-                </div>
-        </body></html>';
 include("class_include.php");
 error_reporting(0);
 $username=$_POST['username'];
@@ -25,23 +7,57 @@ if(!isset($_COOKIE['login'])){
     if($password==""||$username==""){
         echo $temple;
     }else{
-$username=md5($username);
-$password=md5($password);
-        include("../class/conn.php");
+        $username=md5($username);
+        $password=md5($password);
         $sql = "SELECT * FROM `adminuser` WHERE `usermd5`=$username";
-        $query = mysql_query($sql,$con);
-
-        while($row=mysql_fetch_array($query)){
-            if($password==$row[password]){
-                setcookie('login','sanmingxueyuan',time()+86400,"/");
-                header('location:/touch/index.php');
+        $sql = DB_Select("adminuser",array("usermd5"=>"=".$username));
+        $query = DB_Query($sql,$con);
+        if(mysql_num_rows($query)!=0){
+            while($row=DB_Fetch_Array($query)){
+                if($password==$row["password"]){
+                    setcookie('login','sanmingxueyuan',time()+86400,"/");
+                    header('location:/admin');
+                    break;
+                }else{
+                    $message = '您的密码输入错误，请重新输入！'; 
+                    break;
+                }
             }
+        }else{
+            $message = '您的用户名输入错误，请重新输入！'; 
         }
-        echo $temple;
-        echo '<script type="text/javascript" >alert("您的用户名或密码有错，请重新输入！");</script>';
+
     }
 }else{
     header('location:index.php');
 }
-?>
-<title>登录 - <?php echo PROJECTNAME;?>管理中心 - Powered by smuradio</title>
+echo '<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/library/bootstrap/public/signin.css" rel="stylesheet">
+    <title>登录 - '.Project_Name.' Powered by Smuradio</title>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-signin" role="form" method="post">
+        <h2 class="form-signin-heading">'.Project_Name.'管理用户登录</h2>';
+          if(isset($message)){
+            echo '<div class="alert alert-danger" role="alert">';
+            echo $message;
+            echo '</div>';
+          }
+          echo '
+        <input type="text" name="username" class="form-control" placeholder="用户名" required="" autofocus="">
+        <input type="password" name="password" class="form-control" placeholder="密码" required="">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+      </form>
+    </div>
+      <div class="footer">
+      <div class="container2">
+        <p class="text-muted">睿欧科技有限公司</p>
+      </div>
+    </div>
+</body></html>';
