@@ -3,14 +3,13 @@
 <div class="alert alert-info">
 <font color="#000000">
 <?php
-include("login.php");
-include("../../class/conn.php");
-$sql = "SELECT * FROM `message`";
-$query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
-    echo "<strong>通知：</strong>".urldecode($row[message]);
+include("class_include.php");
+//$sql = "SELECT * FROM `message`";
+$sql = DB_Select("message");
+$query = DB_query($sql,$con);
+while($row=DB_Fetch_Array($query)){
+    echo "<strong>通知：</strong>".urldecode($row["message"]);
 }
-mysql_close($con);
 ?>
 </font>
 </div>
@@ -26,10 +25,10 @@ mysql_close($con);
 投稿开关：
 <form name="formoff" action="../class/off.php" method="post">
 <?php
-include("../../class/conn.php");
-$sql = "SELECT * FROM `takeoff` WHERE `id`=0";
-$query=mysql_query($sql,$con);
-$backcount=mysql_num_rows($query); 
+//$sql = "SELECT * FROM `takeoff` WHERE `id`=0";
+$sql = DB_Select("takeoff",array("id"=>"=0"));
+$query=DB_Query($sql,$con);
+$backcount=DB_Num_Rows($query); 
 if($backcount==0){
     echo '打开：<input type="radio" name="off" value="0">&nbsp;&nbsp;
         关闭：<input type="radio" name="off" value="1" checked>&nbsp;&nbsp;';
@@ -43,11 +42,12 @@ if($backcount==0){
 	  <hr>
 	  通知修改：
 	  <form id="form1" name="form1" action="../class/message.php" method="post">
-<input type="text" name="message" value="<?php include("../../class/conn.php");
-$sql = "SELECT * FROM `message`";
-$query = mysql_query($sql,$con);
-    while($row=mysql_fetch_array($query)){
-        echo urldecode($row[message]);
+<input type="text" name="message" value="<?php
+//$sql = "SELECT * FROM `message`";
+$sql = DB_Select("message");
+$query = DB_Query($sql,$con);
+    while($row=DB_Fetch_Array($query)){
+        echo urldecode($row["message"]);
     }?>">
 &nbsp;&nbsp <input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
@@ -109,10 +109,10 @@ $today=date("d",time());
   </div>
 </div>
 <?php
-include("../../class/conn.php");
-$sql = "SELECT * FROM `timetable`";
-$query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
-    echo '<div class="alert alert-success">上次清理数据库时间：'.$row[deltime].'</div>';
+//$sql = "SELECT * FROM `timetable`";
+$sql = DB_Select("timetable");
+$query = DB_Query($sql,$con);
+while($row=DB_Fetch_Array($query)){
+    echo '<div class="alert alert-success">上次清理数据库时间：'.$row["deltime"].'</div>';
 }
-mysql_close($con);?>
+?>
