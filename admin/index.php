@@ -1,6 +1,4 @@
 <?php
-include("tem/hand.htm");
-include ("change.php");
 if(isset($_GET['mod'])){
     $mode=$_GET['mod'];
 }
