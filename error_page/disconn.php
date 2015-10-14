@@ -11,7 +11,7 @@
     <div class="container">
       <div class="page-header">
         <h1>数据库错误！<h1>
-      </div>数据库发生严重错误！为了您的数据安全，睿翼通已经终止您的请求。请将以下信息提交给开发者：<br>
+      </div>数据库发生严重错误！为了您的数据安全，Smuradio已经终止您的请求。请将以下信息提交给开发者：<br>
       <?php
       echo urldecode($_GET["message"]);
       ?>
