@@ -7,7 +7,7 @@ if(!isset($_COOKIE['login'])){
     if($password!=""||$username!=""){
         $username=md5($username);
         $password=md5($password);
-        $sql = "SELECT * FROM `adminuser` WHERE `usermd5`=$username";
+        //$sql = "SELECT * FROM `adminuser` WHERE `usermd5`=$username";
         $sql = DB_Select("adminuser",array("usermd5"=>"=".$username));
         $query = DB_Query($sql,$con);
         if(mysql_num_rows($query)!=0){

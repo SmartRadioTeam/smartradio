@@ -20,10 +20,9 @@ while($row=DB_Fetch_Array($query)){
         <input type="hidden" name="mod" value="lost">
         <input type="submit" name="submit" class="btn btn-primary" value="删除" />
         </form>';
-        changelaf($row[id],urldecode($row[user]),urldecode($row[tel]),urldecode($row[message]));
+        changelaf($row[id],urldecode($row["user"]),urldecode($row["tel"]),urldecode($row["message"]));
     echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
 }
-mysql_close($con);
 ?>
  </div>
 <hr>

@@ -5,14 +5,10 @@ $user=$_POST['user'];
 $name=$_POST['name'];
 $message=$_POST['message'];
 $to=$_POST['to'];
-$user = str_replace('<', '', $user);
-$user = str_replace('>', '', $user);
-$name = str_replace('<', '', $name);
-$name = str_replace('>', '', $name);
-$message = str_replace('<', '', $message);
-$message = str_replace('>', '', $message);
-$to = str_replace('<', '', $to);
-$to = str_replace('>', '', $to);
+$user = Xss_replace($user);
+$name = Xss_replace($name);
+$message = Xss_replace($message);
+$to = Xss_replace($to);
 if(strlen($message)>280){
     echo "祝福超过140字，请修改后重新提交！";
 }else{
@@ -22,7 +18,11 @@ if(strlen($message)>280){
     $message=urlencode($message);
     $to=urlencode($to);
     //写入
-    $sql = "UPDATE `".MYSQLDB."`.`radio` SET `user` = '$user',`name`='$name',`message`='$message',`to`='$to' WHERE `radio`.`id` = $id;";
+    //$sql = "UPDATE `".MYSQLDB."`.`radio` SET `user` = '$user',`name`='$name',`message`='$message',`to`='$to' WHERE `radio`.`id` = $id;";
+    $sql = DB_Update("radio",array("user"=>$user,
+                                   "name"=>$name,
+                                   "message"=>$message,
+                                   "to"=>$to);
     $result = mysql_query($sql,$con);
     if($result){
         header("Location: ../go.php");

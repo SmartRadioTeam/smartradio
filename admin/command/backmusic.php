@@ -1,8 +1,9 @@
 <?php
 include("class_include.php");
 $id=$_POST['id'];
-$sql = "UPDATE `".MYSQLDB."`.`radio` SET `info` = '0' WHERE `radio`.`id` = $id;";
-$result = mysql_query($sql,$con);
+$sql = DB_Update("radio",array("info"=>"0"),array("id"=>"=".$id))
+//$sql = "UPDATE `".MYSQLDB."`.`radio` SET `info` = '0' WHERE `radio`.`id` = $id;";
+$result = DB_Query($sql,$con);
     if($result){
         //$sql = "SELECT * FROM `radio` WHERE `radio`.`id` = $id;";
         $sql = DB_Select("radio",array("id"=>"=".$id));
