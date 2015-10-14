@@ -2,7 +2,7 @@
 include("class_include.php");
 include("toast.php");
 $id=$_POST['id'];
-$sql = DB_Update("radio",array("info"=>"='0'"),array("id"=>"=".$id))
+$sql = DB_Update("radio",array("info"=>"0"),array("id"=>"=".$id))
 //$sql = "UPDATE `".MYSQLDB."`.`radio` SET `info` = '0' WHERE `radio`.`id` = $id;";
 $result = DB_Query($sql,$con);
     if($result){
