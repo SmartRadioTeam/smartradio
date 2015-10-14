@@ -1,6 +1,5 @@
 <?php
 include("class_include.php");
-include("toast.php");
 $id=$_POST['id'];
 $sql = "UPDATE `".MYSQLDB."`.`radio` SET `info` = '0' WHERE `radio`.`id` = $id;";
 $result = mysql_query($sql,$con);
@@ -14,6 +13,6 @@ $result = mysql_query($sql,$con);
         }
         header("Location: ../go.php");
     }else{
-        echo "服务器错误！请通知管理员！管理员qq：381511791";
+        DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
     }
 ?>	

@@ -10,5 +10,8 @@ if(Location_Filename!="login.php"){
 	include("template/head.php");
 	include ("template/model/infomation.php");
 	include ("template/model/change.php");
+	if(Location_Filename=="bansong.php"){
+		include("template/model/add_bansong.php")
+	}
 }
 ?>

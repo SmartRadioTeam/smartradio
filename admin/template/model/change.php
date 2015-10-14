@@ -9,7 +9,7 @@ function changelaf($id,$user,$tel,$message){
             <h3 class="modal-title">修改失物招领</h3>
           </div>
       <div class="modal-body">
-      <form id="form1" name="form1" action="command/changedate.php" method="post">
+      <form id="form1" name="form1" action="command/changedata.php" method="post">
     <font color="#000000">申报人：</font><input type="text"name="user" value="'.$user.'"><br><br>
     <font color="#000000">电话：</font><input type="text"name="tel" value="'.$tel.'"><br><br>
     <font color="#000000">信息:</font><input name="message" onkeyup="checkLength(this);" value="'.$message.'"><br><br>

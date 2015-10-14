@@ -27,7 +27,7 @@ if(strlen($message)>280){
     if($result){
         header("Location: ../go.php");
     }else{
-        echo SUBMITNO;
+         DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
     }
 }
 ?>

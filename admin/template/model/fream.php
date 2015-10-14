@@ -22,24 +22,28 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip){
         留言：".urldecode($message)."<br><br>
         投稿者ip：".'<a href="http://www.ip138.com/ips138.asp?ip='.urldecode($ip).'">'.urldecode($ip)."</a><hr>";
         changepost($id,urldecode($name),urldecode($user),urldecode($to),urldecode($message));
-        echo '<form action="class/del.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="'.$id.'">
-        <input type="hidden" name="mod" value="music">
-        <input type="submit" name="submit" class="btn btn-success" value="标记为已播放" />
+        echo 
+        '<form action="command/items.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="'.$id.'">
+            <input type="hidden" name="mod" value="played">
+            <input type="submit" name="submit" class="btn btn-success" value="标记为已播放" />
+        </form>
+        <br>
+        <form action="command/items.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="'.$id.'">
+            <input type="hidden" name="mod" value="played">
+            <input type="submit" name="submit" class="btn btn-default" value="标记为未播放" />
+        </form>
+        <br>
+        <form action="command/del.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="'.$id.'">
+            <input type="hidden" name="mod" value="unplay">
+            <input type="submit" name="submit" class="btn btn-danger" value="标记为无法播放" />
         </form><br>
-        <form action="class/backmusic.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="'.$id.'">
-        <input type="submit" name="submit" class="btn btn-default" value="标记为未播放" />
-        </form><br>
-        <form action="class/del.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="'.$id.'">
-        <input type="hidden" name="mod" value="noplay">
-        <input type="submit" name="submit" class="btn btn-danger" value="标记为无法播放" />
-        </form><br>
-        <form action="class/del.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="'.$id.'">
-        <input type="hidden" name="mod" value="init">
-        <input type="submit" name="submit" class="btn btn-primary" value="直接删除" />
+        <form action="command/del.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="'.$id.'">
+            <input type="hidden" name="mod" value="init">
+            <input type="submit" name="submit" class="btn btn-primary" value="直接删除" />
         </form>';
 echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
 }
@@ -53,7 +57,7 @@ function changepost($id,$name,$user,$to,$message){
             <h3 class="modal-title">修改点歌单</h3>
           </div>
       <div class="modal-body">
-      <form id="form1" name="form1" action="command/changedate.php" method="post">
+      <form id="form1" name="form1" action="command/changedata.php" method="post">
     <font color="#000000">歌曲名：</font><input type="text"name="name" value="'.$name.'"><br><br>
     <font color="#000000">点歌人：</font><input type="text"name="user" value="'.$user.'"><br><br>
     <font color="#000000">送给：</font><input type="text"name="to" value="'.$to.'"><br><br>
