@@ -7,8 +7,7 @@ function fendly_time(){
 	  return '中午好';
 	}else if($h<17){
 	  return '下午好';
-	}
-	else if ($h<21){
+	}else if ($h<21){
 	  return '晚上好';
 	}else{
 	  return '夜深了';
