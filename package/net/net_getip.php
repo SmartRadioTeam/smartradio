@@ -7,7 +7,7 @@ function getip(){
 	}else if(!empty($_SERVER["REMOTE_ADDR"])){
 		$cip = $_SERVER["REMOTE_ADDR"];
 	}else{
-		$cip = "NULL";
+		$cip = "无法获取ip数据";
 	}
 	return $cip;
 }
