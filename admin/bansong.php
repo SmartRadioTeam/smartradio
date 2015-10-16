@@ -4,8 +4,7 @@ include("class_include.php");
 <a href="#postmsg" data-toggle="modal" class="btn btn-primary" >添加禁播歌曲</a>
 <div>
 <?php
-//$sql = "SELECT * FROM `ersong`";
-$sql = DB_Select("ersong");
+$sql = DB_Select("bansong");
 $query = DB_Query($sql,$con);
 while($row=DB_Fetch_Array($query)){
     echo '<div class="anime img-thumbnail" id="anime">

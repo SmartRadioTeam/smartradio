@@ -7,7 +7,7 @@
         <h3 class="modal-title">添加禁播歌曲</h3>
       </div>
       <div class="modal-body">
-          <form id="form2" name="form2" action="class/updateersong.php" method="post">
+          <form id="addbansong" name="addbansong" action="command/add_bansong.php" method="post">
               歌曲名：<input type="text"name="name"><br><br>
           </form>
         <div class="modal-footer">

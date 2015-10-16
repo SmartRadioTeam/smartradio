@@ -64,7 +64,7 @@ switch($_POST["mod"]){
     case "deletecatch":
         $id = $_POST['id'];
         //$sql="DELETE FROM `".MYSQLDB."`.`ersong` WHERE `ersong`.`id` = $id;";
-        $sql = DB_Delete("ersong",array("id"=>"=".$id));
+        $sql = DB_Delete("bansong",array("id"=>"=".$id));
         $result = DB_Query($sql,$con);
         if($result){
            System_messagebox("操作成功！","success","/admin/bansong.php");    
