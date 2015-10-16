@@ -4,7 +4,6 @@
 <font color="#000000">
 <?php
 include("class_include.php");
-//$sql = "SELECT * FROM `message`";
 $sql = DB_Select("message");
 $query = DB_query($sql,$con);
 while($row=DB_Fetch_Array($query)){
@@ -23,9 +22,8 @@ while($row=DB_Fetch_Array($query)){
       </div>
       <div class="modal-body">
 投稿开关：
-<form name="formoff" action="../class/off.php" method="post">
+<form name="formoff" action="command/off.php" method="post">
 <?php
-//$sql = "SELECT * FROM `takeoff` WHERE `id`=0";
 $sql = DB_Select("takeoff",array("id"=>"=0"));
 $query=DB_Query($sql,$con);
 $backcount=DB_Num_Rows($query); 
@@ -41,9 +39,8 @@ if($backcount==0){
       </form>
 	  <hr>
 	  通知修改：
-	  <form id="form1" name="form1" action="../class/message.php" method="post">
+	  <form id="form1" name="form1" action="command/message.php" method="post">
 <input type="text" name="message" value="<?php
-//$sql = "SELECT * FROM `message`";
 $sql = DB_Select("message");
 $query = DB_Query($sql,$con);
     while($row=DB_Fetch_Array($query)){
@@ -109,7 +106,6 @@ $today=date("d",time());
   </div>
 </div>
 <?php
-//$sql = "SELECT * FROM `timetable`";
 $sql = DB_Select("timetable");
 $query = DB_Query($sql,$con);
 while($row=DB_Fetch_Array($query)){
