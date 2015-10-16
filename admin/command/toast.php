@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 function toastup($channel,$message){
 	$channel_uri = urldecode($channel);
 	$toast_xml = 
@@ -24,7 +24,7 @@ function toastup($channel,$message){
 	curl_setopt($ch, CURLOPT_VERBOSE, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$output = curl_exec($ch);
-	$response = curl_getinfo( $ch );
+	$response = curl_getinfo($ch);
 	curl_close($ch);
 	return $response['http_code'];
 }
