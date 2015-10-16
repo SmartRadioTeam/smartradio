@@ -1,5 +1,5 @@
 <?php
-funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip){
+funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod){
 	    echo '<div class="anime img-thumbnail" id="anime">';
     echo '状态：';
     switch($info){
@@ -21,7 +21,7 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip){
         送给：".urldecode($to)."<br><br>
         留言：".urldecode($message)."<br><br>
         投稿者ip：".'<a href="http://www.ip138.com/ips138.asp?ip='.urldecode($ip).'">'.urldecode($ip)."</a><hr>";
-        changepost($id,urldecode($name),urldecode($user),urldecode($to),urldecode($message));
+        changepost($id,urldecode($name),urldecode($user),urldecode($to),urldecode($message),$mod);
         echo 
         '<form action="command/items.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="'.$id.'">
@@ -32,22 +32,25 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip){
         <form action="command/items.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="'.$id.'">
             <input type="hidden" name="mod" value="played">
+            <input type="hidden" name="location" value="'.$mod.'">
             <input type="submit" name="submit" class="btn btn-default" value="标记为未播放" />
         </form>
         <br>
         <form action="command/del.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="'.$id.'">
-            <input type="hidden" name="mod" value="unplay">
+            <input type="hidden" name="mod" value="unplay">\
+            <input type="hidden" name="location" value="'.$mod.'">
             <input type="submit" name="submit" class="btn btn-danger" value="标记为无法播放" />
         </form><br>
         <form action="command/del.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="'.$id.'">
             <input type="hidden" name="mod" value="init">
+            <input type="hidden" name="mod" value="'.$mod.'">
             <input type="submit" name="submit" class="btn btn-primary" value="直接删除" />
         </form>';
 echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
 }
-function changepost($id,$name,$user,$to,$message){
+function changepost($id,$name,$user,$to,$message,$mod){
     echo'
     <div id="A'.$id.'" class="modal fade">
       <div class="modal-dialog">
@@ -68,6 +71,7 @@ function changepost($id,$name,$user,$to,$message){
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         <input type="submit" name="submit" class="btn btn-success" value="保存" />
         <input type="hidden" name="id" value="'.$id.'">
+        <input type="hidden" name="location" value="'.$mod.'">
         </form>
       </div>
     </div>

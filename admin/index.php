@@ -15,15 +15,13 @@ if(!isset($mode){
     $today=$time.'-'.$day; 
 }
 if($mode=="selectall"){
-    //$sql = "SELECT * FROM `radio`";
-    $sql = DB_Select("radio");
+ $sql = DB_Select("radio");
 }else{
 	$sql = DB_Select("radio",array('time' => "=".$today));
-    //$sql = "SELECT * FROM `radio` WHERE `time`='$today'";
 }
 $query = mysql_query($sql,$con);
 while($row=mysql_fetch_array($query)){
-	frame($row["id"],$row["info"],$row["uptime"],$row["time"],$row["option"],$row["name"],$row["user"],$row["to"],$row["message"],$row["ip"]);
+	frame($row["id"],$row["info"],$row["uptime"],$row["time"],$row["option"],$row["name"],$row["user"],$row["to"],$row["message"],$row["ip"],$mode);
 }
 ?>
 </div>
