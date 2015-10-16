@@ -12,7 +12,6 @@ $message = Xss_replace($message);
 $to = Xss_replace($to);
 if(strlen($message)>280){
    System_messagebox("想说的话超过140字，请修改后重新提交！","message","/admin/index.php?mod=".$location);
-    //echo "祝福超过140字，请修改后重新提交！";
     exit();
 }
     //url转码
@@ -28,7 +27,6 @@ if(strlen($message)>280){
                                    "to" => $to);
     $result = mysql_query($sql,$con);
     if($result){
-        //header("Location: ../go.php");
         System_messagebox("操作成功！","success","/admin/index.php?mod=".$location);
     }else{
          DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");

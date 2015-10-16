@@ -2,16 +2,16 @@
 include("class_include.php");
 $location=$_POST["location"];
 switch($_POST["mod"]){
-    case "played" :
+    case "played":
         $id=$_POST['id'];
         //$sql = "UPDATE `radio` SET `info` = '1' WHERE `radio`.`id` = $id;";
         $sql = DB_Update("radio",array("info"=>"1"),array("id"=>"=".$id));
-        $result = mysql_query($sql,$con);
+        $result = DB_Query($sql,$con);
         if($result){
             //$sql = "SELECT * FROM `radio` WHERE `radio`.`id` = $id;";
             $sql = DB_Select("radio",array("id"=>"=".$id));
-            $query = mysql_query($sql,$con);
-            while($row=mysql_fetch_array($query)){
+            $query = DB_Query($sql,$con);
+            while($row=DB_Fetch_Array($query)){
                 if($row["uri"]!=null){
                     toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」已被播放");
                 }
@@ -25,9 +25,8 @@ switch($_POST["mod"]){
         $id = $_POST['id'];
         //$sql="DELETE FROM `radio` WHERE `radio`.`id` = $id;";
         $sql = DB_Delete("radio",array("id"=>"=".$id));
-        $result = mysql_query($sql,$con);
+        $result = DB_Query($sql,$con);
         if($result){
-            //header("Location: ../go.php");
             System_messagebox("操作成功！","success","/admin/index.php?mod=".$location);
         }else{
             DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
@@ -37,17 +36,16 @@ switch($_POST["mod"]){
         $id=$_POST['id'];
         //$sql = "UPDATE `".MYSQLDB."`.`radio` SET `info` = '2' WHERE `radio`.`id` = $id;";
         $sql = DB_Update("radio",array("info"=>"2"),array("id"=>"=".$id));
-        $result = mysql_query($sql,$con);
+        $result = DB_Query($sql,$con);
         if($result){
             //$sql = "SELECT * FROM `radio` WHERE `radio`.`id` = $id;";
             $sql = DB_Select("radio",array("id"=>"=".$id));
-            $query = mysql_query($sql,$con);
-            while($row=mysql_fetch_array($query)){
-                if($row["uri"]!=null){
+            $query = DB_Query($sql,$con);
+            while($row = DB_Fetch_Array($query)){
+                if($row["uri"] != null){
                     toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」无法播放");
                 }
             }
-            //header("Location: ../go.php");
             System_messagebox("操作成功！","success","/admin/index.php?mod=".$location);
         }else{
             DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
@@ -56,9 +54,8 @@ switch($_POST["mod"]){
         $id = $_POST['id'];
         //$sql="DELETE FROM `".MYSQLDB."`.`lostandfound` WHERE `lostandfound`.`id` = $id;";
         $sql = DB_Delete("lostandfound",array("id"=>"=".$id));
-        $result = mysql_query($sql,$con);
+        $result = DB_Query($sql,$con);
         if($result){
-            //header("Location: ../go.php?url=/admin/touch/lostandfound.php");
             System_messagebox("操作成功！","success","/admin/lostandfound.php");
         }else{
             DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
@@ -68,9 +65,8 @@ switch($_POST["mod"]){
         $id = $_POST['id'];
         //$sql="DELETE FROM `".MYSQLDB."`.`ersong` WHERE `ersong`.`id` = $id;";
         $sql = DB_Delete("ersong",array("id"=>"=".$id));
-        $result = mysql_query($sql,$con);
+        $result = DB_Query($sql,$con);
         if($result){
-            //header("Location: ../go.php");
            System_messagebox("操作成功！","success","/admin/bansong.php");    
         }else{
             DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");

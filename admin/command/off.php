@@ -4,7 +4,6 @@ $message=$_POST['off'];
 if($message==""){
     System_messagebox("信息不能为空","message","/admin/");
     exit();
-    //echo "信息不能为空";
 }
 $sql = "TRUNCATE TABLE `takeoff`";
 $result = DB_Query($sql,$con);
