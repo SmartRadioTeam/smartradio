@@ -39,8 +39,8 @@ function DB_Select($table,$where = null,$limit = "",$filter = "*",){
 			return "SELECT ".$filter." FROM `".$table."`";
 		}
 	}else{
-		$id=1;
-		$wheres="";
+		$id = 1;
+		$wheres = "";
 		foreach ($where as $key => $val) {
 			if($id!=count($where)){
 				$wheres=$wheres."`".$key."` ".$val." AND ";
@@ -56,28 +56,28 @@ function DB_Select($table,$where = null,$limit = "",$filter = "*",){
 	}
 }
 function DB_Delete($table,$where){
-	$id=1;
-	$wheres="";
+	$id = 1;
+	$wheres = "";
 	foreach ($where as $key => $val) {
-		if($id!=count($where)){
-			$wheres=$wheres."`".$key."` ".$val." AND ";
+		if($id != count($where)){
+			$wheres = $wheres."`".$key."` ".$val." AND ";
 		}else{
-			$wheres=$wheres."`".$key."` ".$val."";
+			$wheres = $wheres."`".$key."` ".$val."";
 		}
 	}
 	return "DELETE FROM `".$table."` WHERE ".$wheres.";";
 }
 function DB_Update($table,$set,$where){
-	$id=1;
-	$wheres="";
+	$id = 1;
+	$wheres = "";
 		foreach ($where as $key => $val) {
-		if($id!=count($arr_values)){
-			$wheres=$wheres."`".$key."` ".$val." AND ";
+		if($id != count($arr_values)){
+			$wheres = $wheres."`".$key."` ".$val." AND ";
 		}else{
-			$wheres=$wheres."`".$key."` ".$val;
+			$wheres = $wheres."`".$key."` ".$val;
 		}
 	}
-	foreach($set as $key =>$val){
+	foreach($set as $key => $val){
 		$sets="`".$key."`='".$val."'";
 	}
 	return "UPDATE `".$table."` SET ".$sets." WHERE ".$where.";";
