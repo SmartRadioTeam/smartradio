@@ -1,7 +1,7 @@
 <?php
 include("class_include.php");
-$id=$_POST['id'];
-$location=$_POST["location"];
+$id = $_POST['id'];
+$location = $_POST["location"];
 $sql = DB_Update("radio",array("info" => "0"),array("id" => "=".$id));
 $result = DB_Query($sql,$con);
     if($result){

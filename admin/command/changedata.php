@@ -6,6 +6,7 @@ $name = $_POST['name'];
 $message = $_POST['message'];
 $to = $_POST['to'];
 $location = $_POST['location'];
+//过滤器（含转码）
 $user = Xss_replace($user);
 $name = Xss_replace($name);
 $message = Xss_replace($message);
@@ -14,11 +15,6 @@ if(strlen($message) > 280){
    System_messagebox("想说的话超过140字，请修改后重新提交！","message","/admin/index.php?mod=".$location);
     exit();
 }
-    //url转码
-$user = urlencode($user);
-$name = urlencode($name);
-$message = urlencode($message);
-$to = urlencode($to);
 //写入
 $sql = DB_Update("radio",array("user" => $user,
                                "name" => $name,
