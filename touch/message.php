@@ -13,8 +13,8 @@ while($row = DB_Fetch_Array($query)){
 	<font color="#000000"><strong>通知：</strong>'.urldecode($row["message$"])."</font>
 	</div>";
 }
-//todo 失物招领与寻物启事显示模式修改（已修改为两条）
-$sql = "SELECT * FROM `lostandfound` ORDER BY RAND() LIMIT 1;";
+//todo 失物招领与寻物启事显示模式修改(已经改为两条)。
+//$sql = "SELECT * FROM `lostandfound`";
 $sql = DB_Select("lostandfound",1);
 $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){
