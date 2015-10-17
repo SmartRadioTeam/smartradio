@@ -6,7 +6,7 @@ include("class_include.php");
 date_default_timezone_set ('PRC');
 $sql = DB_Select("lostandfound");
 $query = DB_Query($sql,$con);
-while($row=DB_Fetch_Array($query)){
+while($row = DB_Fetch_Array($query)){
     echo '<div class="anime img-thumbnail" id="anime">';
     echo "<br><br>
         提交时间：".urldecode($row["uptime"])."<br><br>

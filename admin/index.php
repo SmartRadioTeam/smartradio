@@ -1,26 +1,26 @@
 <?php
 include("class_include.php");
 if(isset($_GET['mod'])){
-    $mode=$_GET['mod'];
+    $mode = $_GET['mod'];
 }
 ?>
 <div>
 <?php
 date_default_timezone_set ('PRC');
 if(!isset($mode){
-    $today=date("m-d",time());
-}else if($mode=="search"){
-    $day=$_POST['day'];
-    $time=$_POST['time'];
-    $today=$time.'-'.$day; 
+    $today = date("m-d",time());
+}else if($mode == "search"){
+    $day = $_POST['day'];
+    $time = $_POST['time'];
+    $today = $time.'-'.$day; 
 }
-if($mode=="selectall"){
+if($mode == "selectall"){
  $sql = DB_Select("radio");
 }else{
 	$sql = DB_Select("radio",array('time' => "=".$today));
 }
-$query = mysql_query($sql,$con);
-while($row=mysql_fetch_array($query)){
+$query = DB_Query($sql,$con);
+while($row = DB_Fetch_Array($query)){
 	frame($row["id"],$row["info"],$row["uptime"],$row["time"],$row["option"],$row["name"],$row["user"],$row["to"],$row["message"],$row["ip"],$mode);
 }
 ?>
@@ -31,5 +31,5 @@ while($row=mysql_fetch_array($query)){
 </div>
     </div>
 <?php
-include("tem/foot.htm");
+include("template/foot.htm");
 ?>
