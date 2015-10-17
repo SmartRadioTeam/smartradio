@@ -1,5 +1,5 @@
 <?php
-if(!isset($_COOKIE['login'])&&Location_Filename!="login.php"){
+if(!isset($_COOKIE['login']) && Location_Filename != "login.php"){
 	header("location:../login.php");
 	exit();
 }
@@ -11,7 +11,7 @@ switch(Location_Filename){
 		break;
 	case "changedata.php":
 //过滤函数
-	case "del.php":
+	case "items.php":
 		include("toast.php");
 		break;
 }

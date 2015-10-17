@@ -1,9 +1,9 @@
 <?php
 include("class_include.php");
-$location=$_POST["location"];
+$location = $_POST["location"];
 switch($_POST["mod"]){
     case "played":
-        $id=$_POST['id'];
+        $id = $_POST['id'];
         //$sql = "UPDATE `radio` SET `info` = '1' WHERE `radio`.`id` = $id;";
         $sql = DB_Update("radio",array("info"=>"1"),array("id"=>"=".$id));
         $result = DB_Query($sql,$con);
@@ -69,7 +69,7 @@ switch($_POST["mod"]){
         if($result){
            System_messagebox("操作成功！","success","/admin/bansong.php");    
         }else{
-            DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
+           DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
         }
         break;
 }
