@@ -2,9 +2,9 @@
 include("class_include.php");
 $sql = DB_Select("radio",null,"","*","info"); 
 $query = DB_Query($sql,$con);
-while($row=DB_Fetch_Array($query)){
+while($row = DB_Fetch_Array($query)){
 echo '状态：';
-$info=$row["info"];
+$info = $row["info"];
 switch ($info){
    case "0":
       echo '<span class="label label-default">未播放</span>';

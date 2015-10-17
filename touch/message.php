@@ -3,7 +3,7 @@
 include("class_include.php");
 $sql = DB_Select("timetable");
 $query = DB_Query($sql,$con);
-while($row=DB_Fetch_Array($query)){
+while($row = DB_Fetch_Array($query)){
 	echo '<div class="alert alert-success">上次自动清理数据库时间：'.$row["deltime"].'</div>';
 }
 $sql = DB_Select("message");
