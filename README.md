@@ -4,11 +4,11 @@
 
 简介
 ============================
-Smuradio是一个基于Smartfreamwork开发的广播站歌曲点播管理程序。用于各类学校广播站的点歌节目的点歌单收集，同时能实现节目自动播出。前段端采用Bootstrap开发，可以兼容各种PC浏览器和手机浏览器并且封装成客户端程序。
+Smuradio是一个基于Smartfreamwork开发的广播站歌曲点播管理程序。用于各类学校广播站的点歌节目的点歌单收集，同时能实现节目自动播出。可以兼容各种PC浏览器和手机浏览器并且封装成客户端程序。
 
-重要信息：V7版本起，由于系统构架的更换，Smuradio程序将不再兼容Windows操作系统。
+兼容性信息(重要！)：V7版本起，由于系统构架的更换，Smuradio程序将不再兼容Windows操作系统。
 
-程序设计：qwe7002(黄江华)
+后端设计：qwe7002(黄江华)
 
 前端设计：Addams_Chen,ClassicOldSong,qwe7002
 
@@ -18,9 +18,9 @@ Smuradio是一个基于Smartfreamwork开发的广播站歌曲点播管理程序�
 
 初始用户为 admin，密码123456。请注意保管好您的后台密码。该密码拥有清空数据库权限，请设置的稍微复杂以避免猜测。
 
-登录 ssh,安装 mysql-python软件包后，执行 python install/setup.py <用户名> <密码> <数据库名>导入数据库信息，您也可以直接使用其他方法导入 install.sql 来完成安装。
+登录您服务器的ssh,安装 mysql-python软件(pip install mysql-python)包后，执行 python install/setup.py <用户名> <密码> <数据库名> 导入数据库信息，您也可以直接使用其他方法导入 install.sql 来完成安装。
 
-设置好您的apache或者nginx，从V7版开始，本系统只兼容基于Linux系统
+设置好您的apache或者nginx，从V7版开始，本系统只兼容基于Linux系统。
 
 需要自行设置的计划任务
 ============================
