@@ -2,11 +2,9 @@
 include("class_include.php");
 $id=$_POST['id'];
 $location=$_POST["location"];
-$sql = DB_Update("radio",array("info" => "0"),array("id" => "=".$id))
-//$sql = "UPDATE `".MYSQLDB."`.`radio` SET `info` = '0' WHERE `radio`.`id` = $id;";
+$sql = DB_Update("radio",array("info" => "0"),array("id" => "=".$id));
 $result = DB_Query($sql,$con);
     if($result){
-        //$sql = "SELECT * FROM `radio` WHERE `radio`.`id` = $id;";
         $sql = DB_Select("radio",array("id" => "=".$id));
         $query = DB_Query($sql,$con);
         while($row = DB_Fetch_Array($query)){
