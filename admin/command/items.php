@@ -4,15 +4,13 @@ $location = $_POST["location"];
 switch($_POST["mod"]){
     case "played":
         $id = $_POST['id'];
-        //$sql = "UPDATE `radio` SET `info` = '1' WHERE `radio`.`id` = $id;";
         $sql = DB_Update("radio",array("info"=>"1"),array("id"=>"=".$id));
         $result = DB_Query($sql,$con);
         if($result){
-            //$sql = "SELECT * FROM `radio` WHERE `radio`.`id` = $id;";
-            $sql = DB_Select("radio",array("id"=>"=".$id));
+            $sql = DB_Select("radio",array("id" => "=".$id));
             $query = DB_Query($sql,$con);
-            while($row=DB_Fetch_Array($query)){
-                if($row["uri"]!=null){
+            while($row = DB_Fetch_Array($query)){
+                if($row["uri"] != null){
                     toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」已被播放");
                 }
             }
@@ -23,7 +21,6 @@ switch($_POST["mod"]){
         break;
     case "delete":
         $id = $_POST['id'];
-        //$sql="DELETE FROM `radio` WHERE `radio`.`id` = $id;";
         $sql = DB_Delete("radio",array("id"=>"=".$id));
         $result = DB_Query($sql,$con);
         if($result){
@@ -34,7 +31,6 @@ switch($_POST["mod"]){
         break;
     case "unplay":
         $id=$_POST['id'];
-        //$sql = "UPDATE `".MYSQLDB."`.`radio` SET `info` = '2' WHERE `radio`.`id` = $id;";
         $sql = DB_Update("radio",array("info"=>"2"),array("id"=>"=".$id));
         $result = DB_Query($sql,$con);
         if($result){
@@ -52,8 +48,7 @@ switch($_POST["mod"]){
         }
     case "deletelost":
         $id = $_POST['id'];
-        //$sql="DELETE FROM `".MYSQLDB."`.`lostandfound` WHERE `lostandfound`.`id` = $id;";
-        $sql = DB_Delete("lostandfound",array("id"=>"=".$id));
+        $sql = DB_Delete("lostandfound",array("id" => "=".$id));
         $result = DB_Query($sql,$con);
         if($result){
             System_messagebox("操作成功！","success","/admin/lostandfound.php");
@@ -63,8 +58,7 @@ switch($_POST["mod"]){
         break;
     case "deletecatch":
         $id = $_POST['id'];
-        //$sql="DELETE FROM `".MYSQLDB."`.`ersong` WHERE `ersong`.`id` = $id;";
-        $sql = DB_Delete("bansong",array("id"=>"=".$id));
+        $sql = DB_Delete("bansong",array("id" => "=".$id));
         $result = DB_Query($sql,$con);
         if($result){
            System_messagebox("操作成功！","success","/admin/bansong.php");    
