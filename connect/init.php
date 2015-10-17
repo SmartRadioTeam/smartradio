@@ -17,6 +17,6 @@ switch(DB_SWITCH){
 }
 
 function DB_PrintError($message){
-	Header( "Location: /error_page/disconn.php?message=".urlencode($message));
+	Header("Location: /error_page/disconn.php?message=".urlencode($message));
 	exit();
 }

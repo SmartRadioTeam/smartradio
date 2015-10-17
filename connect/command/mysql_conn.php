@@ -1,6 +1,5 @@
-﻿<?php
-if(!($con=mysql_connect(DB_HOST,DB_USER,DB_PASSWORD))){ 
-	DB_PrintError('Could not connect: ' . mysql_error());
+<?php
+if(!($con=mysqli_connect(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME))){ 
+	DB_PrintError('Could not connect: ' . mysqli_error());
 }
-mysql_select_db(DB_NAME);
-mysql_query("SET NAMES UTF8");
+mysqli_query($con,"SET NAMES UTF8");
