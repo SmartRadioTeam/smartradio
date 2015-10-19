@@ -15,9 +15,9 @@ if(!isset($mode){
     $today = $time.'-'.$day; 
 }
 if($mode == "selectall"){
- $sql = DB_Select("radio");
+ $sql = DB_Select("ticket_view");
 }else{
-	$sql = DB_Select("radio",array('time' => "=".$today));
+	$sql = DB_Select("ticket_view",array('time' => "=".$today));
 }
 $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){

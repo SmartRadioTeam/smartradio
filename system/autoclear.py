@@ -11,7 +11,8 @@ conn= MySQLdb.connect(
         db =sys.argv[3],
         )
 cur = conn.cursor()
-cur.execute("DELETE FROM radio WHERE info <> 0;")
+#只删除显示表信息，保留日志表信息
+cur.execute("DELETE FROM ticket_view WHERE info <> 0;")
 cur.execute("TRUNCATE TABLE timetable")
 var=[time.strftime('%Y-%m-%d %X')]
 cur.execute("INSERT INTO timetable values (%s);",var)

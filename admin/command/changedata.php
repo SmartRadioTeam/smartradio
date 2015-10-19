@@ -14,13 +14,8 @@ if(strlen($message) > 280){
    System_messagebox("想说的话超过140字，请修改后重新提交！","message","/admin/index.php?mod=".$location);
     exit();
 }
-    //url转码
-$user = urlencode($user);
-$name = urlencode($name);
-$message = urlencode($message);
-$to = urlencode($to);
 //写入
-$sql = DB_Update("radio",array("user" => $user,
+$sql = DB_Update("ticket_view",array("user" => $user,
                                "name" => $name,
                                "message" => $message,
                                "to" => $to);
