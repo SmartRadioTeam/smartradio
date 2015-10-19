@@ -1,18 +1,15 @@
 <br>
 <br>
-<div class="alert alert-info">
-<font color="#000000">
 <?php
 include("class_include.php");
 $sql = DB_Select("message");
 $query = DB_query($sql,$con);
 while($row=DB_Fetch_Array($query)){
-    echo "<strong>通知：</strong>".urldecode($row["message"]);
+  echo '<div class="alert alert-info"><font color="#000000">';
+  echo "<strong>通知：</strong>".urldecode($row["message"]);
+  echo '</font></div>';
 }
 ?>
-</font>
-</div>
-
 <div id="off" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -25,14 +22,14 @@ while($row=DB_Fetch_Array($query)){
 <form name="formoff" action="command/off.php" method="post">
 <?php
 $sql = DB_Select("takeoff",array("id"=>"=0"));
-$query=DB_Query($sql,$con);
-$backcount=DB_Num_Rows($query); 
-if($backcount==0){
-    echo '打开：<input type="radio" name="off" value="0">&nbsp;&nbsp;
-        关闭：<input type="radio" name="off" value="1" checked>&nbsp;&nbsp;';
+$query = DB_Query($sql,$con);
+$backcount = DB_Num_Rows($query); 
+if($backcount == 0){
+  echo '<label class="radio-inline"><input type="radio" name="off" value="0">打开</label>
+        <label class="radio-inline"><input type="radio" name="off" value="1" checked></label>';
 }else{
-    echo '打开：<input type="radio" name="off" value="0" checked>&nbsp;&nbsp;
-        关闭：<input type="radio" name="off" value="1">&nbsp;&nbsp;';
+  echo '<label class="radio-inline"><input type="radio" name="off" value="0" checked>打开</label>
+        <label class="radio-inline"><input type="radio" name="off" value="1">关闭</label>';
 }
 ?>
 	<input type="submit" name="Submit" class="btn btn-success" value="提交" />
@@ -40,12 +37,12 @@ if($backcount==0){
 	  <hr>
 	  通知修改：
 	  <form id="form1" name="form1" action="command/message.php" method="post">
-<input type="text" name="message" value="<?php
+<textarea class="form-control" rows="3" value="<?php
 $sql = DB_Select("message");
 $query = DB_Query($sql,$con);
     while($row=DB_Fetch_Array($query)){
         echo urldecode($row["message"]);
-    }?>">
+    }?>"></textarea>
 &nbsp;&nbsp <input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
         <div class="modal-footer">
@@ -67,34 +64,34 @@ $query = DB_Query($sql,$con);
       <div class="modal-body">
 <form action="index.php?mod=search" method="post" enctype="multipart/form-data">
 <?php
-echo '<select name="time" style="width:100px;">';
-$i=1;
-$today=date("m",time());
-    while($i!=13){
-        if(strlen($i)==1){
-            $i='0'.$i;
-        }
-        if($today==$i){
-            echo '<option value ="'.$i.'" selected="selected">'.$i.'月</option>';
-	    }else{
-            echo '<option value ="'.$i.'">'.$i.'月</option>';
-        }
-        $i=$i+1;
-    }
-echo '</select>&nbsp;&nbsp;<select name="day" style="width:100px;">';
-$i=1;
-$today=date("d",time());
-    while($i!=32){
-        if(strlen($i)==1){
-            $i='0'.$i;
-        }
-        if($today==$i){
-            echo '<option value ="'.$i.'" selected="selected">'.$i.'日</option>';
-        }else{
-            echo '<option value ="'.$i.'">'.$i.'日</option>';
-        }
-        $i=$i+1;
-        }
+echo '<select name="time" class="form-control" style="width:100px;">';
+$i = 1;
+$today = date("m",time());
+while($i!=13){
+  if(strlen($i) == 1){
+      $i = '0'.$i;
+  }
+  if($today == $i){
+      echo '<option value ="'.$i.'" selected="selected">'.$i.'月</option>';
+  }else{
+      echo '<option value ="'.$i.'">'.$i.'月</option>';
+  }
+  $i=$i+1;
+}
+echo '</select><select class="form-control" name="day" style="width:100px;">';
+$i = 1;
+$today = date("d",time());
+while($i!=32){
+  if(strlen($i) == 1){
+      $i='0'.$i;
+  }
+  if($today == $i){
+      echo '<option value ="'.$i.'" selected="selected">'.$i.'日</option>';
+  }else{
+      echo '<option value ="'.$i.'">'.$i.'日</option>';
+  }
+$i = $i+1;
+}
 	  echo '</select>&nbsp;&nbsp;';?>
 	          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -108,7 +105,7 @@ $today=date("d",time());
 <?php
 $sql = DB_Select("timetable");
 $query = DB_Query($sql,$con);
-while($row=DB_Fetch_Array($query)){
+while($row = DB_Fetch_Array($query)){
     echo '<div class="alert alert-success">上次清理数据库时间：'.$row["deltime"].'</div>';
 }
 ?>
