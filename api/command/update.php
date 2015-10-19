@@ -5,8 +5,6 @@ include("../../".Package_Net."/net_getip.php");
 include("../../".Package_System."/messagebox/messagebox.php");
 include("../../".Package_Xss_Replace."xss_replace");
 date_default_timezone_set ('PRC');
-//判断是否被关闭
-//$sql = "SELECT * FROM `takeoff` WHERE `id`=0";
 $sql = DB_Select("takeoff",array("id" => "= 0"));
 $query = DB_Query($sql,$con);
 $backcount = DB_Num_Rows($query);
@@ -67,6 +65,7 @@ function requestmusicpost(){
 	}
 	//写入数据库
 	$sql = DB_Insert("radio",array("user" => $user,"name" => $name,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
+ $sql = DB_Insert("ticket_log",array("user" => $user,"name" => $name,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	//$sql = "INSERT INTO `radio` (`user`, `name`, `message`,`to`,`time`,`uptime`,`ip`,`info`,`option`) VALUES ('$user', '$name', '$message', '$to', '$time','$uptime','$cip','0','$option');";
 	$result = DB_Query($sql,$con);
 	if($result){
