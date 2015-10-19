@@ -66,7 +66,6 @@ function requestmusicpost(){
 	//写入数据库
 	$sql = DB_Insert("radio",array("user" => $user,"name" => $name,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
  $sql = DB_Insert("ticket_log",array("user" => $user,"name" => $name,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
-	//$sql = "INSERT INTO `radio` (`user`, `name`, `message`,`to`,`time`,`uptime`,`ip`,`info`,`option`) VALUES ('$user', '$name', '$message', '$to', '$time','$uptime','$cip','0','$option');";
 	$result = DB_Query($sql,$con);
 	if($result){
 	 //排序优先级作为输出时条件
