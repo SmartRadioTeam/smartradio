@@ -20,7 +20,7 @@
     		if($_GET['mode'] == "selectall"){
     			$tittles = "全部点播";
     		}
-    		if($_GET['mode']=="search"){
+    		if($_GET['mode'] == "search"){
     			$tittles = "点播搜索";
     		}
     		break;

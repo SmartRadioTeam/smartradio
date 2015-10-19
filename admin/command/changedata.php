@@ -6,6 +6,7 @@ $name = $_POST['name'];
 $message = $_POST['message'];
 $to = $_POST['to'];
 $location = $_POST['location'];
+//过滤器（含转码）
 $user = Xss_replace($user);
 $name = Xss_replace($name);
 $message = Xss_replace($message);

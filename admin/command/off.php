@@ -1,7 +1,7 @@
 <?php
 include("class_include.php");
-$message=$_POST['off'];
-if($message==""){
+$message = $_POST['off'];
+if($message == ""){
     System_messagebox("信息不能为空","message","/admin/");
     exit();
 }
