@@ -20,7 +20,7 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
         点歌人：".urldecode($user)."<br><br>
         送给：".urldecode($to)."<br><br>
         留言：".urldecode($message)."<br><br>
-        投稿者ip：".'<a href="http://www.ip138.com/ips138.asp?ip='.urldecode($ip).'">'.urldecode($ip)."</a><hr>";
+        投稿者ip：".urldecode($ip)."</a><hr>";
         changepost($id,urldecode($name),urldecode($user),urldecode($to),urldecode($message),$mod);
         echo 
         '<form action="command/items.php" method="post" enctype="multipart/form-data">
