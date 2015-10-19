@@ -1,6 +1,6 @@
 <?php
 include("class_include.php");
-$sql = DB_Select("radio",null,"","*","info"); 
+$sql = DB_Select("ticket_view",null,"","*","info"); 
 $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){
 echo '状态：';
