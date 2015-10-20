@@ -24,6 +24,18 @@ while($row = DB_Fetch_Array($query)){
 	frame($row["id"],$row["info"],$row["uptime"],$row["time"],$row["option"],$row["name"],$row["user"],$row["to"],$row["message"],$row["ip"],$mode);
 }
 ?>
+<form name="change" action="command/items.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id">
+    <input type="hidden" name="mod">
+    <input type="hidden" name="location" value="<?php echo $mode?>">
+</form>
+<script>
+function showpower(id,mod){
+  document.change.id.value=id;
+  document.change.mod.value=mod;
+  document.change.submit();
+}
+</script>
 </div>
 <hr>
 </div>

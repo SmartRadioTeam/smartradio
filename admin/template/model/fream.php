@@ -25,30 +25,23 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
         echo 
         '<form action="command/items.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="'.$id.'">
-            <input type="hidden" name="mod" value="played">
-            <input type="submit" name="submit" class="btn btn-success" value="标记为已播放" />
-        </form>
-        <br>
-        <a href="#A'.$id.'"data-toggle="modal" class="btn btn-info">修改点歌单</a><br><br>
-        <form action="command/items.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="'.$id.'">
-            <input type="hidden" name="mod" value="played">
             <input type="hidden" name="location" value="'.$mod.'">
-            <input type="submit" name="submit" class="btn btn-default" value="标记为未播放" />
+            <input type="hidden" name="mod">
         </form>
-        <br>
-        <form action="command/del.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="'.$id.'">
-            <input type="hidden" name="mod" value="unplay">
-            <input type="hidden" name="location" value="'.$mod.'">
-            <input type="submit" name="submit" class="btn btn-danger" value="标记为无法播放" />
-        </form><br>
-        <form action="command/del.php" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="'.$id.'">
-            <input type="hidden" name="mod" value="init">
-            <input type="hidden" name="mod" value="'.$mod.'">
-            <input type="submit" name="submit" class="btn btn-primary" value="直接删除" />
-        </form>';
+        <a type="submit" name="submit" class="btn btn-success" value="标记为已播放" />
+
+        <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  更多操作
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="#A'.$id.'" data-toggle="modal">修改点歌单</a></li>
+    <li><a href="#">标记为未播放</a></li>
+    <li><a href="#">标记为无法播放</a></li>
+    <li><a href="#">直接删除</a></li>
+  </ul>
+</div>';
 echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
 }
 function changepost($id,$name,$user,$to,$message,$mod){
