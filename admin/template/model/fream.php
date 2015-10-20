@@ -29,6 +29,7 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
             <input type="submit" name="submit" class="btn btn-success" value="标记为已播放" />
         </form>
         <br>
+        <a href="#A'.$id.'"data-toggle="modal" class="btn btn-info">修改点歌单</a><br><br>
         <form action="command/items.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="'.$id.'">
             <input type="hidden" name="mod" value="played">
@@ -38,7 +39,7 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
         <br>
         <form action="command/del.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="id" value="'.$id.'">
-            <input type="hidden" name="mod" value="unplay">\
+            <input type="hidden" name="mod" value="unplay">
             <input type="hidden" name="location" value="'.$mod.'">
             <input type="submit" name="submit" class="btn btn-danger" value="标记为无法播放" />
         </form><br>
@@ -77,5 +78,4 @@ function changepost($id,$name,$user,$to,$message,$mod){
     </div>
     </div>
     </div>';
-    echo '<a href="#A'.$id.'"data-toggle="modal" class="btn btn-info">修改点歌单</a><br><br>';
 }
