@@ -1,11 +1,11 @@
 <?php
 include("class_include.php");
-$result
+$resultarray[] = array();
 $sql = DB_Select("timetable");
 $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){
  //删除时间输出；
-	$row["deltime"]
+	$row["deltime"];
 }
 $sql = DB_Select("message");
 $query = DB_Query($sql,$con);
