@@ -1,14 +1,8 @@
-CREATE TABLE IF NOT EXISTS `ersong` (
-  `name` text NOT NULL,
+CREATE TABLE IF NOT EXISTS `bansong` (
+  `songname` text NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `feedback` (
-  `message` text NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `lostandfound` (
   `id` int(11) NOT NULL,
@@ -19,15 +13,17 @@ CREATE TABLE IF NOT EXISTS `lostandfound` (
   `ip` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `message` (
-  `message` text CHARACTER SET utf8 NOT NULL,
+CREATE TABLE IF NOT EXISTS `setting` (
+  `notice` text CHARACTER SET utf8 NOT NULL,
+  `permission` int(11) NOT NULL,
+  `cleantime` text CHARACTER SET utf8 NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `ticket_view` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text CHARACTER SET utf8 NOT NULL,
+  `songname` text CHARACTER SET utf8 NOT NULL,
   `user` text CHARACTER SET utf8 NOT NULL,
   `message` text CHARACTER SET utf8 NOT NULL,
   `to` text CHARACTER SET utf8 NOT NULL,
@@ -42,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `ticket_view` (
 
 CREATE TABLE IF NOT EXISTS `ticket_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text CHARACTER SET utf8 NOT NULL,
+  `songname` text CHARACTER SET utf8 NOT NULL,
   `user` text CHARACTER SET utf8 NOT NULL,
   `message` text CHARACTER SET utf8 NOT NULL,
   `to` text CHARACTER SET utf8 NOT NULL,
@@ -53,13 +49,4 @@ CREATE TABLE IF NOT EXISTS `ticket_log` (
   `uri` text,
   `option` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `takeoff` (
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
-CREATE TABLE IF NOT EXISTS `timetable` (
-  `deltime` text CHARACTER SET utf8 
-  NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

@@ -1,15 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="/library/bootstrap/css/bootstrap.css" rel="stylesheet">
-	<link href="./css/css.css" rel="stylesheet">
-    <script src="/library/jquery.min.js"></script>
+	<link href="/library/bootstrap/css/css.css" rel="stylesheet">
+    <script src="/library/jquery/jquery.min.js"></script>
     <script src="/library/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./js/mobile.js" type="text/javascrpt"></script>
-    <script src="./js/reformobile.js" type="text/javascript"></script>
     <?
     switch(Location_Filename){
     	case "index.php":
@@ -35,5 +33,5 @@
 <?php 
 include("navi.php");
 ?>
-<div class="container" id="body" style="width: 90%;">
+<div class="container" id="body">
 <br>
