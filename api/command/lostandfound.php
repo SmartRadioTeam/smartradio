@@ -1,4 +1,5 @@
 <?php
+include("class_include.php");
 $resultarray[] = array();
 //todo 失物招领与寻物启事显示模式修改(已经改为两条)。
 $sql = DB_Select("lostandfound",1);
