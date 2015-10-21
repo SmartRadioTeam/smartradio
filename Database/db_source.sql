@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `message` (
 
 CREATE TABLE IF NOT EXISTS `ticket_view` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text CHARACTER SET utf8 NOT NULL,
+  `songname` text CHARACTER SET utf8 NOT NULL,
   `user` text CHARACTER SET utf8 NOT NULL,
   `message` text CHARACTER SET utf8 NOT NULL,
   `to` text CHARACTER SET utf8 NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `ticket_view` (
 
 CREATE TABLE IF NOT EXISTS `ticket_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text CHARACTER SET utf8 NOT NULL,
+  `songname` text CHARACTER SET utf8 NOT NULL,
   `user` text CHARACTER SET utf8 NOT NULL,
   `message` text CHARACTER SET utf8 NOT NULL,
   `to` text CHARACTER SET utf8 NOT NULL,
