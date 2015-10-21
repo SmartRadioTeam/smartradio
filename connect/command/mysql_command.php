@@ -82,6 +82,7 @@ function DB_Update($table,$set,$where){
 	}
 	return "UPDATE `".$table."` SET ".$sets." WHERE ".$where.";";
 }
+
 function DB_Query($sql,$con){
 	return mysqli_query($con,$sql);
 }

@@ -18,7 +18,7 @@ setcookie('backpage',Location_Filename,null,"/");
 <li<?php if(Location_Filename == "index.php" && $_GET['mode'] == "search"){echo ' class="active"';}?>><a href="#today"data-toggle="modal">点播搜索</a></li>
 	<li<?php if(Location_Filename == "lostandfound.php"){echo ' class="active"';}?>><a href="lostandfound.php">寻物启示</a></li>
 	<li<?php if(Location_Filename == "bansong.php"){echo ' class="active"';}?>><a href="bansong.php">禁播歌曲管理</a></li>
-	<li><a href="#off"data-toggle="modal">系统设置</a></li>
+	<li><a href="#off" data-toggle="modal">系统设置</a></li>
 	<li><a href="command/outlogin.php">退出</a></li>
           </ul>
         </div>

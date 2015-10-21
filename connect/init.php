@@ -15,7 +15,6 @@ switch(DB_SWITCH){
 		DB_PrintError("未知的数据库！");
 		break;
 }
-
 function DB_PrintError($message){
 	Header("Location: /error_page/disconn.php?message=".urlencode($message));
 	exit();

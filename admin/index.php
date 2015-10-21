@@ -30,7 +30,7 @@ while($row = DB_Fetch_Array($query)){
     <input type="hidden" name="location" value="<?php echo $mode?>">
 </form>
 <script>
-function showpower(id,mod){
+function changeform(id,mod){
   document.change.id.value=id;
   document.change.mod.value=mod;
   document.change.submit();
