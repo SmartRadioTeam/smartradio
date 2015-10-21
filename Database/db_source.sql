@@ -4,12 +4,6 @@ CREATE TABLE IF NOT EXISTS `bansong` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `feedback` (
-  `message` text NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
 CREATE TABLE IF NOT EXISTS `lostandfound` (
   `id` int(11) NOT NULL,
   `user` text NOT NULL,
