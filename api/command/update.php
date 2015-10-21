@@ -9,7 +9,7 @@ $sql = DB_Select("takeoff",array("id" => "= 0"));
 $query = DB_Query($sql,$con);
 $backcount = DB_Num_Rows($query);
 if($backcount == 0){
-    System_messagebox("抱歉，系统拒绝提交新信息，详情请见公告！","message","/touch/");
+    echo "抱歉，系统拒绝提交新信息，详情请见公告！";
 	exit();
 }
 switch($_POST["mod"]){
@@ -24,14 +24,14 @@ switch($_POST["mod"]){
 function requestmusicpost(){
 	$user = $_POST['user'];
 	$message = $_POST['message'];
-	$name = $_POST['name'];
+	$songname = $_POST['songname'];
 	$to = $_POST['to'];
 	$time = $_POST['time'];
 	$option = $_POST['option'];
 	$day = $_POST['day'];
 	//过滤
 	$user = Xss_replace($user);
-	$name = Xss_replace($name);
+	$songname = Xss_replace($songname);
 	$message = Xss_replace($message);
 	$to = Xss_replace($to);
 	$time = $time.'-'.$day;
@@ -40,7 +40,7 @@ function requestmusicpost(){
 		exit();
 	}
 	if(strlen($message) > 280){
-		System_messagebox("祝福超过140字，请修改后重新提交！","message","/touch/");
+		echo "祝福超过140字，请修改后重新提交！";
 		exit();
 	}
 	//url转码(Xss_replace已包含转码)
@@ -49,30 +49,29 @@ function requestmusicpost(){
 	$cip = urlencode(getip());
 	$option = urlencode($option);
 	//检查是否为禁播歌曲
-	$sql = DB_Select("ersong",array("name"=>"LIKE "."'".$name."'"));
+	$sql = DB_Select("ersong",array("songname"=>"LIKE "."'".$songname."'"));
 	$query = DB_Query($sql,$con);
 	$backcount = DB_Num_Rows($query); 
 	if($backcount != 0){
-		System_messagebox("您点播的歌曲为禁止点播歌曲，无法提交到点歌台。请更换后再提交！","message","/touch");
+		echo "您点播的歌曲为禁止点播歌曲，无法提交到点歌台。请更换后再提交！";
 		exit();
 	}
 	//检测是否重复提交
-	$sql = DB_Select("radio",array("user" => "LIKE "."'".$user."'","name" => "LIKE "."'".$name."'"));
+	$sql = DB_Select("ticket_view",array("user" => "LIKE "."'".$user."'","songname" => "LIKE "."'".$songname."'"));
 	$query = DB_Query($sql,$con);
 	if(DB_Num_Rows($query) >= 1){
-		System_messagebox("请不要重复提交歌曲！谢谢！","message","/touch");
+		echo "请不要重复提交歌曲！谢谢！";
 		exit();
 	}
 	//写入数据库
-	$sql = DB_Insert("radio",array("user" => $user,"name" => $name,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
- $sql = DB_Insert("ticket_log",array("user" => $user,"name" => $name,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
+	$sql = DB_Insert("ticket_view",array("user" => $user,"songname" => $songname,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
+ $sql = DB_Insert("ticket_log",array("user" => $user,"songname" => $songname,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
 	if($result){
-	 //排序优先级作为输出时条件
-		System_messagebox("您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","success","/touch/");
+		echo "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！";
 		exit();
 	}else{
-		System_messagebox("服务器错误！请通知管理员！管理员qq：381511791","message","/touch/");
+		echo "服务器错误！请通知管理员！管理员qq：381511791";
 		exit();
 	}
 }
@@ -87,11 +86,11 @@ function LostandfoundPost(){
 	$tel = Xss_replace($tel);
 	$message = Xss_replace($message);
 	if($tel == ""||$user == ""||$message == ""){  
-		System_messagebox("信息不能为空","message","/touch/");
+		echo "信息不能为空";
 		exit();
 	}
 	if(strlen($message) > 280){
-		System_messagebox("祝福超过140字，请修改后重新提交！","message","/touch/");
+		"祝福超过140字，请修改后重新提交！";
 		exit();
 	}
 	//url转码(Xss_replace已包含转码)
@@ -99,14 +98,12 @@ function LostandfoundPost(){
 	$cip = urlencode(getip());
 	//写入
 	$sql = DB_Insert("lostandfound",array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip));
-	//$sql = "INSERT INTO `lostandfound` (`user`, `tel`, `message`,`uptime`,`ip`) VALUES ('$user', '$tel', '$message','$uptime','$cip');";
 	$result = mysql_query($sql,$con);
 	if($result){
-	   //排序任务交给前端处理
-	   		System_messagebox("您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","success","/touch/");
+	   		echo "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！";
 		exit();
 	}else{
-		System_messagebox("服务器错误！","message","/touch");
+		echo "服务器错误！";
 		exit();
 	}
 }
