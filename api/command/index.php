@@ -5,17 +5,7 @@ $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){
 echo '状态：';
 $info = $row["info"];
-switch ($info){
-   case "0":
-      echo '<span class="label label-default">未播放</span>';
-      break;
-   case "1":
-      echo '<span class="label label-success">已播放</span>';
-      break;
-   case "2":
-      echo '<span class="label label-danger">无法播放</span>';
-      break;
-}
+switch ($info
 echo "
 歌曲名：".urldecode($row["name"])."
 点歌人：".urldecode($row["user"])."
