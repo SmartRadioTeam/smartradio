@@ -8,5 +8,5 @@ while($row = DB_Fetch_Array($query)){
  $resultarray["notice"] = $row["notice"];
 	$resultarray["cleantime"] = $row["cleantime"];
 }
-json_encode($resultarray);
+json_encode($resultarray,JSON_UNESCAPED_UNICODE);
 ?>

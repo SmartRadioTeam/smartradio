@@ -12,5 +12,5 @@ $resultarray["to"] = urldecode($row["to"]);
 $resultarray["message"] = "「".urldecode($row["message"])."」";
 $jsonarray[] = $resultarray;
 }
-echo json_encode($jsonarray);
+echo json_encode($jsonarray,JSON_UNESCAPED_UNICODE);
 ?>
