@@ -3,19 +3,22 @@
 import MySQLdb
 import time
 import sys
+import json
+#导入config/setting.json(TODO)
+jsonVal = json.loads(page)
+
 conn= MySQLdb.connect(
-        host='localhost',
+        host=jsonVal['DB_Host'],
         port = 3306,
-        user=sys.argv[1],
-        passwd=sys.argv[2],
-        db =sys.argv[3],
+        user=jsonVal['DB_User'],
+        passwd=jsonVal['DB_Password'],
+        db =jsonVal['DB_Name'],
         )
 cur = conn.cursor()
-#只删除显示表信息，保留日志表信息
+#只删除显示表信息，保留日志表信息(减少读取时间)
 cur.execute("DELETE FROM ticket_view WHERE info <> 0;")
-cur.execute("TRUNCATE TABLE timetable")
 var=[time.strftime('%Y-%m-%d %X')]
-cur.execute("INSERT INTO timetable values (%s);",var)
+cur.execute("UPDATE setting SET cleantime = %s;",var)
 cur.close()
 conn.commit()
 conn.close()
