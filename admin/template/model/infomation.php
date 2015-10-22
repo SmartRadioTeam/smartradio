@@ -2,13 +2,15 @@
 <br>
 <?php
 include("class_include.php");
-$sql = DB_Select("message");
+$sql = DB_Select("setting");
 $query = DB_query($sql,$con);
 while($row=DB_Fetch_Array($query)){
-  echo '<div class="alert alert-info"><font color="#000000">';
-  echo "<strong>通知：</strong>".urldecode($row["message"]);
-  echo '</font></div>';
+  $notice = urldecode($row["notice"])
+  break;
 }
+echo '<div class="alert alert-info"><font color="#000000">';
+  echo "<strong>通知：</strong>".$notice;
+  echo '</font></div>';
 ?>
 <div id="off" class="modal fade">
   <div class="modal-dialog">
@@ -21,12 +23,16 @@ while($row=DB_Fetch_Array($query)){
 投稿开关：
 <form name="formoff" action="command/off.php" method="post">
 <?php
-$sql = DB_Select("takeoff",array("id"=>"=0"));
+$sql = DB_Select("setting");
 $query = DB_Query($sql,$con);
-$backcount = DB_Num_Rows($query); 
-if($backcount == 0){
+//修改检测状态方法 
+while($row = DB_Fetch_Array($query)){
+   $submitstate = $row['permission'];
+   break;
+}
+if($submitstate == 0){
   echo '<label class="radio-inline"><input type="radio" name="off" value="0">打开</label>
-        <label class="radio-inline"><input type="radio" name="off" value="1" checked></label>';
+        <label class="radio-inline"><input type="radio" name="off" value="1" checked>关闭</label>';
 }else{
   echo '<label class="radio-inline"><input type="radio" name="off" value="0" checked>打开</label>
         <label class="radio-inline"><input type="radio" name="off" value="1">关闭</label>';
@@ -37,12 +43,7 @@ if($backcount == 0){
 	  <hr>
 	  通知修改：
 	  <form id="form1" name="form1" action="command/message.php" method="post">
-<textarea class="form-control" rows="3" value="<?php
-$sql = DB_Select("message");
-$query = DB_Query($sql,$con);
-    while($row=DB_Fetch_Array($query)){
-        echo urldecode($row["message"]);
-    }?>"></textarea>
+<textarea class="form-control" rows="3" value="<?php echo $notice;?>"></textarea>
 &nbsp;&nbsp <input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
         <div class="modal-footer">
@@ -53,7 +54,7 @@ $query = DB_Query($sql,$con);
     </div>
   </div>
 
-
+<!--搜索框-->
 <div id="today" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -103,9 +104,10 @@ $i = $i+1;
   </div>
 </div>
 <?php
-$sql = DB_Select("timetable");
+$sql = DB_Select("setting");
 $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){
-    echo '<div class="alert alert-success">上次清理数据库时间：'.$row["deltime"].'</div>';
+    echo '<div class="alert alert-success">上次清理数据库时间：'.$row["cleantime"].'</div>';
+    break;
 }
 ?>
