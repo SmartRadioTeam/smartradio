@@ -9,7 +9,7 @@ function DB_Insert($table,$arr_values){
 				$keys = $keys."`".$key."`,";
 				$vals = $vals."'".$val."',";
 			}else{
-				if($val == NULL&&$val != 0){
+				if($val == NULL && $val != 0){
 					$val = "NULL";
 				}
 				$keys = $keys."`".$key."`,";
@@ -17,11 +17,11 @@ function DB_Insert($table,$arr_values){
 			}
 			$id++;
 		}else{
-			if($val != NULL||!is_numeric($val)){
+			if($val != NULL || !is_numeric($val)){
 				$keys = $keys."`".$key."`";
 				$vals = $vals."'".$val."'";
 			}else{
-				if($val == NULL&&$val!=0){
+				if($val == NULL && $val!=0){
 					$val = "NULL";
 				}
 				$keys = $keys."`".$key."`";
@@ -32,8 +32,8 @@ function DB_Insert($table,$arr_values){
 	return "INSERT INTO `".$table."` (".$keys.") VALUES (".$vals.");";
 }
 function DB_Select($table,$where = null,$limit = "",$filter = "*",){
-	if($where==null){
-		if($limit!=""){
+	if($where == null){
+		if($limit != ""){
 			return "SELECT ".$filter." FROM `".$table."` LIMIT ".$limit;
 		}else{
 			return "SELECT ".$filter." FROM `".$table."`";
@@ -42,13 +42,13 @@ function DB_Select($table,$where = null,$limit = "",$filter = "*",){
 		$id = 1;
 		$wheres = "";
 		foreach ($where as $key => $val) {
-			if($id!=count($where)){
-				$wheres=$wheres."`".$key."` ".$val." AND ";
+			if($id != count($where)){
+				$wheres = $wheres."`".$key."` ".$val." AND ";
 			}else{
-				$wheres=$wheres."`".$key."` ".$val;
+				$wheres = $wheres."`".$key."` ".$val;
 			}
 		}
-		if($limit!=""){
+		if($limit != ""){
 			return "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres." LIMIT ".$limit.";";
 		}else{
 			return "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres.";";
