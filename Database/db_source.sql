@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS `lostandfound` (
   `tel` text NOT NULL,
   `message` text NOT NULL,
   `uptime` text NOT NULL,
-  `ip` text NOT NULL
+  `ip` text NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 AUTO_INCREMENT=1;
 
