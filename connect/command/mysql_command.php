@@ -67,20 +67,27 @@ function DB_Delete($table,$where){
 	}
 	return "DELETE FROM `".$table."` WHERE ".$wheres.";";
 }
-function DB_Update($table,$set,$where){
+function DB_Update($table,$set,$where=""){
 	$id = 1;
 	$wheres = "";
+	if($where != ""){
 		foreach ($where as $key => $val) {
-		if($id != count($arr_values)){
-			$wheres = $wheres."`".$key."` ".$val." AND ";
-		}else{
-			$wheres = $wheres."`".$key."` ".$val;
+			if($id != count($arr_values)){
+				$wheres = $wheres."`".$key."` ".$val." AND ";
+			}else{
+				$wheres = $wheres."`".$key."` ".$val;
+			}
 		}
 	}
 	foreach($set as $key => $val){
 		$sets="`".$key."`='".$val."'";
 	}
-	return "UPDATE `".$table."` SET ".$sets." WHERE ".$where.";";
+	if($where != ""){
+		return "UPDATE `".$table."` SET ".$sets." WHERE ".$where.";";
+	}else{
+		return "UPDATE `".$table."` SET ".$sets.";";
+	}
+	
 }
 
 function DB_Query($sql,$con){
