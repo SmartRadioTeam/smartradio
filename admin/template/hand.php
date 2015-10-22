@@ -26,7 +26,7 @@
     		$tittles = "失物招领";
     		break;
     }
-    echo '<title>'.$tittles.' - <?php echo Project_Name;?>管理中心 - Powered by smuradio</title>';
+    echo '<title>'.$tittles.' - <?php echo Project_Name;?>管理中心 - Powered by Smuradio</title>';
     ?>
 </head>
 <body>
