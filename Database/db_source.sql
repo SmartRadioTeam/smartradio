@@ -5,13 +5,14 @@ CREATE TABLE IF NOT EXISTS `bansong` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `lostandfound` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user` text NOT NULL,
   `tel` text NOT NULL,
   `message` text NOT NULL,
   `uptime` text NOT NULL,
   `ip` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `setting` (
   `notice` text CHARACTER SET utf8 NOT NULL,
