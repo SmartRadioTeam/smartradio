@@ -5,12 +5,15 @@
     @-o-viewport        { width: device-width; }
     @viewport           { width: device-width; }
     div#anime {
+       
       display:inline-block;
       width:28%;
       padding:20px;
       margin:20px;
       overflow:hidden;
       height:100%;
+    
+    
     }
     div#anime:hover {
       box-shadow:0px 0px 10px #000;
@@ -37,7 +40,6 @@
       width:115px;
     }
     div#jumbotron{
-      background:url(/static/img/miku.jpg);
       background-repeat:no-repeat;
       background-size:100%;
       box-shadow:0px 5px 20px #999;
