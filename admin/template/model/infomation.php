@@ -20,7 +20,8 @@ echo '<div class="alert alert-info"><font color="#000000">';
       </div>
       <div class="modal-body">
 投稿开关：
-<form name="formoff" action="command/off.php" method="post">
+<form name="formoff" action="command/setting.php" method="post">
+  <input type="hidden" name="mod" value="permission">
 <?php
 $sql = DB_Select("setting");
 $query = DB_Query($sql,$con);
@@ -41,9 +42,10 @@ if($submitstate == 0){
       </form>
 	  <hr>
 	  通知修改：
-	  <form id="form1" name="form1" action="command/message.php" method="post">
+	  <form id="form1" name="form1" action="command/setting.php" method="post">
 <textarea class="form-control" rows="3" value="<?php echo $notice;?>"></textarea>
-&nbsp;&nbsp <input type="submit" name="Submit" class="btn btn-success" value="提交" />
+<input type="hidden" name="mod" value="notice">
+&nbsp;&nbsp; <input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
         <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

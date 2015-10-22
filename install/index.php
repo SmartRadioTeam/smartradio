@@ -8,7 +8,7 @@
     <link href="/library/bootstrap/public/signin.css" rel="stylesheet">
   </head>
   <body>
-      <form class="form-signin" >
+      <form class="form-signin" action="install.php" method="post">
         <h2 class="form-signin-heading">安装您的Smuradio</h2>
         <label for="inputEmail" class="sr-only">项目名称</label>
         <input type="name" name="projectname" class="form-control" placeholder="项目名称" required="" autofocus="">
