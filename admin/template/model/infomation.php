@@ -5,12 +5,11 @@ include("class_include.php");
 $sql = DB_Select("setting");
 $query = DB_query($sql,$con);
 while($row=DB_Fetch_Array($query)){
-  $notice = urldecode($row["notice"])
+  $notice = urldecode($row["notice"]);
   break;
 }
 echo '<div class="alert alert-info"><font color="#000000">';
-  echo "<strong>通知：</strong>".$notice;
-  echo '</font></div>';
+  echo "<strong>通知：</strong>".$notice;."</font></div>";
 ?>
 <div id="off" class="modal fade">
   <div class="modal-dialog">
