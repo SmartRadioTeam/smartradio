@@ -31,7 +31,7 @@ function DB_Insert($table,$arr_values){
 	}
 	return "INSERT INTO `".$table."` (".$keys.") VALUES (".$vals.");";
 }
-function DB_Select($table,$where = null,$limit = "",$filter = "*",){
+function DB_Select($table,$where = null,$limit = "",$filter = "*"){
 	if($where == null){
 		if($limit != ""){
 			return "SELECT ".$filter." FROM `".$table."` LIMIT ".$limit;
