@@ -37,7 +37,7 @@ if(!$result){
 	DB_printerror(DB_Error($con));
 	exit();
 }
-$sql =DB_Insert("adminuser",array("user"->$adminuser,"usermd5"->md5($adminuser),"password"->md5($adminpasswd)));
+$sql =DB_Insert("adminuser",array("user"=>$adminuser,"usermd5"=>md5($adminuser),"password"=>md5($adminpasswd)));
 $result = DB_Query($sql,$con); 
 if($result){
 	fopen("../config/install.lock", "w");
@@ -45,4 +45,3 @@ if($result){
 }else{
 	DB_printerror(DB_Error($con));
 }
-
