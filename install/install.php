@@ -24,7 +24,7 @@ if($projectname == ''||
 }
 $jsonarray['DB_Host'] = $dbhost;
 $jsonarray['DB_User'] = $dbuser;
-$jsonarray['DB_Passsword'] = $dbpasswd;
+$jsonarray['DB_Password'] = $dbpasswd;
 $jsonarray['DB_Name'] = $dbname;
 $jsonarray['Project_Name'] = $projectname;
 Writefile("../config/setting.json",json_encode($jsonarray,JSON_UNESCAPED_UNICODE));
