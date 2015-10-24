@@ -13,15 +13,15 @@
         <label for="inputEmail" class="sr-only">项目名称</label>
         <input type="name" name="projectname" class="form-control" placeholder="项目名称" required="" autofocus="">
         <label for="inputEmail" class="sr-only">Mysql服务器地址</label>
-        <input type="name" name="dbuser" class="form-control" placeholder="Mysql服务器地址" value="localhost" required="">
+        <input type="name" name="dbhost" class="form-control" placeholder="Mysql服务器地址" value="localhost" required="">
         <label for="inputEmail" class="sr-only">Mysql用户名</label>
         <input type="name" name="dbuser" class="form-control" placeholder="Mysql用户名" required="">
         <label for="inputPassword" class="sr-only">Mysql密码</label>
         <input type="password" name="dbpasswd" class="form-control" placeholder="Mysql密码" required="">
         <label for="inputPassword" class="sr-only">Mysql数据库名</label>
-        <input type="password" name="dbname" class="form-control" placeholder="Mysql数据库名" required="">
+        <input type="name" name="dbname" class="form-control" placeholder="Mysql数据库名" required="">
         <label for="inputPassword" class="sr-only">管理员用户名</label>
-        <input type="password" name="adminuser" class="form-control" placeholder="管理员用户名" required="">
+        <input type="name" name="adminuser" class="form-control" placeholder="管理员用户名" required="">
         <label for="inputPassword" class="sr-only">管理员密码</label>
         <input type="password" name="adminpasswd" class="form-control" placeholder="管理员密码" required="">
         <button class="btn btn-lg btn-primary btn-block" type="submit">开始安装</button>
