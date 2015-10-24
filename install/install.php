@@ -22,13 +22,12 @@ if($projectname == ''||
 	System_messagebox("表单信息不能为空，请重新填写","message","/");
 	exit();
 }
-$jsonarray[] = array();
 $jsonarray['DB_Host'] = $dbhost;
 $jsonarray['DB_User'] = $dbuser;
 $jsonarray['DB_Passsword'] = $dbpasswd;
 $jsonarray['DB_Name'] = $dbname;
 $jsonarray['Project_Name'] = $projectname;
-Writefile("../config/setting.json",json_encode($jsonarray));
+Writefile("../config/setting.json",json_encode($jsonarray,JSON_UNESCAPED_UNICODE));
 include("../config/init.php");
 include("../connect/init.php");
 $sql = file_get_contents("../Datebase/db_source.sql");

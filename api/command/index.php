@@ -2,8 +2,6 @@
 include("class_include.php");
 $sql = DB_Select("ticket_view",null,"","*","info"); 
 $query = DB_Query($sql,$con);
-$resultarray[] = array();
-$jsonarray[] = array();
 while($row = DB_Fetch_Array($query)){
 $resultarray["info"] = $row["info"];
 $resultarray["songname"] = urldecode($row["songname"]);

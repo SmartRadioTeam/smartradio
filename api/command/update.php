@@ -4,7 +4,6 @@ include("../../connect/init.php");
 include("../../".Package_Net."/net_getip.php");
 include("../../".Package_System."/messagebox/messagebox.php");
 include("../../".Package_Xss_Replace."xss_replace");
-date_default_timezone_set ('PRC');
 $sql = DB_Select("takeoff",array("id" => "= 0"));
 $query = DB_Query($sql,$con);
 $backcount = DB_Num_Row?s($query);
