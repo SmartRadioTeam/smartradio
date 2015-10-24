@@ -15,6 +15,15 @@ CREATE TABLE IF NOT EXISTS `lostandfound` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 AUTO_INCREMENT=1;
 
+CREATE TABLE IF NOT EXISTS `adminuser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` text NOT NULL,
+  `usermd5` text NOT NULL,
+  `password` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+AUTO_INCREMENT=1;
+
 CREATE TABLE IF NOT EXISTS `setting` (
   `notice` text CHARACTER SET utf8 NOT NULL,
   `permission` int(11) NOT NULL,
