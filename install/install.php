@@ -30,7 +30,7 @@ $jsonarray['Project_Name'] = $projectname;
 Writefile("../config/setting.json",json_encode($jsonarray,JSON_UNESCAPED_UNICODE));
 include("../config/init.php");
 include("../connect/init.php");
-$sql = file_get_contents("../Datebase/db_source.sql");
+$sql = file_get_contents("db_source.sql",ture);
 $result = DB_Query($sql,$con);
 if(!$result){
 	DB_printerror(DB_Error($con));
