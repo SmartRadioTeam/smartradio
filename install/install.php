@@ -13,7 +13,6 @@ $dbname = $_POST['dbname'];
 $adminuser = $_POST['adminuser'];
 $adminpasswd = $_POST["adminpasswd"];
 if($projectname == ''||
-	$dbhost == ''||
 	$dbuser == ''||
 	$dbpasswd == ''||
 	$dbname == ''||
@@ -21,6 +20,9 @@ if($projectname == ''||
 	$adminpasswd == ''){
 	System_messagebox("表单信息不能为空，请重新填写","message","/");
 	exit();
+}
+if($dbhost == ""){
+   $dbhost = "localhost";
 }
 $jsonarray['DB_Host'] = $dbhost;
 $jsonarray['DB_User'] = $dbuser;
@@ -30,12 +32,11 @@ $jsonarray['Project_Name'] = $projectname;
 Writefile("../config/setting.json",json_encode($jsonarray,JSON_UNESCAPED_UNICODE));
 include("../config/init.php");
 include("../connect/init.php");
-$sql = file_get_contents("db_source.sql",ture);
-$result = DB_Query($sql,$con);
-if(!$result){
-	DB_printerror(DB_Error($con));
-	exit();
+//TODO 创建表
+foreach(){
+   
 }
+//写入用户信息
 $sql =DB_Insert("adminuser",array("user"=>$adminuser,"usermd5"=>md5($adminuser),"password"=>md5($adminpasswd)));
 $result = DB_Query($sql,$con); 
 if($result){
