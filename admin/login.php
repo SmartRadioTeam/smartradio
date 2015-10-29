@@ -7,9 +7,7 @@ if(!isset($_COOKIE['login'])){
         $username=md5($username);
         $password=md5($password);
         $sql = DB_Select("adminuser",array("usermd5"=>"=".$username));
-        $query = DB_Query($sql,$con);
-        if(mysql_num_rows($query)!=0){
-            while($row=DB_Fetch_Array($query)){
+        $query = DB_Query($sql,$con);            while($row=DB_Fetch_Array($query)){
                 if($password==$row["password"]){
                     setcookie('login','sanmingxueyuan',time()+86400,"/");
                     header('location:/admin');
@@ -19,9 +17,6 @@ if(!isset($_COOKIE['login'])){
                     break;
                 }
             }
-        }else{
-            $message = '您的用户名输入错误，请重新输入！'; 
-        }
     }else{
         $message = '请输入完整信息'; 
     }
