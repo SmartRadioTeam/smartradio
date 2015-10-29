@@ -7,8 +7,8 @@ if(isset($_GET['mod'])){
 <div>
 <?php
 date_default_timezone_set ('PRC');
-if(!isset($mode){
-    $today = date("m-d",time());
+if(!isset($mode)){
+  $today = date("m-d",time());
 }else if($mode == "search"){
     $day = $_POST['day'];
     $time = $_POST['time'];

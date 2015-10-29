@@ -1,32 +1,34 @@
 <?php
 include("class_include.php");
-$username=$_POST['username'];
-$password=$_POST['password'];
-if(!isset($_COOKIE['login'])){
-    if($password!=""||$username!=""){
-        $username=md5($username);
-        $password=md5($password);
-        $sql = DB_Select("adminuser",array("usermd5"=>"=".$username));
-        $query = DB_Query($sql,$con);
-        if(mysql_num_rows($query)!=0){
-            while($row=DB_Fetch_Array($query)){
-                if($password==$row["password"]){
-                    setcookie('login','sanmingxueyuan',time()+86400,"/");
-                    header('location:/admin');
-                    break;
-                }else{
-                    $message = '您的密码输入错误，请重新输入！'; 
-                    break;
+if(isset($_POST['username'])){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    if(!isset($_COOKIE['login'])){
+        if($password!=""||$username!=""){
+            $username=md5($username);
+            $password=md5($password);
+            $sql = DB_Select("adminuser",array("usermd5"=>"=".$username));
+            $query = DB_Query($sql,$con);
+            echo $query;
+            exit();
+            if(DB_Num_Rows($query)!=0){
+                while($row=DB_Fetch_Array($query)){
+                    if($password==$row["password"]){
+                        setcookie('login','sanmingxueyuan',time()+86400,"/");
+                        header('location:/index.php');
+                        break;
+                    }else{
+                        $message = '您的密码输入错误，请重新输入！'; 
+                        break;
+                    }
                 }
+            }else{
+                $message = '您的用户名输入错误，请重新输入！'; 
             }
         }else{
-            $message = '您的用户名输入错误，请重新输入！'; 
+            $message = '请输入完整信息'; 
         }
-    }else{
-        $message = '请输入完整信息'; 
     }
-}else{
-    header('location:index.php');
 }
 echo '
 <!DOCTYPE html>
