@@ -32,18 +32,18 @@ $jsonarray['Project_Name'] = $projectname;
 Writefile("../config/setting.json",json_encode($jsonarray,JSON_UNESCAPED_UNICODE));
 include("../config/init.php");
 include("../connect/init.php");
-//TODO 创建表
+//创建表
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `bansong` (`songname` text NOT NULL,`id` int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`))';
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `lostandfound` (`id` int(11) NOT NULL AUTO_INCREMENT,`user` text NOT NULL,`tel` text NOT NULL,`message` text NOT NULL,`uptime` text NOT NULL,`ip` text NOT NULL,PRIMARY KEY (`id`))';
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `setting` (`notice` text NOT NULL,`permission` int(11) NOT NULL,`cleantime` text NOT NULL,`id` int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`))';
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `ticket_view` (`id` int(11) NOT NULL AUTO_INCREMENT,`songname` text NOT NULL,`user` text NOT NULL,`message` text NOT NULL,`to` text NOT NULL,`time` text NOT NULL,`uptime` text NOT NULL,`ip` text NOT NULL,`info` int(11) NOT NULL DEFAULT "0",`uri` text,`option` text NOT NULL,PRIMARY KEY (`id`))';
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `ticket_log` (`id` int(11) NOT NULL AUTO_INCREMENT,`songname` text NOT NULL,`user` text NOT NULL,`message` text NOT NULL,`to` text NOT NULL,`time` text NOT NULL,`uptime` text NOT NULL,`ip` text NOT NULL,`info` int(11) NOT NULL DEFAULT "0",`uri` text,`option` text NOT NULL,PRIMARY KEY (`id`))';
+$sql_array[] = 'CREATE TABLE IF NOT EXISTS `adminuser` (`usermd5` text NOT NULL,`user` int(11) NOT NULL,`password` text NOT NULL,`id` int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`))';
 foreach($sql_array as $val){
    if(!DB_Query($val,$con)){
-      echo DB_Error($con)
+      echo DB_Error($con);
       exit();
    }
-   
 }
 //写入用户信息
 $sql =DB_Insert("adminuser",array("user"=>$adminuser,"usermd5"=>md5($adminuser),"password"=>md5($adminpasswd)));
