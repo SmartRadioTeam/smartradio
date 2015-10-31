@@ -2,7 +2,6 @@
 include("../../config/init.php");
 include("../../connect/init.php");
 include("../../".Package_Net."/net_getip.php");
-include("../../".Package_System."/messagebox/messagebox.php");
 include("../../".Package_Xss_Replace."xss_replace");
 $sql = DB_Select("takeoff",array("id" => "= 0"));
 $query = DB_Query($sql,$con);

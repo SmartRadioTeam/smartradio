@@ -31,14 +31,9 @@ function DB_Insert($table,$arr_values){
 	}
 	return "INSERT INTO `".$table."` (".$keys.") VALUES (".$vals.");";
 }
-function DB_Select($table,$where = null,$limit = "",$filter = "*"){
-	if($where == null){
-		if($limit != ""){
-			return "SELECT ".$filter." FROM `".$table."` LIMIT ".$limit;
-		}else{
-			return "SELECT ".$filter." FROM `".$table."`";
-		}
-	}else{
+function DB_Select($table,$where = null,$limit = "",$filter = "*",$orderby = ""){
+	$command = "SELECT ".$filter." FROM `".$table."`";
+	if($where != null){
 		$id = 1;
 		$wheres = "";
 		foreach ($where as $key => $val) {
@@ -48,12 +43,15 @@ function DB_Select($table,$where = null,$limit = "",$filter = "*"){
 				$wheres = $wheres."`".$key."` ".$val;
 			}
 		}
-		if($limit != ""){
-			return "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres." LIMIT ".$limit.";";
-		}else{
-			return "SELECT ".$filter." FROM `".$table."` WHERE ".$wheres.";";
-		}
+		$command .= "WHERE ".$wheres;
 	}
+	if($limit != ""){
+		$command .= " LIMIT ".$limit;
+	}
+	if($orderby != ""){
+		$command .= "ORDERBY ".$orderby;
+	}
+	return $command.";";
 }
 function DB_Delete($table,$where){
 	$id = 1;
