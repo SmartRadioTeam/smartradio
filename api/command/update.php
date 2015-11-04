@@ -25,7 +25,7 @@ function requestmusicpost(){
 	$to = $_POST['to'];
 	$time = $_POST['time'];
 	$option = $_POST['option'];
-	$day = $_POST['day'];
+	
 	//过滤
 	$user = Xss_replace($user);
 	$songname = Xss_replace($songname);
