@@ -68,14 +68,5 @@ switch($_POST["mod"]){
             DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
         }
         break;
-    case "deletecatch":
-        $sql = DB_Delete("bansong",array("id" => "=".$id));
-        $result = DB_Query($sql,$con);
-        if($result){
-           System_messagebox("操作成功！","success","/admin/bansong.php");    
-        }else{
-           DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
-        }
-        break;
 }
 ?>

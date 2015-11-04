@@ -16,10 +16,7 @@ if(strlen($message) > 280){
     exit();
 }
 //写入
-$sql = DB_Update("ticket_view",array("user" => $user,
-                               "name" => $name,
-                               "message" => $message,
-                               "to" => $to);
+$sql = DB_Update("ticket_view",array("user" => $user,"name" => $name,"message" => $message,"to" => $to);
 $result = mysql_query($sql,$con);
     if($result){
         System_messagebox("操作成功！","success","/admin/index.php?mod=".$location);

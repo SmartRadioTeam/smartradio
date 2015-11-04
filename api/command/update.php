@@ -1,16 +1,8 @@
 <?php
-include("../../config/init.php");
-include("../../connect/init.php");
+include("class_include.php");
 include("../../".Package_Net."/net_getip.php");
-include("../../".Package_System."/messagebox/messagebox.php");
 include("../../".Package_Xss_Replace."xss_replace");
-$sql = DB_Select("takeoff",array("id" => "= 0"));
-$query = DB_Query($sql,$con);
-$backcount = DB_Num_Row?s($query);
-if($backcount == 0){
-    echo "抱歉，系统拒绝提交新信息，详情请见公告！";
-	exit();
-}
+//检测是否禁止投稿
 switch($_POST["mod"]){
 	case "requestmusicpost":
 		requestmusicpost();
@@ -27,13 +19,13 @@ function requestmusicpost(){
 	$to = $_POST['to'];
 	$time = $_POST['time'];
 	$option = $_POST['option'];
-	$day = $_POST['day'];
+	//TODO 生成时间信息
 	//过滤
 	$user = Xss_replace($user);
 	$songname = Xss_replace($songname);
 	$message = Xss_replace($message);
 	$to = Xss_replace($to);
-	$time = $time.'-'.$day;
+	
 	if($name == ""||$user == ""||$message == ""||$to == ""){  
 		System_messagebox("信息不能为空","message","/touch/");
 		exit();
@@ -47,14 +39,6 @@ function requestmusicpost(){
 	$uptime = urlencode(date("Y-m-d H:i:s",time()));
 	$cip = urlencode(getip());
 	$option = urlencode($option);
-	//检查是否为禁播歌曲
-	$sql = DB_Select("bansong",array("songname"=>"LIKE "."'".$songname."'"));
-	$query = DB_Query($sql,$con);
-	$backcount = DB_Num_Rows($query); 
-	if($backcount != 0){
-		echo "您点播的歌曲为禁止点播歌曲，无法提交到点歌台。请更换后再提交！";
-		exit();
-	}
 	//检测是否重复提交
 	$sql = DB_Select("ticket_view",array("user" => "LIKE "."'".$user."'","songname" => "LIKE "."'".$songname."'"));
 	$query = DB_Query($sql,$con);
