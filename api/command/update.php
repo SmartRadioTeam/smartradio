@@ -1,6 +1,5 @@
 <?php
-include("../../config/init.php");
-include("../../connect/init.php");
+include("class_include.php");
 include("../../".Package_Net."/net_getip.php");
 include("../../".Package_Xss_Replace."xss_replace");
 $sql = DB_Select("takeoff",array("id" => "= 0"));
