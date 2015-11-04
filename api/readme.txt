@@ -14,11 +14,15 @@
 
 请求该api将返回点歌信息，每条点歌信息包含以下字段：
 
-* info(此条点歌状态)
-* songname(歌曲名，网易云音乐歌曲id)
-* user(点歌人)
-* to(赠送给的人)
-* message(想说的话) 
+{0:
+   {
+   info:"0",//此条点歌的状态,0为未播放，1为无法播放，2为已播放
+   songname:"8080080",//歌曲编号，网易云音乐对应
+   user:"测试用户",//点歌人信息
+   to:"测试用户",//赠送对象信息
+   message："asdfghjkl"//最想说的话信息
+   }
+}
 
 ##通知、系统状态查询
 地址：/api/command/message.php
@@ -32,6 +36,15 @@
 * notice(通知信息)
 * cleantime(已播出数据清理时间)
 * lostandfound(失物招领信息)
+
+例子：
+{
+   permission:"0",//是否允许点歌
+   notice:"notice",//通知信息
+   cleantime:"",//已播出数据清理时间
+   lostandfound:{0:""
+   }//失物招领信息(数组)
+}
 
 ##提交点歌接口
 地址：/api/command/update.php 
