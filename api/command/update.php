@@ -2,13 +2,7 @@
 include("class_include.php");
 include("../../".Package_Net."/net_getip.php");
 include("../../".Package_Xss_Replace."xss_replace");
-$sql = DB_Select("takeoff",array("id" => "= 0"));
-$query = DB_Query($sql,$con);
-$backcount = DB_Num_Row?s($query);
-if($backcount == 0){
-    echo "抱歉，系统拒绝提交新信息，详情请见公告！";
-	exit();
-}
+//检测是否禁止投稿
 switch($_POST["mod"]){
 	case "requestmusicpost":
 		requestmusicpost();
