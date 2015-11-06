@@ -65,36 +65,7 @@ if($submitstate == 0){
       </div>
       <div class="modal-body">
 <form action="index.php?mod=search" method="post" enctype="multipart/form-data">
-<?php
-echo '<select name="time" class="form-control" style="width:100px;">';
-$i = 1;
-$today = date("m",time());
-while($i!=13){
-  if(strlen($i) == 1){
-      $i = '0'.$i;
-  }
-  if($today == $i){
-      echo '<option value ="'.$i.'" selected="selected">'.$i.'月</option>';
-  }else{
-      echo '<option value ="'.$i.'">'.$i.'月</option>';
-  }
-  $i=$i+1;
-}
-echo '</select><select class="form-control" name="day" style="width:100px;">';
-$i = 1;
-$today = date("d",time());
-while($i!=32){
-  if(strlen($i) == 1){
-      $i='0'.$i;
-  }
-  if($today == $i){
-      echo '<option value ="'.$i.'" selected="selected">'.$i.'日</option>';
-  }else{
-      echo '<option value ="'.$i.'">'.$i.'日</option>';
-  }
-$i = $i+1;
-}
-	  echo '</select>&nbsp;&nbsp;';?>
+  <input type="date" name="date">
 	          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 <input type="submit" name="submit" class="btn btn-success" value="查询" />
