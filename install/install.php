@@ -12,12 +12,7 @@ $dbpasswd = $_POST['dbpasswd'];
 $dbname = $_POST['dbname'];
 $adminuser = $_POST['adminuser'];
 $adminpasswd = $_POST["adminpasswd"];
-if($projectname == ''||
-	$dbuser == ''||
-	$dbpasswd == ''||
-	$dbname == ''||
-	$adminuser == ''||
-	$adminpasswd == ''){
+if($projectname == ''||$dbuser == ''||$dbpasswd == ''||$dbname == ''||$adminuser == ''||$adminpasswd == ''){
 	System_messagebox("表单信息不能为空，请重新填写","message","/");
 	exit();
 }
@@ -30,6 +25,7 @@ $jsonarray['DB_Password'] = $dbpasswd;
 $jsonarray['DB_Name'] = $dbname;
 $jsonarray['Project_Name'] = $projectname;
 Writefile("../config/setting.json",json_encode($jsonarray,JSON_UNESCAPED_UNICODE));
+//写出配置文件
 include("../config/init.php");
 include("../connect/init.php");
 //创建表
@@ -38,18 +34,13 @@ $sql_array[] = 'CREATE TABLE IF NOT EXISTS `setting` (`notice` text NOT NULL,`pe
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `ticket_view` (`id` int(11) NOT NULL AUTO_INCREMENT,`songname` text NOT NULL,`user` text NOT NULL,`message` text NOT NULL,`to` text NOT NULL,`time` text NOT NULL,`uptime` text NOT NULL,`ip` text NOT NULL,`info` int(11) NOT NULL DEFAULT "0",`uri` text,`option` text NOT NULL,PRIMARY KEY (`id`))';
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `ticket_log` (`id` int(11) NOT NULL AUTO_INCREMENT,`songname` text NOT NULL,`user` text NOT NULL,`message` text NOT NULL,`to` text NOT NULL,`time` text NOT NULL,`uptime` text NOT NULL,`ip` text NOT NULL,`info` int(11) NOT NULL DEFAULT "0",`uri` text,`option` text NOT NULL,PRIMARY KEY (`id`))';
 $sql_array[] = 'CREATE TABLE IF NOT EXISTS `adminuser` (`usermd5` text NOT NULL,`user` int(11) NOT NULL,`password` text NOT NULL,`id` int(11) NOT NULL AUTO_INCREMENT,PRIMARY KEY (`id`))';
+$sql_array[] = DB_Insert("adminuser",array("user"=>$adminuser,"usermd5"=>md5($adminuser),"password"=>md5($adminpasswd)));
+//批量执行sql语句
 foreach($sql_array as $val){
    if(!DB_Query($val,$con)){
-      echo DB_Error($con);
+      DB_printerror(DB_Error($con));
       exit();
    }
 }
-//写入用户信息
-$sql =DB_Insert("adminuser",array("user"=>$adminuser,"usermd5"=>md5($adminuser),"password"=>md5($adminpasswd)));
-$result = DB_Query($sql,$con); 
-if($result){
-	fopen("../config/install.lock", "w");
-	System_messagebox("安装成功！点击确定跳转到首页。","success","/");
-}else{
-	DB_printerror(DB_Error($con));
-}
+fopen("../config/install.lock", "w");
+System_messagebox("安装成功！点击确定跳转到首页。","success","/");
