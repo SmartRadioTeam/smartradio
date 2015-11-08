@@ -54,8 +54,7 @@
 返回：字符串
 
 该api需要提交以下字段
-
-* mod(提交模式，点歌信息为“requestmusicpost”，失物招领模式为“LostandfoundPost”)
+                                                                                                                                                                                                                                                                                                                                                             * mod(提交模式，点歌信息为“requestmusicpost”，失物招领模式为“LostandfoundPost”)
 * user(点歌人)
 * songname(网易云音乐歌曲id，失物招领模式无需输入)
 * to(想送给的人)
