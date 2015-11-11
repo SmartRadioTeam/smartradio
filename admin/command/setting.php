@@ -4,11 +4,11 @@ switch($_POST['mod']){
 	case "notice":
 		$message = $_POST['message']; 
 		$message = urlencode($message);
-		$sql = DB_Update("setting",array("notice"->$message));
+		$sql = DB_Update("setting",array("notice"=>$message));
 		break;
 	case "permission":
 		$off = $_POST["off"];
-		$sql = DB_Update("setting",array("off"->$off));
+		$sql = DB_Update("setting",array("permission"=>$off));
 		break;
 }
 $result = DB_Query($sql,$con);

@@ -1,7 +1,7 @@
 <?php
 include("class_include.php");
-if(isset($_GET['mod'])){
-    $mode = $_GET['mod'];
+if(isset($_GET['mode'])){
+    $mode = $_GET['mode'];
 }
 ?>
 <div>

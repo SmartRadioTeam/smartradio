@@ -5,6 +5,7 @@ if(!isset($_COOKIE['login']) && Location_Filename != "login.php"){
 }
 include("../../config/init.php");
 include("../../connect/init.php");
+include("../../package/system/messagebox/messagebox.php");
 switch(Location_Filename){
 	case "backmusic.php":
 		include("toast.php");

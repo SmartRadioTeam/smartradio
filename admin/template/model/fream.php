@@ -1,5 +1,5 @@
 <?php
-funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod){
+function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod){
 	    echo '<div class="anime img-thumbnail" id="anime">';
     echo '状态：';
     switch($info){
@@ -24,7 +24,7 @@ funciton frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
         changepost($id,urldecode($name),urldecode($user),urldecode($to),urldecode($message),$mod);
         echo 
         '
-        <button onclick="changeform('.$id.','."played".')" class="btn btn-success" value="标记为已播放" />
+        <button onclick="changeform('.$id.','."played".')" class="btn btn-success"  />标记为已播放</button>
         <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
   更多操作
