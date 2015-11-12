@@ -14,5 +14,5 @@ while($row = DB_Fetch_Array($query)){
 	$messages = "来自".urldecode($row["user"])."同学的寻物启示：".urldecode($row["message"])."请有拾到者拨打电话：".urldecode($row["tel"])."。谢谢！（本信息将滚动播出，如需了解更多信息请刷新页面。）";
 	$resultarray["lostandfound"] = $messages;
 }
-json_encode($resultarray,JSON_UNESCAPED_UNICODE);
+echo json_encode($resultarray,JSON_UNESCAPED_UNICODE);
 ?>
