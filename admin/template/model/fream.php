@@ -23,21 +23,19 @@ function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
         投稿者ip：".urldecode($ip)."</a><hr>";
         changepost($id,urldecode($name),urldecode($user),urldecode($to),urldecode($message),$mod);
         echo 
-        '
-        <button onclick="changeform('.$id.','."played".')" class="btn btn-success"  />标记为已播放</button>
-        <div class="dropdown">
+        '<button onclick="changeform('.$id.','."played".')" class="btn btn-success"  />标记为已播放</button>
+        <div class="dropdown btn-group">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
   更多操作
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
     <li><a href="#A'.$id.'" data-toggle="modal">修改点歌单</a></li>
-    <li><a href="#" onclick="changeform('.$id.','."unplay".')">标记为未播放</a></li>
-    <li><a href="#" onclick="changeform('.$id.','."backplay".')">标记为无法播放</a></li>
-    <li><a href="#" onclick="changeform('.$id.','."delete".')">直接删除</a></li>
+    <li><a href="#" onclick="changeform("'.$id.'","unplay")'.'">标记为未播放</a></li>
+    <li><a href="#" onclick="changeform("'.$id.'","backplay")'.'">标记为无法播放</a></li>
+    <li><a href="#" onclick="changeform("'.$id.'","delete")'.'">直接删除</a></li>
   </ul>
 </div>';
-echo '<div style="height:1px; margin-top:-1px;clear: both;overflow:hidden;"></div></div>';
 }
 function changepost($id,$name,$user,$to,$message,$mod){
     echo'
