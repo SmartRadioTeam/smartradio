@@ -49,7 +49,7 @@ function DB_Select($table,$where = null,$limit = "",$filter = "*",$orderby = "")
 		$command .= " LIMIT ".$limit;
 	}
 	if($orderby != ""){
-		$command .= "ORDERBY ".$orderby;
+		$command .= "ORDER BY ".$orderby;
 	}
 	return $command.";";
 }
