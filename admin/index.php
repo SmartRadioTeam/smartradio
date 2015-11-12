@@ -24,15 +24,15 @@ while($row = DB_Fetch_Array($query)){
 	frame($row["id"],$row["info"],$row["uptime"],$row["time"],$row["option"],$row["name"],$row["user"],$row["to"],$row["message"],$row["ip"],$mode);
 }
 ?>
-<form name="change" action="command/items.php" method="post" enctype="multipart/form-data">
+<form name="change" action="command/items.php" method="post">
     <input type="hidden" name="id">
     <input type="hidden" name="mod">
     <input type="hidden" name="location" value="<?php echo $mode?>">
 </form>
 <script>
-function changeform(id,mod){
-  document.change.id.value=id;
-  document.change.mod.value=mod;
+function changeform(ids,mode){
+  document.change.id.value=ids;
+  document.change.mod.value=mode;
   document.change.submit();
 }
 </script>
