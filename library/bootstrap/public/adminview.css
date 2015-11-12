@@ -1,9 +1,8 @@
-div#anime {
+ï»¿div#anime {
    
   display:inline-block;
   width:100%;
   padding:20px;
-  overflow:hidden;
   height:100%;
 }
 div#anime:hover {
@@ -16,12 +15,7 @@ body {
   background:#EEE;
   padding-top: 50px;
   padding-bottom: 20px;
-  font-family:Tahoma, Helvetica, "Microsoft Yahei", "Î¢ÈíÑÅºÚ", Arial, STHeiti;
-  _font-family:Tahoma,Arial,Helvetica,STHeiti;
-}
-h3 {
-  font-family:Tahoma, Helvetica, "Microsoft Yahei", "Î¢ÈíÑÅºÚ", Arial, STHeiti;
-  _font-family:Tahoma,Arial,Helvetica,STHeiti;
+  font-family:"Helvetica Neue",Helvetica,"Segoe UI",Ubuntu,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
 }
 .navbar {
   opacity:0.9;
@@ -49,12 +43,17 @@ h1#head {
   color:#FFF;
 }
 h1, h2, h4 {
-font-family:Tahoma, Helvetica, "Microsoft Yahei", "Î¢ÈíÑÅºÚ", Arial, STHeiti;
+font-family:Tahoma, Helvetica, "Microsoft Yahei", "Î¢ï¿½ï¿½ï¿½Åºï¿½", Arial, STHeiti;
   _font-family:Tahoma,Arial,Helvetica,STHeiti;
 }
 .anime h3,.anime p,.anime span{
   display:inline; 	
 }
+
+.anime .caret{
+  display: inline-block;
+}
+
 div#animetitle {
   white-space: nowrap;
   text-overflow:ellipsis;
