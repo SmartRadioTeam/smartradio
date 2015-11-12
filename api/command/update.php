@@ -15,14 +15,14 @@ switch($_POST["mod"]){
 function requestmusicpost(){
 	$user = $_POST['user'];
 	$message = $_POST['message'];
-	$songname = $_POST['songname'];
+	$songid = $_POST['songid'];
 	$to = $_POST['to'];
 	$time = $_POST['time'];
 	$option = $_POST['option'];
 	//TODO 生成时间信息
 	//过滤
 	$user = Xss_replace($user);
-	$songname = Xss_replace($songname);
+	$songid = Xss_replace($songid);
 	$message = Xss_replace($message);
 	$to = Xss_replace($to);
 	
@@ -40,15 +40,15 @@ function requestmusicpost(){
 	$cip = urlencode(getip());
 	$option = urlencode($option);
 	//检测是否重复提交
-	$sql = DB_Select("ticket_view",array("user" => "LIKE "."'".$user."'","songname" => "LIKE "."'".$songname."'"));
+	$sql = DB_Select("ticket_view",array("user" => "LIKE "."'".$user."'","songname" => "LIKE "."'".$songid."'"));
 	$query = DB_Query($sql,$con);
 	if(DB_Num_Rows($query) >= 1){
 		echo "请不要重复提交歌曲！谢谢！";
 		exit();
 	}
 	//写入数据库
-	$sql = DB_Insert("ticket_view",array("user" => $user,"songname" => $songname,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
- $sql = DB_Insert("ticket_log",array("user" => $user,"songname" => $songname,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
+	$sql = DB_Insert("ticket_view",array("user" => $user,"songname" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
+ $sql = DB_Insert("ticket_log",array("user" => $user,"songname" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
 	if($result){
 		echo "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！";
