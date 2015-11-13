@@ -11,7 +11,7 @@ if(isset($_POST['username'])){
     while($row=DB_Fetch_Array($query)){
       if($password == $row["password"]){
           setcookie('login','sanmingxueyuan',time()+86400,"/");
-          header('location:/admin/index.php');
+          header('location:/admin/');
           exit();
       }else{
           $message = '您的密码输入错误，请重新输入！'; 
