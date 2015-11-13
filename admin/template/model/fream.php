@@ -31,8 +31,8 @@ function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
     <li><a href="#A'.$id.'" data-toggle="modal">修改点歌单</a></li>
-    <li><a href="#" onclick="changeform(\''.$id.'\',\'unplay\')">标记为未播放</a></li>
-    <li><a href="#" onclick="changeform(\''.$id.'",\'backplay\')">标记为无法播放</a></li>
+    <li><a href="#" onclick="changeform(\''.$id.'\',\'backplay\')">标记为未播放</a></li>
+    <li><a href="#" onclick="changeform(\''.$id.'\',\'unplay\')">标记为无法播放</a></li>
     <li><a href="#" onclick="changeform(\''.$id.'\',\'delete\')">直接删除</a></li>
   </ul>
 </div>';
