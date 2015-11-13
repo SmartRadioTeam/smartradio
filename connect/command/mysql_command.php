@@ -70,7 +70,7 @@ function DB_Update($table,$set,$where=""){
 	$wheres = "";
 	if($where != ""){
 		foreach ($where as $key => $val) {
-			if($id != count($arr_values)){
+			if($id != count($where)){
 				$wheres = $wheres."`".$key."` ".$val." AND ";
 			}else{
 				$wheres = $wheres."`".$key."` ".$val;
