@@ -16,7 +16,7 @@ switch($_POST["mod"]){
             }
             System_messagebox("操作成功!","success","/admin/index.php?mod=".$location);
         }else{
-            DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
+            DB_PrintError(DB_Error($con));
         }
         break;
     case "backplay":
@@ -32,7 +32,7 @@ switch($_POST["mod"]){
             }
             System_messagebox("操作完成","success","/admin/index.php?mod=".$location);
         }else{
-            DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
+            DB_PrintError(DB_Error($con));
         }
         break;
     case "delete":
@@ -41,7 +41,7 @@ switch($_POST["mod"]){
         if($result){
             System_messagebox("操作成功！","success","/admin/index.php?mod=".$location);
         }else{
-            DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
+            DB_PrintError(DB_Error($con));
         }
         break;
     case "unplay":
@@ -57,7 +57,7 @@ switch($_POST["mod"]){
             }
             System_messagebox("操作成功！","success","/admin/index.php?mod=".$location);
         }else{
-            DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
+            DB_PrintError(DB_Error($con));
         }
     case "deletelost":
         $sql = DB_Delete("lostandfound",array("id" => "=".$id));
@@ -65,7 +65,7 @@ switch($_POST["mod"]){
         if($result){
             System_messagebox("操作成功！","success","/admin/lostandfound.php");
         }else{
-            DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
+            DB_PrintError(DB_Error($con));
         }
         break;
 }

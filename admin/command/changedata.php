@@ -21,7 +21,7 @@ $result = mysql_query($sql,$con);
     if($result){
         System_messagebox("操作成功！","success","/admin/index.php?mod=".$location);
     }else{
-         DB_PrintError("服务器错误！请通知管理员！管理员qq：381511791");
+         DB_PrintError(DB_Error($con));
     }
 
 ?>
