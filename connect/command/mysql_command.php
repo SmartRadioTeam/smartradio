@@ -80,8 +80,8 @@ function DB_Update($table,$set,$where=""){
 	foreach($set as $key => $val){
 		$sets="`".$key."`='".$val."'";
 	}
-	if($where != ""){
-		return "UPDATE `".$table."` SET ".$sets." WHERE ".$where.";";
+	if($wheres != ""){
+		return "UPDATE `".$table."` SET ".$sets." WHERE ".$wheres.";";
 	}else{
 		return "UPDATE `".$table."` SET ".$sets.";";
 	}
