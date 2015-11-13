@@ -68,5 +68,8 @@ switch($_POST["mod"]){
             DB_PrintError(DB_Error($con));
         }
         break;
+    default:
+        System_messagebox("错误请求！","message","/admin/");
+        break;
 }
 ?>
