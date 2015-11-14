@@ -22,12 +22,11 @@ while($row = DB_Fetch_Array($query)){
     echo "</div>";
 }
 ?>
-</div>
+ </div>
 <hr>
 </div>
 </div>
 </div>
-    </div>
 <?php
 include("template/foot.htm");
 ?>
