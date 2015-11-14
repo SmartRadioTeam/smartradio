@@ -20,7 +20,7 @@ switch($_POST["mod"]){
         }
         break;
     case "backplay":
-        $sql = DB_Update("radio",array("info" => "0"),array("id" => "=".$id));
+        $sql = DB_Update("ticket_view",array("info" => "0"),array("id" => "=".$id));
         $result = DB_Query($sql,$con);
         if($result){
             $sql = DB_Select("ticket_view",array("id" => "=".$id));
