@@ -61,7 +61,6 @@
             </ul>
         </div>
     </div>
-</div>
 <div class="container">
 <br>
 <form name="change" action="command/items.php" method="post">
