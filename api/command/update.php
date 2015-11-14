@@ -20,6 +20,8 @@ function requestmusicpost(){
 	$time = $_POST['time'];
 	$option = $_POST['option'];
 	//TODO 生成时间信息
+	$arr = split('/' ,$time);
+    $time = $arr[1].'-'.$arr[2]; 
 	//过滤
 	$user = Xss_replace($user);
 	$songid = Xss_replace($songid);
