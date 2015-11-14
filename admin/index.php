@@ -10,9 +10,8 @@ date_default_timezone_set ('PRC');
 if(!isset($mode)){
     $today = date("m-d",time());
 }else if($mode == "search"){
-    $day = $_POST['day'];
-    $time = $_POST['time'];
-    $today = $time.'-'.$day; 
+ 	$arr = split('/' , $_POST['time']);
+    $today = $arr[1].'-'.$arr[2]; 
 }
 if($mode == "selectall"){
     $sql = DB_Select("ticket_view");
