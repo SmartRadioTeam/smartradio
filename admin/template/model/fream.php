@@ -35,6 +35,7 @@ function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
     <li><a href="#" onclick="changeform(\''.$id.'\',\'unplay\')">标记为无法播放</a></li>
     <li><a href="#" onclick="changeform(\''.$id.'\',\'delete\')">直接删除</a></li>
   </ul>
+</div>
 </div>';
 }
 function changepost($id,$name,$user,$to,$message,$mod){
