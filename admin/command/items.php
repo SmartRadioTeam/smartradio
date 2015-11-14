@@ -12,6 +12,7 @@ switch($_POST["mod"]){
             while($row = DB_Fetch_Array($query)){
                 if($row["uri"] != null){
                     toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」已被播放");
+                    break;
                 }
             }
             System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
@@ -28,6 +29,7 @@ switch($_POST["mod"]){
             while($row = DB_Fetch_Array($query)){
                 if($row["uri"] != null){
                     toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」未被播放");
+                    break;
                 }
             }
             System_messagebox("操作完成","success","/admin/index.php?mode=".$location);
@@ -39,7 +41,7 @@ switch($_POST["mod"]){
         $sql = DB_Delete("ticket_view",array("id"=>"=".$id));
         $result = DB_Query($sql,$con);
         if($result){
-            System_messagebox("操作成功！","success","/admin/index.php?mode=".$location);
+            System_messagebox("删除操作成功！","success","/admin/index.php?mode=".$location);
         }else{
             DB_PrintError(DB_Error($con));
         }
@@ -53,12 +55,14 @@ switch($_POST["mod"]){
             while($row = DB_Fetch_Array($query)){
                 if($row["uri"] != null){
                     toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」无法播放");
+                    break;
                 }
             }
             System_messagebox("操作成功！","success","/admin/index.php?mode=".$location);
         }else{
             DB_PrintError(DB_Error($con));
         }
+        break;
     case "deletelost":
         $sql = DB_Delete("lostandfound",array("id" => "=".$id));
         $result = DB_Query($sql,$con);
