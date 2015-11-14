@@ -8,7 +8,7 @@ $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){
     echo '<div class="anime img-thumbnail">';
     echo "<br><br>";
-    //todo
+    echo "用户名:".$row["user"];
     echo "</div>";
 }
 ?>
