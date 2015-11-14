@@ -50,7 +50,14 @@
                 <li<?php if(Location_Filename == "index.php" && $_GET['mode'] == "search"){echo ' class="active"';}?>><a href="#today"data-toggle="modal">点播搜索</a></li>
                 <li<?php if(Location_Filename == "lostandfound.php"){echo ' class="active"';}?>><a href="lostandfound.php">寻物启示</a></li>
                 <li><a href="#off" data-toggle="modal">系统设置</a></li>
-                <li><a href="command/outlogin.php">退出</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo $_COOKIE['login']; ?><span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="command/outlogin.php">退出</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
