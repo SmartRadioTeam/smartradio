@@ -27,6 +27,7 @@ while($row = DB_Fetch_Array($query)){
 </div>
 </div>
 </div>
+    </div>
 <?php
 include("template/foot.htm");
 ?>
