@@ -37,7 +37,7 @@ function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
   </ul>
 </div>
 </div>
-<br>';
+<br><br>';
 }
 function changepost($id,$name,$user,$to,$message,$mod){
     echo'
