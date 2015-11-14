@@ -1,6 +1,6 @@
 <?php
 function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod){
-	    echo '<div class="anime img-thumbnail">';
+	    echo '<div class="anime img-thumbnail" id="anime">';
     echo '状态：';
     switch($info){
     	case "0":
