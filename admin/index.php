@@ -24,6 +24,7 @@ while($row = DB_Fetch_Array($query)){
 }
 ?>
 </div>
+</div>
 <hr>
 </div>
 </div>
