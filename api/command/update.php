@@ -1,7 +1,7 @@
 <?php
 include("class_include.php");
 include("../../".Package_Net."/net_getip.php");
-include("../../".Package_Xss_Replace."xss_replace");
+include("../../".Package_Xss_Replace."/xss_replace");
 $mod = $_POST["mod"];
 //(TODO)检测是否禁止投稿
 if($mod == "requestmusicpost"){
@@ -15,17 +15,15 @@ if($mod == "requestmusicpost"){
 	$arr = split('/' ,$time);
     $time = $arr[1].'-'.$arr[2]; 
 	//过滤
-	echo $time;
 	$user = Xss_replace($user);
 	$songid = Xss_replace($songid);
 	$message = Xss_replace($message);
 	$to = Xss_replace($to);
 	if($user == ""||$message == ""||$to == ""){  
-		exit("信息不能为空");
+		die("信息不能为空");
 	}
-	echo 'test';
 	if(strlen($message) > 280){
-		exit("祝福超过140字，请修改后重新提交！");
+		die("祝福超过140字，请修改后重新提交！");
 	}
 	//url转码(Xss_replace已包含转码)
 	$time = urlencode($time);
@@ -36,7 +34,7 @@ if($mod == "requestmusicpost"){
 	$sql = DB_Select("ticket_view",array("user" => "LIKE "."'".$user."'","songname" => "LIKE "."'".$songid."'"));
 	$query = DB_Query($sql,$con);
 	if(DB_Num_Rows($query) >= 1){
-		exit("请不要重复提交歌曲！谢谢！");
+		die("请不要重复提交歌曲！谢谢！");
 	}
 	//写入数据库
 	include("../163musicapi/command.php");
