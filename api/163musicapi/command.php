@@ -19,5 +19,5 @@ function get_music_info($music_id)
     return curl_get($url);
 } 
 $vars = get_music_info("22763683");
-echo $vars
+echo $vars;
 echo json_decode($vars,true);
