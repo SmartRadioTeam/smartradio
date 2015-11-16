@@ -5,7 +5,6 @@ include("../../".Package_Xss_Replace."xss_replace");
 $mod = $_POST["mod"];
 //(TODO)检测是否禁止投稿
 if($mod == "requestmusicpost"){
-	echo "into";
 	$user = $_POST['user'];
 	$message = $_POST['message'];
 	$songid = $_POST['songid'];
@@ -21,12 +20,10 @@ if($mod == "requestmusicpost"){
 	$message = Xss_replace($message);
 	$to = Xss_replace($to);
 	if($user == ""||$message == ""||$to == ""){  
-		echo "信息不能为空";
-		exit();
+		exit("信息不能为空");
 	}
 	if(strlen($message) > 280){
-		echo "祝福超过140字，请修改后重新提交！";
-		exit();
+		exit("祝福超过140字，请修改后重新提交！");
 	}
 	//url转码(Xss_replace已包含转码)
 	$time = urlencode($time);
@@ -47,6 +44,7 @@ if($mod == "requestmusicpost"){
 	$songtitle = $resultmusic["songs"][0]["starred"]["name"]." - ".$resultmusic["songs"][0]["starred"]["artists"][0]["name"];
 	$songcover = $resultmusic["songs"][0]["starred"]["picUrl"];
 	$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
+	echo $sql;
 	$result = DB_Query($sql,$con);
 	$sql = DB_Insert("ticket_view",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
