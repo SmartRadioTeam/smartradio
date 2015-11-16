@@ -18,4 +18,6 @@ function get_music_info($music_id)
     $url = "http://music.163.com/api/song/detail/?id=" . $music_id . "&ids=%5B" . $music_id . "%5D";
     return curl_get($url);
 } 
-echo json_decode(get_music_info("22763683"),true);
+$vars = get_music_info("22763683");
+echo $vars
+echo json_decode($vars,true);
