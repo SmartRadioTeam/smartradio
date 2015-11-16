@@ -49,8 +49,17 @@ function requestmusicpost(){
 		exit();
 	}
 	//写入数据库
-	$sql = DB_Insert("ticket_view",array("user" => $user,"songname" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
- $sql = DB_Insert("ticket_log",array("user" => $user,"songname" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
+	include("../163musicapi/command.php");
+	//获取网易云音乐数据
+	$resultmusic = json_decode(get_music_info($songid),true);
+	$songurl = $resultmusic["songs"][0]["starred"]["mp3Url"];
+	$songtitle = $resultmusic["songs"][0]["starred"]["name"]." - ".$resultmusic["songs"][0]["starred"]["artists"][0]["name"];
+	$songcover = $resultmusic["songs"][0]["starred"]["picUrl"];
+	$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
+	$result = DB_Query($sql,$con);
+	$sql = DB_Insert("ticket_view",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
+	$result = DB_Query($sql,$con);
+ 	$sql = DB_Insert("ticket_log",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
 	if($result){
 		echo "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！";
