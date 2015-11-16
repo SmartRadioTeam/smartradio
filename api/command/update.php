@@ -13,18 +13,18 @@ if($mod == "requestmusicpost"){
 	$option = $_POST['option'];
 	//TODO 生成时间信息
 	$arr = split('/' ,$time);
-    $time = $arr[1].'-'.$arr[2]; 
+    $time = $arr[1].'-'.$arr[2];
+    if($user == ""||$message == ""||$to == ""){  
+		die("信息不能为空");
+	}
+	if(strlen($message) > 280){
+		die("祝福超过140字，请修改后重新提交！");
+	} 
 	//过滤
 	$user = Xss_replace($user);
 	$songid = Xss_replace($songid);
 	$message = Xss_replace($message);
 	$to = Xss_replace($to);
-	if($user == ""||$message == ""||$to == ""){  
-		die("信息不能为空");
-	}
-	if(strlen($message) > 280){
-		die("祝福超过140字，请修改后重新提交！");
-	}
 	//url转码(Xss_replace已包含转码)
 	$time = urlencode($time);
 	$uptime = urlencode(date("Y-m-d H:i:s",time()));
@@ -59,16 +59,16 @@ if($mod == "requestmusicpost"){
 	$user = $_POST['user'];
 	$message = $_POST['message'];
 	$tel = $_POST['tel'];
-	//过滤
-	$user = Xss_replace($user);
-	$tel = Xss_replace($tel);
-	$message = Xss_replace($message);
 	if($tel == ""||$user == ""||$message == ""){  
 		die("信息不能为空");
 	}
 	if(strlen($message) > 280){
 		die("祝福超过140字，请修改后重新提交！");
 	}
+	//过滤
+	$user = Xss_replace($user);
+	$tel = Xss_replace($tel);
+	$message = Xss_replace($message);
 	//url转码(Xss_replace已包含转码)
 	$uptime = urlencode(date("Y-m-d H:i:s",time()));
 	$cip = urlencode(getip());
