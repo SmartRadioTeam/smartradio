@@ -20,8 +20,8 @@ switch($_POST["mod"]){
 		$message = Xss_replace($message);
 		$to = Xss_replace($to);
 		
-		if($name == ""||$user == ""||$message == ""||$to == ""){  
-			System_messagebox("信息不能为空","message","/touch/");
+		if($user == ""||$message == ""||$to == ""){  
+			echo "信息不能为空";
 			exit();
 		}
 		if(strlen($message) > 280){
