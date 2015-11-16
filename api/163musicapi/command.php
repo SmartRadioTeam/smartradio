@@ -20,4 +20,4 @@ function get_music_info($music_id)
 } 
 $vars = get_music_info("22763683");
 echo $vars;
-echo json_decode($vars,true);
+print_r(json_decode($vars,true)); 
