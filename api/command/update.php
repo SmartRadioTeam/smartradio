@@ -1,7 +1,7 @@
 <?php
 include("class_include.php");
 include("../../".Package_Net."/net_getip.php");
-include("../../".Package_Xss_Replace."/xss_replace");
+include("../../".Package_Xss_Replace."/xss_replace.php");
 $mod = $_POST["mod"];
 //(TODO)检测是否禁止投稿
 if($mod == "requestmusicpost"){
