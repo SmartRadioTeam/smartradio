@@ -15,6 +15,7 @@ if($mod == "requestmusicpost"){
 	$arr = split('/' ,$time);
     $time = $arr[1].'-'.$arr[2]; 
 	//过滤
+	echo $time;
 	$user = Xss_replace($user);
 	$songid = Xss_replace($songid);
 	$message = Xss_replace($message);
@@ -22,6 +23,7 @@ if($mod == "requestmusicpost"){
 	if($user == ""||$message == ""||$to == ""){  
 		exit("信息不能为空");
 	}
+	echo 'test';
 	if(strlen($message) > 280){
 		exit("祝福超过140字，请修改后重新提交！");
 	}
@@ -44,7 +46,6 @@ if($mod == "requestmusicpost"){
 	$songtitle = $resultmusic["songs"][0]["starred"]["name"]." - ".$resultmusic["songs"][0]["starred"]["artists"][0]["name"];
 	$songcover = $resultmusic["songs"][0]["starred"]["picUrl"];
 	$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
-	echo $sql;
 	$result = DB_Query($sql,$con);
 	$sql = DB_Insert("ticket_view",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
