@@ -64,10 +64,10 @@ if($mod == "requestmusicpost"){
 	$tel = Xss_replace($tel);
 	$message = Xss_replace($message);
 	if($tel == ""||$user == ""||$message == ""){  
-		exit("信息不能为空");
+		die("信息不能为空");
 	}
 	if(strlen($message) > 280){
-		exit("祝福超过140字，请修改后重新提交！");
+		die("祝福超过140字，请修改后重新提交！");
 	}
 	//url转码(Xss_replace已包含转码)
 	$uptime = urlencode(date("Y-m-d H:i:s",time()));
