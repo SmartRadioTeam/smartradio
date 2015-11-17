@@ -74,11 +74,11 @@ if($mod == "requestmusicpost"){
 	$tel = Xss_replace($tel);
 	$message = Xss_replace($message);
 	//url转码(Xss_replace已包含转码)
-	$uptime = urlencode(date("Y-m-d H:i:s",time()));
+	$uptime = urlencode($uptime);
 	$cip = urlencode(getip());
 	//写入
 	$sql = DB_Insert("lostandfound",array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip));
-	$result = mysql_query($sql,$con);
+	$result = DB_Query($sql,$con);
 	if($result){
 	   	echo "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！";
 	}else{
