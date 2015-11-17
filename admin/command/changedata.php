@@ -6,15 +6,15 @@ $name = $_POST['name'];
 $message = $_POST['message'];
 $to = $_POST['to'];
 $location = $_POST['location'];
+if(strlen($message) > 280){
+   System_messagebox("想说的话超过140字，请修改后重新提交！","message","/admin/index.php?mod=".$location);
+    exit();
+}
 //过滤器（含转码）
 $user = Xss_replace($user);
 $name = Xss_replace($name);
 $message = Xss_replace($message);
 $to = Xss_replace($to);
-if(strlen($message) > 280){
-   System_messagebox("想说的话超过140字，请修改后重新提交！","message","/admin/index.php?mod=".$location);
-    exit();
-}
 //写入
 $sql = DB_Update("ticket_view",array("user" => $user,"name" => $name,"message" => $message,"to" => $to));
 $result = DB_Query($sql,$con);
