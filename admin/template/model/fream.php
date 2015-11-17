@@ -1,5 +1,5 @@
 <?php
-function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod){
+function frame($id,$info,$uptime,$time,$option,$songid,$user,$to,$message,$ip,$mod,$musicarray){
 	    echo '<div class="anime img-thumbnail" id="anime">';
     echo '状态：';
     switch($info){
@@ -16,7 +16,7 @@ function frame($id,$info,$uptime,$time,$option,$name,$user,$to,$message,$ip,$mod
         echo "<br><br>
         提交时间：".urldecode($uptime)."<br><br>
         希望播放的时间：".str_replace('-', '月', urldecode($time))."日 ".urldecode($option)."<br><br>
-        歌曲名：".urldecode($name)."<br><br>
+        歌曲名：<a href=\"javascript:musciplay(\"".$musicarray[$songid]["songurl"]."\");\">".$musicarray[$songid]["songtitle"]."</a><br><br>
         点歌人：".urldecode($user)."<br><br>
         送给：".urldecode($to)."<br><br>
         留言：".urldecode($message)."<br><br>
