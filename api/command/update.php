@@ -43,7 +43,7 @@ if($mod == "requestmusicpost"){
 		//获取网易云音乐数据
 		$resultmusic = json_decode(get_music_info($songid),true);
 		$songurl = $resultmusic["songs"][0]["mp3Url"];
-		$songtitle = $resultmusic["songs"][0]["name"]." - ".$resultmusic["songs"][0]["artists"][0]["name"];
+		$songtitle = urlencode($resultmusic["songs"][0]["name"]." - ".$resultmusic["songs"][0]["artists"][0]["name"]);
 		$songcover = $resultmusic["songs"][0]["album"]["picUrl"];
 		$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
 		$result = DB_Query($sql,$con);

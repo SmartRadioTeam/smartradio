@@ -6,7 +6,7 @@ if(DB_Num_Rows($query)!=0){
 	$sql = DB_Select("songtable");
 	$Songtable = DB_Query($sql,$con);
 	while($rowsongtable = DB_Fetch_Array($Songtable)){
-		$songtablearr[$rowsongtable['sid']] = array("songtitle" => urldecode($rowsongtable["songtitle"]),"songcover" => urldecode($rowsongtable["songcover"]),"songurl" => urldecode($rowsongtable["songurl"]));
+		$songtablearr[$rowsongtable['sid']] = array("songtitle" => urldecode($rowsongtable["songtitle"]),"songcover" => $rowsongtable["songcover"],"songurl" => $rowsongtable["songurl"]);
 	}
 	while($row = DB_Fetch_Array($query)){
 		$resultarray["info"] = $row["info"];
