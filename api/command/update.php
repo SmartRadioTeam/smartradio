@@ -56,7 +56,7 @@ if($mod == "requestmusicpost"){
 	if($result){
 		echo "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！";
 	}else{
-		echo "服务器错误！请通知管理员！管理员qq：381511791";
+		echo "服务器错误！".DB_Error();
 	}
 }else if ($mod = "LostandfoundPost"){
 	$uptime = date("Y-m-d H:i:s",time());
@@ -82,7 +82,7 @@ if($mod == "requestmusicpost"){
 	if($result){
 	   	echo "您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！";
 	}else{
-		echo "服务器错误！";
+		echo "服务器错误！".DB_Error();
 	}
 }else{
 	echo "请不要提交空信息";
