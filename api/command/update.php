@@ -36,16 +36,19 @@ if($mod == "requestmusicpost"){
 	if(DB_Num_Rows($query) >= 1){
 		die("请不要重复提交歌曲！谢谢！");
 	}
+	$sql = DB_Select("songtable",array("sid" => "=".$songid));
+	$query = DB_Query($sql,$con);
+	if(DB_Num_Rows($query) == 0){
+		include("../163musicapi/command.php");
+		//获取网易云音乐数据
+		$resultmusic = json_decode(get_music_info($songid),true);
+		$songurl = $resultmusic["songs"][0]["starred"]["mp3Url"];
+		$songtitle = $resultmusic["songs"][0]["starred"]["name"]." - ".$resultmusic["songs"][0]["starred"]["artists"][0]["name"];
+		$songcover = $resultmusic["songs"][0]["starred"]["picUrl"];
+		$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
+		$result = DB_Query($sql,$con);
+	}
 	//写入数据库
-	include("../163musicapi/command.php");
-	//获取网易云音乐数据
-	$resultmusic = json_decode(get_music_info($songid),true);
-	$songurl = $resultmusic["songs"][0]["starred"]["mp3Url"];
-	$songtitle = $resultmusic["songs"][0]["starred"]["name"]." - ".$resultmusic["songs"][0]["starred"]["artists"][0]["name"];
-	$songcover = $resultmusic["songs"][0]["starred"]["picUrl"];
-	
-	$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
-	$result = DB_Query($sql,$con);
 	$sql = DB_Insert("ticket_view",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
  	$sql = DB_Insert("ticket_log",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
