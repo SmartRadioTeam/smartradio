@@ -24,7 +24,7 @@ function changelaf($id,$user,$tel,$message){
     </div>
     </div>
     </div>';
-    echo '<a href="#A'.$id.'"data-toggle="modal" class="btn btn-info">修改失物招领</a><br><br>';
+    echo '<a href="#A'.$id.'"data-toggle="modal" class="btn btn-info btn-group">修改失物招领</a><br><br>';
 }
 ?>
 <script type="text/javascript"> 
