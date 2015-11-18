@@ -32,7 +32,7 @@ if(isset($_GET['mode'])){
 if(!isset($mode)){
   $today = date("m-d",time());
 }else if($mode == "search"){
- 	$arr = split('/' , $_POST['date']);
+ 	$arr = split('-' , $_POST['date']);
   $today = $arr[1].'-'.$arr[2]; 
 }
 if(!isset($today)){
