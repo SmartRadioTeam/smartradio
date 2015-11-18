@@ -254,7 +254,7 @@ $(function() {
 	function getMessageList() {
 		$.get('/api/command/message.php', function(res) {
 			$('#logo_').text(res.projectname);
-			document.title = res.projectname + ' - Smuradio';
+			document.title = res.projectname + ' - Powered by Smuradio';
 			announce.empty();
 			if (res.notice != "") {
 				addAnnounce(res.notice, true);
