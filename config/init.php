@@ -1,6 +1,6 @@
 <?php
-error_reporting(0);//(错误提示，开发模式下为注释)
-include("setting.php");
+//error_reporting(0);//(错误提示，开发模式下为注释)
+require("setting.php");
 $json_obj=json_decode(Json_Config);
 //生成对象json_obj
 include("command/project_config.php");
