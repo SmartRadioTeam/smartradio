@@ -15,7 +15,12 @@ switch($_POST["mod"]){
                     break;
                 }
             }
-            System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+            if($location!=""){
+                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+            }else{
+                System_messagebox("操作成功!","success","/admin/index.php");
+            }
+            
         }else{
             DB_PrintError(DB_Error($con));
         }
@@ -32,7 +37,11 @@ switch($_POST["mod"]){
                     break;
                 }
             }
-            System_messagebox("操作完成","success","/admin/index.php?mode=".$location);
+            if($location!=""){
+                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+            }else{
+                System_messagebox("操作成功!","success","/admin/index.php");
+            }
         }else{
             DB_PrintError(DB_Error($con));
         }
@@ -41,7 +50,11 @@ switch($_POST["mod"]){
         $sql = DB_Delete("ticket_view",array("id"=>"=".$id));
         $result = DB_Query($sql,$con);
         if($result){
-            System_messagebox("删除操作成功！","success","/admin/index.php?mode=".$location);
+            if($location!=""){
+                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+            }else{
+                System_messagebox("操作成功!","success","/admin/index.php");
+            }
         }else{
             DB_PrintError(DB_Error($con));
         }
@@ -58,7 +71,11 @@ switch($_POST["mod"]){
                     break;
                 }
             }
-            System_messagebox("操作成功！","success","/admin/index.php?mode=".$location);
+            if($location!=""){
+                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+            }else{
+                System_messagebox("操作成功!","success","/admin/index.php");
+            }
         }else{
             DB_PrintError(DB_Error($con));
         }

@@ -26,7 +26,7 @@ $jsonarray['DB_Name'] = $dbname;
 $jsonarray['Project_Name'] = $projectname;
 $writecontent='<?php
 define("Json_Config",\''.json_encode($jsonarray,JSON_UNESCAPED_UNICODE).'\');';
-Writefile("../config/setting.php",$writecontent);
+Writefile("../config/config.php",$writecontent);
 //写出配置文件
 include("../config/init.php");
 include("../connect/init.php");
