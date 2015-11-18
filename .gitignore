@@ -9,5 +9,5 @@ ehthumbs.db
 Thumbs.db
 *.pyc
 *.pyo
-setting.json
+config.php
 install.lock
