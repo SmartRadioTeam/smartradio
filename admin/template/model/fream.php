@@ -30,7 +30,7 @@ function frame($id,$info,$uptime,$time,$option,$songid,$user,$to,$message,$ip,$m
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-    <li><a href="#A'.$id.'" data-toggle="modal">修改点歌单</a></li>
+    <li class="disabled"><a href="#A'.$id.'" data-toggle="modal">修改点歌单</a></li>
     <li><a href="#" onclick="changeform(\''.$id.'\',\'backplay\')">标记为未播放</a></li>
     <li><a href="#" onclick="changeform(\''.$id.'\',\'unplay\')">标记为无法播放</a></li>
     <li><a href="#" onclick="changeform(\''.$id.'\',\'delete\')">直接删除</a></li>
@@ -50,7 +50,6 @@ function changepost($id,$name,$user,$to,$message,$mod){
           </div>
       <div class="modal-body">
       <form id="form1" name="form1" action="command/changedata.php" method="post">
-    <font color="#000000">歌曲名：</font><input type="text"name="name" value="'.$name.'"><br><br>
     <font color="#000000">点歌人：</font><input type="text"name="user" value="'.$user.'"><br><br>
     <font color="#000000">送给：</font><input type="text"name="to" value="'.$to.'"><br><br>
     <font color="#000000">想说的话:</font><input name="message" onkeyup="checkLength(this);" value="'.$message.'"><br><br>
