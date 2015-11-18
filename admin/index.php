@@ -12,7 +12,7 @@ if(isset($_GET['mode'])){
         <h4 class="modal-title">播放音乐</h4>
       </div>
       <div class="modal-body">
-        <audio id="musicplayer">您的浏览器不支持 audio 标签。</audio>
+        <audio id="musicplayer" controls="controls">您的浏览器不支持 audio 标签。</audio>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
