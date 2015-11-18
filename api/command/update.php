@@ -42,8 +42,15 @@ if($mod == "requestmusicpost"){
 		include("../163musicapi/command.php");
 		//获取网易云音乐数据
 		$resultmusic = json_decode(get_music_info($songid),true);
-		$songurl = $resultmusic["songs"][0]["mp3Url"];
-		$songtitle = urlencode($resultmusic["songs"][0]["name"]." - ".$resultmusic["songs"][0]["artists"][0]["name"]);
+		$songurl = $resultmusic["songs"][0]["mp3Url"];   
+		foreach($resultmusic["songs"][0]["artists"] as $artist){
+		   if(isset($artists)){
+		      $artists .= "/" . $artist["name"];
+		   }else{
+		      $artists = $artist["name"];
+		   }
+		}
+		$songtitle = urlencode($resultmusic["songs"][0]["name"]." - ".$artists);
 		$songcover = $resultmusic["songs"][0]["album"]["picUrl"];
 		$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
 		$result = DB_Query($sql,$con);
