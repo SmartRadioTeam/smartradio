@@ -10,8 +10,6 @@ switch(Location_Filename){
 	case "backmusic.php":
 		include("toast.php");
 		break;
-	case "changedata.php":
-//过滤函数
 	case "items.php":
 		include("toast.php");
 		break;
