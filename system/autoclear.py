@@ -4,15 +4,16 @@ import MySQLdb
 import time
 import sys
 import json
-#导入config/setting.json(TODO)
-jsonVal = json.loads(page)
-
-conn= MySQLdb.connect(
-        host=jsonVal['DB_Host'],
+#导入config/setting.json
+f = open("../config/setting.json","r")
+content = f.readline() 
+jsonVal = json.loads(content)
+conn = MySQLdb.connect(
+        host = jsonVal['DB_Host'],
         port = 3306,
-        user=jsonVal['DB_User'],
-        passwd=jsonVal['DB_Password'],
-        db =jsonVal['DB_Name'],
+        user = jsonVal['DB_User'],
+        passwd = jsonVal['DB_Password'],
+        db = jsonVal['DB_Name'],
         )
 cur = conn.cursor()
 #只删除显示表信息，保留日志表信息(减少读取时间)

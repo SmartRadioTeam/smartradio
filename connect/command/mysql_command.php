@@ -49,7 +49,7 @@ function DB_Select($table,$where = null,$limit = "",$filter = "*",$orderby = "")
 		$command .= " LIMIT ".$limit;
 	}
 	if($orderby != ""){
-		$command .= "ORDERBY ".$orderby;
+		$command .= "ORDER BY ".$orderby;
 	}
 	return $command.";";
 }
@@ -70,7 +70,7 @@ function DB_Update($table,$set,$where=""){
 	$wheres = "";
 	if($where != ""){
 		foreach ($where as $key => $val) {
-			if($id != count($arr_values)){
+			if($id != count($where)){
 				$wheres = $wheres."`".$key."` ".$val." AND ";
 			}else{
 				$wheres = $wheres."`".$key."` ".$val;
@@ -80,8 +80,8 @@ function DB_Update($table,$set,$where=""){
 	foreach($set as $key => $val){
 		$sets="`".$key."`='".$val."'";
 	}
-	if($where != ""){
-		return "UPDATE `".$table."` SET ".$sets." WHERE ".$where.";";
+	if($wheres != ""){
+		return "UPDATE `".$table."` SET ".$sets." WHERE ".$wheres.";";
 	}else{
 		return "UPDATE `".$table."` SET ".$sets.";";
 	}

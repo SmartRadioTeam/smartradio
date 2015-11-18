@@ -1,15 +1,14 @@
 <br>
 <br>
 <?php
-include("class_include.php");
 $sql = DB_Select("setting");
 $query = DB_query($sql,$con);
 while($row=DB_Fetch_Array($query)){
   $notice = urldecode($row["notice"]);
+  echo '<div class="alert alert-info"><font color="#000000">';
+  echo "<strong>通知：</strong>".$notice."</font></div>";
   break;
 }
-echo '<div class="alert alert-info"><font color="#000000">';
-  echo "<strong>通知：</strong>".$notice;."</font></div>";
 ?>
 <div id="off" class="modal fade">
   <div class="modal-dialog">
@@ -31,11 +30,11 @@ while($row = DB_Fetch_Array($query)){
    break;
 }
 if($submitstate == 0){
-  echo '<label class="radio-inline"><input type="radio" name="off" value="0">打开</label>
-        <label class="radio-inline"><input type="radio" name="off" value="1" checked>关闭</label>';
+  echo '<label class="radio-inline"><input type="radio" name="off" value="1">打开</label>
+        <label class="radio-inline"><input type="radio" name="off" value="0" checked>关闭</label>';
 }else{
-  echo '<label class="radio-inline"><input type="radio" name="off" value="0" checked>打开</label>
-        <label class="radio-inline"><input type="radio" name="off" value="1">关闭</label>';
+  echo '<label class="radio-inline"><input type="radio" name="off" value="1" checked>打开</label>
+        <label class="radio-inline"><input type="radio" name="off" value="0">关闭</label>';
 }
 ?>
 	<input type="submit" name="Submit" class="btn btn-success" value="提交" />
@@ -43,9 +42,9 @@ if($submitstate == 0){
 	  <hr>
 	  通知修改：
 	  <form id="form1" name="form1" action="command/setting.php" method="post">
-<textarea class="form-control" rows="3" value="<?php echo $notice;?>"></textarea>
+<textarea class="form-control" name="message" rows="3"><?php echo $notice;?></textarea>
 <input type="hidden" name="mod" value="notice">
-&nbsp;&nbsp; <input type="submit" name="Submit" class="btn btn-success" value="提交" />
+<input type="submit" name="Submit" class="btn btn-success" value="提交" />
 </form>
         <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -64,7 +63,7 @@ if($submitstate == 0){
         <h3 class="modal-title">点播搜索</h3>
       </div>
       <div class="modal-body">
-<form action="index.php?mod=search" method="post" enctype="multipart/form-data">
+<form action="index.php?mode=search" method="post" enctype="multipart/form-data">
   <input type="date" name="date">
 	          <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

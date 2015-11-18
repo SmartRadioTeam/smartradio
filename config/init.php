@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);//(错误提示，开发模式下为注释)
+error_reporting(0);//(错误提示，开发模式下为注释)
 $json = file_get_contents("setting.json",true);
 $json_obj=json_decode($json);
 //生成对象json_obj

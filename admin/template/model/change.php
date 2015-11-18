@@ -24,7 +24,6 @@ function changelaf($id,$user,$tel,$message){
     </div>
     </div>
     </div>';
-    echo '<a href="#A'.$id.'"data-toggle="modal" class="btn btn-info">修改点歌单</a><br><br>';
 }
 ?>
 <script type="text/javascript"> 
