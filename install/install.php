@@ -24,7 +24,9 @@ $jsonarray['DB_User'] = $dbuser;
 $jsonarray['DB_Password'] = $dbpasswd;
 $jsonarray['DB_Name'] = $dbname;
 $jsonarray['Project_Name'] = $projectname;
-Writefile("../config/setting.json",json_encode($jsonarray,JSON_UNESCAPED_UNICODE));
+$writecontent='<?php
+define("Json_Config",\''.json_encode($jsonarray,JSON_UNESCAPED_UNICODE).'\');';
+Writefile("../config/setting.php",$writecontent);
 //写出配置文件
 include("../config/init.php");
 include("../connect/init.php");

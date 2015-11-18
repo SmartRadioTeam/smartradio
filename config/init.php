@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);//(错误提示，开发模式下为注释)
-$json = file_get_contents("setting.json",true);
-$json_obj=json_decode($json);
+include("setting.php");
+$json_obj=json_decode(Json_Config);
 //生成对象json_obj
 include("command/project_config.php");
 include("command/db_config.php");
