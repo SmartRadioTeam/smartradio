@@ -1,8 +1,5 @@
 <?php
 include("class_include.php");
-if(isset($_GET['mode'])){
-    $mode = $_GET['mode'];
-}
 ?>
 <div class="modal fade" id="audiomodel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog">
@@ -29,14 +26,16 @@ function musicplay(srcs){
 </script>
 <div>
 <?php
-date_default_timezone_set ('PRC');
+if(isset($_GET['mode'])){
+    $mode = $_GET['mode'];
+}
 if(!isset($mode)){
   $today = date("m-d",time());
 }else if($mode == "search"){
  	$arr = split('/' , $_POST['date']);
   $today = $arr[1].'-'.$arr[2]; 
 }
-if($mode == "selectall"){
+if(!isset($today)){
  $sql = DB_Select("ticket_view");
 }else{
 	$sql = DB_Select("ticket_view",array('time' => "='".$today."'"));
