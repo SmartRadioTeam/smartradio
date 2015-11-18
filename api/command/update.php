@@ -45,7 +45,7 @@ if($mod == "requestmusicpost"){
 		$songurl = $resultmusic["songs"][0]["mp3Url"];   
 		foreach($resultmusic["songs"][0]["artists"] as $artist){
 		   if(isset($artists)){
-		      $artists .= "/" . $artist["name"];
+		      $artists .= "/".$artist["name"];
 		   }else{
 		      $artists = $artist["name"];
 		   }
