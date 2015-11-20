@@ -1,5 +1,12 @@
 <?php
+include("../package/file/writefile.php");
 include("../package/system/messagebox/messagebox.php");
+$permissiontest = whitefile("../config/test")
+unlink("../config/test");
+if(!$permissiontest){
+   System_messagebox("config目录无写权限，请修改该目录权限设置！","message","/");
+   exit();
+}
 if(is_file("../config/install.lock")){
 	System_messagebox("安装程序已经被锁定，请删除config文件夹下的安装锁定程序！","message","/");
 	exit();
