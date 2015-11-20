@@ -1,4 +1,4 @@
-﻿#smuradio Api信息
+#smuradio Api信息
 ***
 #目录信息
 * /api/command(前端ajax请求api)
@@ -33,6 +33,7 @@
 返回：json
 
 请求该api将返回系统通知，状态以及失物招领信息。字段信息如下：
+* projectname (项目名称)
 * permission（是否允许点歌）
 * notice(通知信息)
 * cleantime(已播出数据清理时间)
@@ -40,7 +41,7 @@
 
 例子：
 {
-   "projcetname":"",项目名称
+   "projectname":"",项目名称
    "permission":"0",//是否允许点歌
    "notice":"notice",//通知信息
    "cleantime":"",//已播出数据清理时间
@@ -64,5 +65,5 @@
 * time(播出时间,请根据格式：YYYY/MM/DD输入。失物招领模式无需输入)
 * tel(失物招领电话号码)
 
-返回信息为一个数组：
+返回信息为json：
 {"message":""}
