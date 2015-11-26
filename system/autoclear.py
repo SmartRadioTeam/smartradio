@@ -4,8 +4,10 @@ import MySQLdb
 import time
 import sys
 import json
-import config
-jsonVal = json.loads(config.jsoncontent)
+#导入config/setting.json
+f = open("../config/setting.json","r")
+content = f.readline() 
+jsonVal = json.loads(content)
 conn = MySQLdb.connect(
         host = jsonVal['DB_Host'],
         port = 3306,

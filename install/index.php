@@ -19,7 +19,7 @@ if(is_file("../config/install.lock")){
         <h2 class="form-signin-heading">安装您的Smuradio</h2>
         <label class="sr-only">项目名称</label>
         <input type="name" name="projectname" class="form-control" placeholder="项目名称" required="" autofocus="">
-        <label class="sr-only">Mysql服务器地址</label>
+        <label class="sr-only">Mysql服务器地址(可空)</label>
         <input type="name" name="dbhost" class="form-control" placeholder="Mysql服务器地址">
         <label class="sr-only">Mysql用户名</label>
         <input type="name" name="dbuser" class="form-control" placeholder="Mysql用户名" required="">
