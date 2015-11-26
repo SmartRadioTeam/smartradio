@@ -1,9 +1,8 @@
 #!/usr/bin/python
 #coding=utf-8
 import time
-f = open("../config/setting.json","r")
-content = f.readline() 
-jsonVal = json.loads(content)
+import config
+jsonVal = json.loads(config.jsoncontent)
 mysql_comm = 'mysqldump'
 mysql_user = jsonVal['DB_User']
 mysql_passwd = jsonVal['DB_Password']
