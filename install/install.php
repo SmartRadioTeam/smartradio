@@ -45,10 +45,10 @@ $sql_array[] = DB_Insert("setting",array("notice"=>"通知","permission"=>"1","c
 $sql_array[] = DB_Insert("adminuser",array("user"=>$adminuser,"usermd5"=>md5($adminuser),"password"=>md5($adminpasswd)));
 //批量执行sql语句
 foreach($sql_array as $val){
-   if(!DB_Query($val,$con)){
-      DB_printerror(DB_Error($con));
-      exit();
-   }
+   	if(!DB_Query($val,$con)){
+    	DB_printerror(DB_Error($con));
+    	exit();
+   	}
 }
 fopen("../config/install.lock", "w");
 System_messagebox("安装成功！点击确定跳转到首页。","success","/");
