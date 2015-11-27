@@ -54,6 +54,7 @@ function changepost($id,$name,$user,$to,$message,$mod){
     <font color="#000000">送给：</font><input type="text"name="to" value="'.$to.'"><br><br>
     <font color="#000000">想说的话:</font><input name="message" onkeyup="checkLength(this);" value="'.$message.'"><br><br>
     <font color="#000000">文字最大长度: 140. 还剩: <span id="chLeft"></span></font>
+    <input type="hidden" name="mod" value="song">
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
