@@ -1,14 +1,14 @@
 <?php
 include("class_include.php");
+$mod = $_POST["mod"];
 $id = $_POST["id"];
 $user = $_POST['user'];
 $message = $_POST['message'];
+if($mod == "song"){
+//
+}
 $to = $_POST['to'];
 $location = $_POST['location'];
-if(strlen($message) > 280){
-   System_messagebox("想说的话超过140字，请修改后重新提交！","message","/admin/index.php?mod=".$location);
-    exit();
-}
 //过滤器（含转码）
 $user = Xss_replace($user);
 $message = Xss_replace($message);
