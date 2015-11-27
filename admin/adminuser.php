@@ -8,6 +8,7 @@ $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query)){
     echo '<div class="anime img-thumbnail" id="anime">';
     echo "<br><br>";
+//修改用户名信息
     echo "用户名:".$row["user"];
     echo "</div>";
 }
