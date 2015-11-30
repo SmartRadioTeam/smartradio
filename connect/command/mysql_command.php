@@ -42,6 +42,7 @@ function DB_Select($table,$where = null,$limit = "",$filter = "*",$orderby = "")
 			}else{
 				$wheres = $wheres."`".$key."` ".$val;
 			}
+			$id++;
 		}
 		$command .= "WHERE ".$wheres;
 	}
