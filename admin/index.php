@@ -36,9 +36,9 @@ if(!isset($mode)){
   $today = $arr[1].'-'.$arr[2]; 
 }
 if(!isset($today)){
- $sql = DB_Select("ticket_view");
+ $sql = DB_Select("ticket_view",null,"","*","`info`");
 }else{
-	$sql = DB_Select("ticket_view",array('time' => "='".$today."'"));
+	$sql = DB_Select($mode == "search"?"ticket_log":"ticket_view",array('time' => "='".$today."'"),"","*","`info`");
 }
 $query = DB_Query($sql,$con);
 $sql = DB_Select("songtable");
