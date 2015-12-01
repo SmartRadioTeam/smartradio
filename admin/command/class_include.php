@@ -6,4 +6,3 @@ if(!isset($_COOKIE['login']) && Location_Filename != "login.php"){
 }
 include("../../connect/init.php");
 include("../../package/system/messagebox/messagebox.php");
-include("toast.php");
