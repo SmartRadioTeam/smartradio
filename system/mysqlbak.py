@@ -2,6 +2,7 @@
 #coding=utf-8
 import time
 import config
+import json
 jsonVal = json.loads(config.jsoncontent)
 mysql_comm = 'mysqldump'
 mysql_user = jsonVal['DB_User']
