@@ -17,9 +17,7 @@ while($row = DB_Fetch_Array($query)){
         <input type="hidden" name="id" value="'.$row["id"].'">
         <input type="hidden" name="mod" value="deletelost">
         <input type="submit" name="submit" class="btn btn-primary" value="删除" />
-        <a href="#A'.$row[id].'"data-toggle="modal" class="btn btn-info btn-group" disabled="disabled">修改失物招领</a>
         </form>';
-        changelaf($row[id],urldecode($row["user"]),urldecode($row["tel"]),urldecode($row["message"]));
     echo "</div><br><br>";
 }
 ?>

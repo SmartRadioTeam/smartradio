@@ -11,7 +11,7 @@ switch($_POST["mod"]){
             $query = DB_Query($sql,$con);
             while($row = DB_Fetch_Array($query)){
                 if($row["uri"] != null){
-                    toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」已被播放");
+      
                     break;
                 }
             }
@@ -33,7 +33,7 @@ switch($_POST["mod"]){
             $query = DB_Query($sql,$con);
             while($row = DB_Fetch_Array($query)){
                 if($row["uri"] != null){
-                    toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」未被播放");
+                   
                     break;
                 }
             }
@@ -67,7 +67,7 @@ switch($_POST["mod"]){
             $query = DB_Query($sql,$con);
             while($row = DB_Fetch_Array($query)){
                 if($row["uri"] != null){
-                    toastup($row["uri"],"您的点歌「".urldecode($row["name"])."」无法播放");
+                   
                     break;
                 }
             }

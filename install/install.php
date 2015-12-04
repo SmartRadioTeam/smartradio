@@ -2,7 +2,7 @@
 include("../package/file/writefile.php");
 include("../package/system/messagebox/messagebox.php");
 if(is_file("../config/install.lock")){
-	System_messagebox("安装程序已经被锁定，请删除config文件夹下的安装锁文件！","message","/");
+	System_messagebox("安装程序已经被锁定，请删除config文件夹下的安装锁定程序！","message","/");
 	exit();
 }
 $projectname = $_POST['projectname'];
