@@ -19,8 +19,8 @@ if(is_file("../config/install.lock")){
         <h2 class="form-signin-heading">安装您的Smuradio</h2>
         <label class="sr-only">项目名称</label>
         <input type="name" name="projectname" class="form-control" placeholder="项目名称" required="" autofocus="">
-        <label class="sr-only">Mysql服务器地址(可空)</label>
-        <input type="name" name="dbhost" class="form-control" placeholder="Mysql服务器地址">
+        <label class="sr-only">Mysql服务器地址</label>
+        <input type="name" name="dbhost" class="form-control" placeholder="Mysql服务器地址(可空)">
         <label class="sr-only">Mysql用户名</label>
         <input type="name" name="dbuser" class="form-control" placeholder="Mysql用户名" required="">
         <label class="sr-only">Mysql密码</label>
@@ -31,6 +31,12 @@ if(is_file("../config/install.lock")){
         <input type="name" name="adminuser" class="form-control" placeholder="管理员用户名" required="">
         <label class="sr-only">管理员密码</label>
         <input type="password" name="adminpasswd" class="form-control" placeholder="管理员密码" required="">
+        
+<div id="moreitems"class="collapse">
+        <label class="sr-only">api目录</label>
+        <input type="password" name="apiurl" class="form-control" placeholder="api目录(空为本地,前后分离请填写网站地址。)">
+</div>
+                <a class="btn btn-lg btn-primary btn-block" href="#moreitems" data-toggle="collapse">展开更多选项</a>
         <button class="btn btn-lg btn-primary btn-block" type="submit">开始安装</button>
       </form>
     </div>
