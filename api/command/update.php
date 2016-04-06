@@ -14,10 +14,10 @@ $uptime = urlencode(date("Y-m-d H:i:s",time()));
 switch ($mod)
 {
 	case "requestmusicpost":
-		submitsong($user,$message,$uptime);
+		submitsong($con,$user,$message,$uptime);
 		break;
 	case "LostandfoundPost":
-		submitlaf($user,$message,$uptime);
+		submitlaf($con,$user,$message,$uptime);
 		break;
 	default:
 		die('{"message":"请不要提交空信息"}');
