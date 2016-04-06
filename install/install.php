@@ -51,4 +51,4 @@ foreach($sql_array as $val){
    	}
 }
 fopen("../config/install.lock", "w");
-System_messagebox("安装成功！点击确定跳转到首页。","success","/");
+System_messagebox("安装成功！点击确定跳转到首页。","success","./");
