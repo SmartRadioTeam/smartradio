@@ -77,9 +77,16 @@ function submitsong($con,$user,$message,$uptime)
     }
     //检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
     $thistemptime=$timerarr[0]."-".$time;
-    if(date('l',strtotime($thistemptime))=="Saturday"||date('l',strtotime($thistemptime))=="Sunday")
+    $weekday=date('l',strtotime($thistemptime));
+    if($weekday=="Saturday")
     {
-    	$time=date("m-d",strtotime("next Monday",$thistemptime));
+    	$lastday=sprintf("%02d",$timerarr[2]+2);
+    	$time=$timerarr[1].'-'.$lastday;
+    }
+    if($weekday=="Sunday")
+    {
+    	$lastday=sprintf("%02d",$timerarr[2]+1);
+    	$time=$timerarr[1].'-'.$lastday;
     }
     //检查是否为空
     if($user == ""||$message == ""||$to == "")
