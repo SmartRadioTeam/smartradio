@@ -13,7 +13,7 @@ if($mod == "requestmusicpost")
 }
 else if ($mod = "LostandfoundPost")
 {
-	submitlaf($user,$message)
+	submitlaf($user,$message);
 }
 else
 {
