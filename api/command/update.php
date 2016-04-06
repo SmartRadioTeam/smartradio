@@ -71,7 +71,7 @@ function submitsong($con,$user,$message,$uptime)
  	//检查点歌是否为今天，如果是今天，则延顺一天
     if(date('m-d')==$time)
     {
-    	$lastday=$timerarr[2]+1;
+    	$lastday=sprintf("%02d",$timerarr[2]+1);
     	$time=$timerarr[1].'-'.$lastday;
     }
     //检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
