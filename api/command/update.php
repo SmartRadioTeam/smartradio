@@ -73,7 +73,7 @@ function submitsong($con,$user,$message,$uptime)
     if(date('m-d')==$time)
     {
     	$lastday=sprintf("%02d",$timerarr[2]+1);
-    	$time=$timerarr[1].'-'.$lastday;
+    	$time=casetime($timerarr[1],$lastday);
     }
     //检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
     $thistemptime=$timerarr[0]."-".$time;
@@ -81,12 +81,12 @@ function submitsong($con,$user,$message,$uptime)
     if($weekday=="Saturday")
     {
     	$lastday=sprintf("%02d",$timerarr[2]+2);
-    	$time=$timerarr[1].'-'.$lastday;
+    	$time=casetime($timerarr[1],$lastday);
     }
     if($weekday=="Sunday")
     {
     	$lastday=sprintf("%02d",$timerarr[2]+1);
-    	$time=$timerarr[1].'-'.$lastday;
+    	$time=casetime($timerarr[1],$lastday);
     }
     //检查是否为空
     if($user == ""||$message == ""||$to == "")
@@ -140,5 +140,40 @@ function submitsong($con,$user,$message,$uptime)
 		echo '{"message":"服务器错误！"'.DB_Error($con).'"}';
 	}
 }
-
+function casetime($mouth,$day)
+{
+	switch($mouth){
+		case 1:
+		case 3:
+		case 5:
+		case 7:
+		case 8:
+		case 10:
+		case 12:
+			$flag=0;
+			break;
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+			$flag=1;
+			break;
+		case 2:
+			$flag=2;
+			break;
+	}
+	if($flag==2&&$day<=29)
+	{
+		$time=$mouth.'-'.$day;
+	}
+	else if($flag==1&&$day<=30)
+	{
+		$time=$mouth.'-'.$day;
+	}
+	else if($flag==0&&$day<=31)
+	{
+		$time=sprintf("%02d",$mouth+1).'-01';
+	}
+	return $time;
+}
 ?>
