@@ -11,9 +11,9 @@ if($mod == "requestmusicpost"){
 	$to = $_POST['to'];
 	$time = $_POST['time'];
 	$option = $_POST['option'];
-	//TODO 生成时间信息
-	$arr = split('/' ,$time);
-    $time = $arr[1].'-'.$arr[2];
+	$timerarr = split('/' ,$time);
+    $time = $timerarr[1].'-'.$timerarr[2];
+    //添加日期检查部分
     if($user == ""||$message == ""||$to == ""){  
 		die('{"message":"信息不能为空"}');
 	}
