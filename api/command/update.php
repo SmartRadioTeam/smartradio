@@ -2,6 +2,7 @@
 include("class_include.php");
 include("../../".Package_Net."/net_getip.php");
 include("../../".Package_Xss_Replace."/xss_replace.php");
+include("../163musicapi/command.php");
 $mod = $_POST["mod"];
 $user = $_POST['user'];
 $message = $_POST['message'];
@@ -106,7 +107,6 @@ function submitsong($con,$user,$message,$uptime)
 	$sql = DB_Select("songtable",array("sid" => "=".$songid));
 	$query = DB_Query($sql,$con);
 	if(DB_Num_Rows($query) == 0){
-		include("../163musicapi/command.php");
 		//获取网易云音乐数据
 		$resultmusic = json_decode(get_music_info($songid),true);
 		$songurl = $resultmusic["songs"][0]["mp3Url"];   
