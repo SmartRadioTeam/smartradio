@@ -1,6 +1,6 @@
 <?php
 if(!is_file("config/config.php")){
-	header("Location: /install");
+	header("Location: install/");
 	exit();
 }
-header("Location: /touch");
+header("Location: touch/");
