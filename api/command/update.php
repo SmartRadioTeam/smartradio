@@ -66,7 +66,7 @@ function submitsong($con,$user,$message,$uptime)
 	$to = $_POST['to'];
 	$time = $_POST['time'];
 	$option = $_POST['option'];
-	$timerarr = split('/' ,$time);
+	$timerarr = explode('/' ,$time);
 	//转换格式
  	$time = $timerarr[1].'-'.$timerarr[2];
  	//检查点歌是否为今天，如果是今天，则延顺一天
