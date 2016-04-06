@@ -79,6 +79,7 @@ function submitsong($user,$message)
     {
     	$time=date("m-d",strtotime("next Monday",$thistemptime));
     }
+    //检查是否为空
     if($user == ""||$message == ""||$to == "")
     {   
 		die('{"message":"信息不能为空"}');
