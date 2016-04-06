@@ -5,32 +5,32 @@ include("../../".Package_Xss_Replace."/xss_replace.php");
 $mod = $_POST["mod"];
 $user = $_POST['user'];
 $message = $_POST['message'];
+if(strlen($message) > 280)
+{
+	die('{"message":"祝福超过140字，请修改后重新提交！"}');
+} 
 $uptime = urlencode(date("Y-m-d H:i:s",time()));
 //(TODO)检测是否禁止投稿
-if($mod == "requestmusicpost")
+switch ($mod)
 {
-	submitsong($user,$message);
-}
-else if ($mod = "LostandfoundPost")
-{
-	submitlaf($user,$message);
-}
-else
-{
-	echo '{"message":"请不要提交空信息"}';
+	case "requestmusicpost":
+		submitsong($user,$message,$uptime);
+		break;
+	case "LostandfoundPost":
+		submitlaf($user,$message,$uptime);
+		break;
+	default:
+		die('{"message":"请不要提交空信息"}');
+		break;
 }
 
 //提交失物招领
-function submitlaf($user,$message)
+function submitlaf($con,$user,$message,$uptime)
 {
 	$tel = $_POST['tel'];
 	if($tel == ""||$user == ""||$message == "")
 	{  
 		die('{"message":"信息不能为空"}');
-	}
-	if(strlen($message) > 280)
-	{
-		die('{"message":"祝福超过140字，请修改后重新提交！"}');
 	}
 	//过滤
 	$user = Xss_replace($user);
@@ -40,13 +40,14 @@ function submitlaf($user,$message)
 	$cip = urlencode(getip());
 	//写入
 	$sql = DB_Insert("lostandfound",
-		array(
-		"user" => $user,
-		"tel" => $tel,
-		"message" => $message,
-		"uptime" => $uptime,
-		"ip" => $cip
-		));
+					array(
+					"user" => $user,
+					"tel" => $tel,
+					"message" => $message,
+					"uptime" => $uptime,
+					"ip" => $cip
+					)
+		);
 	$result = DB_Query($sql,$con);
 	if($result)
 	{
@@ -58,7 +59,7 @@ function submitlaf($user,$message)
 	}
 }
 //提交歌曲
-function submitsong($user,$message)
+function submitsong($con,$user,$message,$uptime)
 {
 	$songid = $_POST['songid'];
 	$to = $_POST['to'];
@@ -70,8 +71,8 @@ function submitsong($user,$message)
  	//检查点歌是否为今天，如果是今天，则延顺一天
     if(date('m-d')==$time)
     {
-    	 $lastday=$timerarr[2]+1;
-    		$time=$timerarr[1].'-'.$lastday;
+    	$lastday=$timerarr[2]+1;
+    	$time=$timerarr[1].'-'.$lastday;
     }
     //检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
     $thistemptime=$timerarr[0]."-".$time;
@@ -84,10 +85,6 @@ function submitsong($user,$message)
     {   
 		die('{"message":"信息不能为空"}');
 	}
-	if(strlen($message) > 280)
-	{
-		die('{"message":"祝福超过140字，请修改后重新提交！"}');
-	} 
 	//过滤
 	$user = Xss_replace($user);
 	$songid = Xss_replace($songid);
@@ -98,7 +95,10 @@ function submitsong($user,$message)
 	$cip = urlencode(getip());
 	$option = urlencode($option);
 	//检测是否重复提交
-	$sql = DB_Select("ticket_view",array("user" => "LIKE "."'".$user."'","songid" => "LIKE "."'".$songid."'"));
+	$sql = DB_Select("ticket_view",
+						array("user" => "LIKE "."'".$user."'",
+							"songid" => "LIKE "."'".$songid."'")
+						);
 	$query = DB_Query($sql,$con);
 	if(DB_Num_Rows($query) >= 1){
 		die('{"message":"请不要重复提交歌曲！谢谢！"}');
