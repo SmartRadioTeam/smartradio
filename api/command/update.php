@@ -12,8 +12,17 @@ if($mod == "requestmusicpost"){
 	$time = $_POST['time'];
 	$option = $_POST['option'];
 	$timerarr = split('/' ,$time);
-    $time = $timerarr[1].'-'.$timerarr[2];
-    //添加日期检查部分
+ $time = $timerarr[1].'-'.$timerarr[2];
+ //检查点歌是否为今天，如果是今天，则延顺一天
+    if(date('m-d')==$time){
+    	 $lastday=$timerarr[2]+1;
+    		$time=$timerarr[1].'-'.$lastday;
+    }
+    //检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
+    $thistemptime=date("Y")."-".$time);
+    if(date('l',strtotime($thistemptime)=="Saturday"||date('l',strtotime($thistemptime)=="Sunday"){
+    		$time=date("m-d",strtotime("next Monday",$thistemptime));
+    }
     if($user == ""||$message == ""||$to == ""){  
 		die('{"message":"信息不能为空"}');
 	}
