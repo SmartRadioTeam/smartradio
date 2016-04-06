@@ -30,8 +30,8 @@ echo '
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/library/bootstrap/public/signin.css" rel="stylesheet">
+    <link href="../library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../library/bootstrap/public/signin.css" rel="stylesheet">
     <title>登录 - '.Project_Name.' Powered by Smuradio</title>
   </head>
   <body>
