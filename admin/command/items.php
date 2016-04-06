@@ -16,9 +16,9 @@ switch($_POST["mod"]){
                 }
             }
             if($location!=""){
-                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+                System_messagebox("操作成功!","success","admin/index.php?mode=".$location);
             }else{
-                System_messagebox("操作成功!","success","/admin/index.php");
+                System_messagebox("操作成功!","success","admin/index.php");
             }
             
         }else{
@@ -38,9 +38,9 @@ switch($_POST["mod"]){
                 }
             }
             if($location!=""){
-                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+                System_messagebox("操作成功!","success","admin/index.php?mode=".$location);
             }else{
-                System_messagebox("操作成功!","success","/admin/index.php");
+                System_messagebox("操作成功!","success","admin/index.php");
             }
         }else{
             DB_PrintError(DB_Error($con));
@@ -51,9 +51,9 @@ switch($_POST["mod"]){
         $result = DB_Query($sql,$con);
         if($result){
             if($location!=""){
-                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+                System_messagebox("操作成功!","success","admin/index.php?mode=".$location);
             }else{
-                System_messagebox("操作成功!","success","/admin/index.php");
+                System_messagebox("操作成功!","success","admin/index.php");
             }
         }else{
             DB_PrintError(DB_Error($con));
@@ -72,9 +72,9 @@ switch($_POST["mod"]){
                 }
             }
             if($location!=""){
-                System_messagebox("操作成功!","success","/admin/index.php?mode=".$location);
+                System_messagebox("操作成功!","success","admin/index.php?mode=".$location);
             }else{
-                System_messagebox("操作成功!","success","/admin/index.php");
+                System_messagebox("操作成功!","success","admin/index.php");
             }
         }else{
             DB_PrintError(DB_Error($con));
@@ -84,13 +84,13 @@ switch($_POST["mod"]){
         $sql = DB_Delete("lostandfound",array("id" => "=".$id));
         $result = DB_Query($sql,$con);
         if($result){
-            System_messagebox("操作成功！","success","/admin/lostandfound.php");
+            System_messagebox("操作成功！","success","admin/lostandfound.php");
         }else{
             DB_PrintError(DB_Error($con));
         }
         break;
     default:
-        System_messagebox("错误请求！","message","/admin/");
+        System_messagebox("错误请求！","message","admin/");
         break;
 }
 ?>
