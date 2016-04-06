@@ -74,7 +74,7 @@ function submitsong($user,$message)
     		$time=$timerarr[1].'-'.$lastday;
     }
     //检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
-    $thistemptime=$timerarr[0]."-".$time);
+    $thistemptime=$timerarr[0]."-".$time;
     if(date('l',strtotime($thistemptime)=="Saturday"||date('l',strtotime($thistemptime)=="Sunday")
     {
     	$time=date("m-d",strtotime("next Monday",$thistemptime));
