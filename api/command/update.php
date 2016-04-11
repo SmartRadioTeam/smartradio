@@ -1,6 +1,5 @@
 <?php
 include("class_include.php");
-include("../../".Package_Net."/net_getip.php");
 include("../../".Package_Xss_Replace."/xss_replace.php");
 include("../163musicapi/command.php");
 $mod = $_POST["mod"];
@@ -108,21 +107,27 @@ function submitsong($con,$user,$message,$uptime)
 							"songid" => "LIKE "."'".$songid."'")
 						);
 	$query = DB_Query($sql,$con);
-	if(DB_Num_Rows($query) >= 1){
+	if(DB_Num_Rows($query) >= 1)
+	{
 		die('{"message":"请不要重复提交歌曲！谢谢！"}');
 	}
 	$sql = DB_Select("songtable",array("sid" => "=".$songid));
 	$query = DB_Query($sql,$con);
-	if(DB_Num_Rows($query) == 0){
+	if(DB_Num_Rows($query) == 0)
+	{
 		//获取网易云音乐数据
 		$resultmusic = json_decode(get_music_info($songid),true);
 		$songurl = $resultmusic["songs"][0]["mp3Url"];   
-		foreach($resultmusic["songs"][0]["artists"] as $artist){
-		   if(isset($artists)){
+		foreach($resultmusic["songs"][0]["artists"] as $artist)
+		{
+		   if(isset($artists))
+		   {
 		      $artists .= "/".$artist["name"];
-		   }else{
+		   	}
+		   	else
+		   	{
 		      $artists = $artist["name"];
-		   }
+		   	}
 		}
 		$songtitle = urlencode($resultmusic["songs"][0]["name"]." - ".$artists);
 		$songcover = $resultmusic["songs"][0]["album"]["picUrl"];
@@ -134,12 +139,16 @@ function submitsong($con,$user,$message,$uptime)
 	$result = DB_Query($sql,$con);
  	$sql = DB_Insert("ticket_log",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
-	if($result){
+	if($result)
+	{
 		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！"}';
-	}else{
+	}
+	else
+	{
 		echo '{"message":"服务器错误！"'.DB_Error($con).'"}';
 	}
 }
+//计算是否超越天数
 function casetime($mouth,$day)
 {
 	switch($mouth){
@@ -175,5 +184,25 @@ function casetime($mouth,$day)
 		$time=sprintf("%02d",$mouth+1).'-01';
 	}
 	return $time;
+}
+function getip()
+{
+	if(!empty($_SERVER["HTTP_CLIENT_IP"]))
+	{
+		$cip = $_SERVER["HTTP_CLIENT_IP"];
+	}
+	else if(!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+	{
+		$cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+	}
+	else if(!empty($_SERVER["REMOTE_ADDR"]))
+	{
+		$cip = $_SERVER["REMOTE_ADDR"];
+	}
+	else
+	{
+		$cip = "无法获取ip数据";
+	}
+	return $cip;
 }
 ?>

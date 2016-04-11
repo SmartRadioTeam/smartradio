@@ -1,13 +1,18 @@
 <?php
+
 function Writefile($filename,$content){
 	$fp = fopen($filename, "w");
-		if($fp){ 
+		if($fp)
+		{ 
 			$flag=fwrite($fp,$content); 
-			if(!$flag) { 
+			if(!$flag)
+			{ 
 				return true;
 				break; 
 			} 
-		}else{ 
+		}
+		else
+		{ 
 			return false; 
 		}
 	fclose($fp);   

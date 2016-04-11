@@ -1,5 +1,6 @@
 <?php
-function Xss_replace($string){
+function Xss_replace($string)
+{
 	$string = str_replace('<', '（', $string);
 	$string = str_replace('>', '）', $string);
 	$string = urlencode($string);
