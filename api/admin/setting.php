@@ -1,6 +1,7 @@
 <?php
 include("class_include.php");
-switch($_POST['mod']){
+switch($_POST['mod'])
+{
 	case "notice":
 		$message = $_POST['message']; 
 		$message = urlencode($message);
@@ -12,8 +13,11 @@ switch($_POST['mod']){
 		break;
 }
 $result = DB_Query($sql,$con);
-if($result){
+if($result)
+{
 	System_messagebox("操作成功！","success","admin");
-}else{
+}
+else
+{
 	DB_printerror(DB_Error($con));
 }
