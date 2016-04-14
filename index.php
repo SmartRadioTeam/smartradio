@@ -1,2 +1,2 @@
 <?php
-header("Location: touch/");
+include("touch/index.html");
