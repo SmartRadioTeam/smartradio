@@ -4,7 +4,7 @@ if(isset($_GET['mode']))
 {
     $mode = $_GET['mode'];
 }
-if(!isset($mode))
+if($mode == "today")
 {
   	$today = date("m-d",time());
 }
