@@ -12,7 +12,7 @@ if(isset($_POST['username']))
     {
       session_start();
       $_SESSION['thisusername']=$username;
-      exit();
+      die('{"message":"","mod":"success"}');
     }
     else
     {
