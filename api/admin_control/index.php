@@ -36,6 +36,7 @@ if(DB_Num_Rows($query)!=0)
 	}
 	while($row = DB_Fetch_Array($query))
 	{
+		$resultarray["id"] = $row["id"];
 		$resultarray["ip"] = $row["ip"];
 		$resultarray["time"] = str_replace('-', '月', urldecode($row["time"]))."日 ".urldecode($row["option"]);
 		$resultarray["uptime"]= $row["uptime"];
