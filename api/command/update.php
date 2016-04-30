@@ -9,6 +9,16 @@ if(strlen($message) > 280)
 	die('{"message":"祝福超过140字，请修改后重新提交！","mod":"error"}');
 } 
 $uptime = urlencode(date("Y-m-d H:i:s",time()));
+$sql = DB_Select("setting");
+$query = DB_Query($sql,$con);
+while($row = DB_Fetch_Array($query))
+{
+	if($row["permission"]==false)
+	{
+		die("{'message':'您没有权限提交信息!','mod':'error'}")
+	}
+	break;
+}
 //(TODO)检测是否禁止投稿
 switch ($mod)
 {
@@ -28,7 +38,7 @@ function submitlaf($con,$user,$message,$uptime)
 	$tel = $_POST['tel'];
 	if($tel == ""||$user == ""||$message == "")
 	{  
-		die('{"message":"信息不能为空"}');
+		die('{"message":"信息不能为空","mod":"error"}');
 	}
 	//过滤
 	$user = Xss_replace($user);
@@ -49,11 +59,11 @@ function submitlaf($con,$user,$message,$uptime)
 	$result = DB_Query($sql,$con);
 	if($result)
 	{
-		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！"}';
+		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 	}
 	else
 	{
-		echo '{"message":"服务器错误！"'.DB_Error($con).'"}';
+		echo '{"message":"服务器错误！"'.DB_Error($con).'","mod":"error"}';
 	}
 }
 //提交歌曲
@@ -67,7 +77,7 @@ function submitsong($con,$user,$message,$uptime)
     //检查是否为空
     if($user == ""||$message == ""||$to == "")
     {   
-		die('{"message":"信息不能为空"}');
+		die('{"message":"信息不能为空","mod":"error"}');
 	}
 	//过滤
 	$user = Xss_replace($user);
@@ -86,9 +96,9 @@ function submitsong($con,$user,$message,$uptime)
 	$query = DB_Query($sql,$con);
 	if(DB_Num_Rows($query) >= 1)
 	{
-		die('{"message":"请不要重复提交歌曲！谢谢！"}');
+		die('{"message":"请不要重复提交歌曲！谢谢！","mod":"error"}');
 	}
-
+	get163musicinfo($songid);
 	//写入数据库
 	$sql = DB_Insert("ticket_view",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
@@ -96,14 +106,14 @@ function submitsong($con,$user,$message,$uptime)
 	$result = DB_Query($sql,$con);
 	if($result)
 	{
-		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！"}';
+		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 	}
 	else
 	{
-		echo '{"message":"服务器错误！"'.DB_Error($con).'"}';
+		echo '{"message":"服务器错误！"'.DB_Error($con).'","mod":"error"}';
 	}
 }
-function get163musicinfo()
+function get163musicinfo($songid)
 {
 	$sql = DB_Select("songtable",array("sid" => "=".$songid));
 	$query = DB_Query($sql,$con);
