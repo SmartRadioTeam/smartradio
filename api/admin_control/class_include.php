@@ -2,7 +2,7 @@
 session_start();
 if(!isset($_SESSION['thisusername']) && Location_Filename != "login.php")
 {
-	die("{'message':'鉴权失败！','mod':'error'}");
+	die("{'message':'鉴权失败！','mod':'loginauth_error'}");
 }
 include("../../config/init.php");
 include("../connect/init.php");

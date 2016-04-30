@@ -4,6 +4,7 @@ $sql = DB_Select("lostandfound");
 $query = DB_Query($sql,$con);
 while($row = DB_Fetch_Array($query))
 {
+	$resultarray["id"] = $row["id"];
 	$resultarray['uptime'] = urldecode($row["uptime"]);
 	$resultarray['user'] = urldecode($row["user"]);
 	$resultarray['telphone'] = urldecode($row["tel"]);

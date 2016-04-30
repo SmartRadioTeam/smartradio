@@ -1,4 +1,4 @@
-$(function() {
+﻿$(function() {
 	var panel = $('#panel'),
 		menu = $('#menu'),
 		showcode = $('#showcode'),
@@ -345,7 +345,7 @@ $(function() {
 		}, 'json');
 	}
 
-	$.get('config.json', function(res) {
+	$.get('touch/config.json', function(res) {
 		serverAddr = res.serverAddr;
 		$('#logo_').text(res.projectname);
 		document.title = res.projectname + ' - Smartradio';

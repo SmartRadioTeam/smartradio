@@ -17,7 +17,16 @@
    "permission":"0",//是否允许点歌
    "notice":"notice",//通知信息
    "cleantime":"",//已播出数据清理时间
-   "lostandfound":[]//失物招领信息(数组)
+   "lostandfound":
+   [
+					{
+						'uptime':""//提交时间
+						'user':""//提交人
+						'telphone':""//电话号码
+						'message':""//寻物启事信息
+						'ip':"*.*.*.*"//提交人IP
+					}
+   ]//失物招领信息(数组)
    "songinfo":
    [
       {

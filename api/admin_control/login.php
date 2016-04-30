@@ -2,10 +2,8 @@
 include("class_include.php");
 if(isset($_POST['username']))
 {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $username = md5($username);
-  $password = md5($password);
+  $username = md5(trim($_POST['username']));
+  $password = md5(trim($_POST['password']));
   $sql = DB_Select("adminuser",array("usermd5"=>"='".$username."'"));
   $query = DB_Query($sql,$con);
   while($row=DB_Fetch_Array($query))
@@ -14,7 +12,7 @@ if(isset($_POST['username']))
     {
       session_start();
       $_SESSION['thisusername']=$username;
-      exit();
+      die('{"message":"","mod":"success"}');
     }
     else
     {

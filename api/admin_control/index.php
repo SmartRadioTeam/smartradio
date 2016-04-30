@@ -4,7 +4,7 @@ if(isset($_GET['mode']))
 {
     $mode = $_GET['mode'];
 }
-if(!isset($mode))
+if($mode == "today")
 {
   	$today = date("m-d",time());
 }
@@ -36,6 +36,10 @@ if(DB_Num_Rows($query)!=0)
 	}
 	while($row = DB_Fetch_Array($query))
 	{
+		$resultarray["id"] = $row["id"];
+		$resultarray["ip"] = $row["ip"];
+		$resultarray["time"] = str_replace('-', '月', urldecode($row["time"]))."日 ".urldecode($row["option"]);
+		$resultarray["uptime"]= $row["uptime"];
 		$resultarray["info"] = $row["info"];
 		$resultarray["songtitle"] = $songtablearr[$row["songid"]]["songtitle"];
 		$resultarray["songcover"] = $songtablearr[$row["songid"]]["songcover"];

@@ -1,6 +1,6 @@
 <?php
 include("class_include.php");
-switch($_POST['mod'])
+switch($_POST['mode'])
 {
 	case "notice":
 		$message = $_POST['message']; 
