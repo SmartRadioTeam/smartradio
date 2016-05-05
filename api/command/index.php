@@ -4,6 +4,6 @@ include("function.php");
 $resultarray["projectname"] = Project_Name;
 $resultarray["settings"] = getsetting($con);
 $resultarray["lostandfound"] = getlaf($con);
-$resultarray["songinfo"] = getsongtable($con);
+$resultarray["songinfo"] = getsongtable($con,$redis);
 echo json_encode($resultarray,JSON_UNESCAPED_UNICODE);
 ?>

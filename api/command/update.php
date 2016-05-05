@@ -23,7 +23,7 @@ while($row = DB_Fetch_Array($query))
 switch ($mod)
 {
 	case "requestmusicpost":
-		submitsong($con,$user,$message,$uptime);
+		submitsong($con,$redis,$user,$message,$uptime);
 		break;
 	case "LostandfoundPost":
 		submitlaf($con,$user,$message,$uptime);
@@ -67,7 +67,7 @@ function submitlaf($con,$user,$message,$uptime)
 	}
 }
 //提交歌曲
-function submitsong($con,$user,$message,$uptime)
+function submitsong($con,$redis,$user,$message,$uptime)
 {
 	$songid = $_POST['songid'];
 	$to = $_POST['to'];
@@ -98,7 +98,7 @@ function submitsong($con,$user,$message,$uptime)
 	{
 		die('{"message":"请不要重复提交歌曲！谢谢！","mod":"error"}');
 	}
-	get163musicinfo($songid);
+	get163musicinfo($songid,$redis);
 	//写入数据库
 	$sql = DB_Insert("ticket_view",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
 	$result = DB_Query($sql,$con);
@@ -136,8 +136,11 @@ function get163musicinfo($songid)
 		}
 		$songtitle = urlencode($resultmusic["songs"][0]["name"]." - ".$artists);
 		$songcover = $resultmusic["songs"][0]["album"]["picUrl"];
-		$sql = DB_Insert("songtable",array("sid" => $songid,"songurl" => $songurl,"songtitle" => $songtitle,"songcover" => $songcover));
-		$result = DB_Query($sql,$con);
+		$resultarray["songurl"]=$songurl;
+		$resultarray["songtitle"]=$songtitle;
+		$resultarray["songcover"]=$songcover;
+		$redis->SET($songid,json_encode($resultarray,JSON_UNESCAPED_UNICODE));
+		$redis->SAVE();
 	}
 }
 function checktime($time)

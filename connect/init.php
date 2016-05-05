@@ -4,3 +4,4 @@ if(is_file("conn.lock")){
 }
 include("command/mysql_command.php");
 include("command/mysql_conn.php");
+include("command/redis_conn.php");
