@@ -21,8 +21,3 @@ def urlfetch(url):
     req_headers = {'Referer':'http://music.163.com/','Cookie':'appver=1.9.2.109452'}
     req = urllib2.Request(url=url, headers=req_headers)
     return urllib2.urlopen(req).read()
-redis_connect = redis.Redis(host='127.0.0.1', port=6379, db=0)
-keylist＝redis_connect.keys()
-for key in keylist:
-    redis_connect[key]=Get163music(key)
-    redis_connect.save()

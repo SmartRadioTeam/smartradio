@@ -33,11 +33,11 @@ switch ($mod)
 }
 
 //提交失物招领
-function submitlaf($con,$user,$message,$uptime)
+function submitlaf($redis,$user,$message,$uptime)
 {
 	$tel = $_POST['tel'];
 	if($tel == ""||$user == ""||$message == "")
-	{  
+	{
 		die('{"message":"信息不能为空","mod":"error"}');
 	}
 	//过滤
@@ -47,24 +47,11 @@ function submitlaf($con,$user,$message,$uptime)
 	//url转码(Xss_replace已包含转码
 	$cip = urlencode(getip());
 	//写入
-	$sql = DB_Insert("lostandfound",
-					array(
-					"user" => $user,
-					"tel" => $tel,
-					"message" => $message,
-					"uptime" => $uptime,
-					"ip" => $cip
-					)
-		);
-	$result = DB_Query($sql,$con);
-	if($result)
-	{
-		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
-	}
-	else
-	{
-		echo '{"message":"服务器错误！"'.DB_Error($con).'","mod":"error"}';
-	}
+	$row = json_decode($redis->get("lostandfound"));
+	$row[] = array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip);
+	$redis->SET("lostandfound",json_encode($row,JSON_UNESCAPED_UNICODE));
+	$redis->SAVE();
+	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 }
 //提交歌曲
 function submitsong($con,$redis,$user,$message,$uptime)
@@ -89,21 +76,25 @@ function submitsong($con,$redis,$user,$message,$uptime)
 	$cip = urlencode(getip());
 	$option = urlencode($option);
 	//检测是否重复提交
-	$sql = DB_Select("ticket_view",
-						array("user" => "LIKE "."'".$user."'",
-							"songid" => "LIKE "."'".$songid."'")
-						);
-	$query = DB_Query($sql,$con);
-	if(DB_Num_Rows($query) >= 1)
-	{
-		die('{"message":"请不要重复提交歌曲！谢谢！","mod":"error"}');
-	}
+	//$sql = DB_Select("ticket_view",
+	//					array("user" => "LIKE "."'".$user."'",
+	//						"songid" => "LIKE "."'".$songid."'")
+	//					);
+	//$query = DB_Query($sql,$con);
+	//if(DB_Num_Rows($query) >= 1)
+	//{
+	//	die('{"message":"请不要重复提交歌曲！谢谢！","mod":"error"}');
+	//}
 	get163musicinfo($songid,$redis);
+	$submitinfo = array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option);
+	//写入Redis
+	$row = json_decode($redis->get("songinfo"));
+	$row[] = array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip);
+	$redis->SET("songinfo",json_encode($row,JSON_UNESCAPED_UNICODE));
+	$redis->SAVE();
 	//写入数据库
-	$sql = DB_Insert("ticket_view",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
-	$result = DB_Query($sql,$con);
  	$sql = DB_Insert("ticket_log",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
-	$result = DB_Query($sql,$con);
+	$result = DB_Query($sql,$submitinfo);
 	if($result)
 	{
 		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
