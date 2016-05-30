@@ -1,6 +1,5 @@
 <?php
 include("class_include.php");
-include("../../".Package_Xss_Replace."/xss_replace.php");
 $mod = $_POST["mod"];
 $user = $_POST['user'];
 $message = $_POST['message'];
@@ -47,14 +46,13 @@ function submitlaf($redis,$user,$message,$uptime)
 	//url转码(Xss_replace已包含转码
 	$cip = urlencode(getip());
 	//写入
-	$row = json_decode($redis->get("lostandfound"));
-	$row[] = array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip);
-	$redis->SET("lostandfound",json_encode($row,JSON_UNESCAPED_UNICODE));
-	$redis->SAVE();
+	$row=array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip);
+	redis_listadditem($redis,"lostandfound",$row);
+	redis_listadditem($redis,"lostandfound",unset(unset($row["ip"])["uptime"]));
 	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 }
 //提交歌曲
-function submitsong($con,$redis,$user,$message,$uptime)
+function submitsong($redis,$user,$message,$uptime)
 {
 	$songid = $_POST['songid'];
 	$to = $_POST['to'];
@@ -75,63 +73,32 @@ function submitsong($con,$redis,$user,$message,$uptime)
 	$time = urlencode($time);
 	$cip = urlencode(getip());
 	$option = urlencode($option);
-	//检测是否重复提交
-	//$sql = DB_Select("ticket_view",
-	//					array("user" => "LIKE "."'".$user."'",
-	//						"songid" => "LIKE "."'".$songid."'")
-	//					);
-	//$query = DB_Query($sql,$con);
-	//if(DB_Num_Rows($query) >= 1)
-	//{
-	//	die('{"message":"请不要重复提交歌曲！谢谢！","mod":"error"}');
-	//}
-	get163musicinfo($songid,$redis);
-	$submitinfo = array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option);
-	//写入Redis
-	$row = json_decode($redis->get("songinfo"));
-	$row[] = array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip);
-	$redis->SET("songinfo",json_encode($row,JSON_UNESCAPED_UNICODE));
-	$redis->SAVE();
-	//写入数据库
- 	$sql = DB_Insert("ticket_log",array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"uptime" => $uptime,"ip" => $cip,"info" => "0","option" => $option));
-	$result = DB_Query($sql,$submitinfo);
-	if($result)
-	{
-		echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
-	}
-	else
-	{
-		echo '{"message":"服务器错误！"'.DB_Error($con).'","mod":"error"}';
-	}
+	$submitinfo = array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"ip" => $cip,"info" => "0","option" => $option);
+	$viewtableinfo = unset($submitinfo["ip"]);
+	$viewtableinfo = unset($viewtableinfo["option"]);
+	redis_listadditem($redis,"songtable",$submitinfo);
+	redis_listadditem($redis,"songtable_view",$viewtableinfo);
+	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 }
-function get163musicinfo($songid)
+function get163musicinfo($redis,$songid)
 {
-	$sql = DB_Select("songtable",array("sid" => "=".$songid));
-	$query = DB_Query($sql,$con);
-	if(DB_Num_Rows($query) == 0)
+	include("../163musicapi/command.php");
+	$resultmusic = json_decode(get_music_info($songid),true);  
+	foreach($resultmusic["songs"][0]["artists"] as $artist)
 	{
-		include("../163musicapi/command.php");
-		//获取网易云音乐数据
-		$resultmusic = json_decode(get_music_info($songid),true);
-		$songurl = $resultmusic["songs"][0]["mp3Url"];   
-		foreach($resultmusic["songs"][0]["artists"] as $artist)
-		{
-		   if(isset($artists))
-		   {
-		      $artists .= "/".$artist["name"];
-		   	}
-		   	else
-		   	{
-		      $artists = $artist["name"];
-		   	}
-		}
+	   if(isset($artists))
+	   {
+	      $artists .= "/".$artist["name"];
+	   	}
+	   	else
+	   	{
+	      $artists = $artist["name"];
+	   	}
 		$songtitle = urlencode($resultmusic["songs"][0]["name"]." - ".$artists);
 		$songcover = $resultmusic["songs"][0]["album"]["picUrl"];
-		$resultarray["songurl"]=$songurl;
 		$resultarray["songtitle"]=$songtitle;
 		$resultarray["songcover"]=$songcover;
-		$redis->SET($songid,json_encode($resultarray,JSON_UNESCAPED_UNICODE));
-		$redis->SAVE();
+		redis_listadditem($redis,"songinfo",$resultarray);
 	}
 }
 function checktime($time)
@@ -214,4 +181,12 @@ function getip()
 	}
 	return $cip;
 }
+function Xss_replace($string)
+{
+	$string = str_replace('<', '（', $string);
+	$string = str_replace('>', '）', $string);
+	$string = urlencode($string);
+	return $string;
+}
+
 ?>
