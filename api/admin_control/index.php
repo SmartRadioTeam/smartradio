@@ -1,13 +1,18 @@
 <?php
 include("class_include.php");
-if(isset($_GET['mode']))
+$resultarray["projectname"] = Project_Name;
+$resultarray["settings"] = json_decode($redis->get("setting"),true);
+if(!$redis->exists('lostandfound'))
 {
-    $mode = $_GET['mode'];
+	$resultarray["lostandfound"] = json_decode($redis->get("lostandfound"),true);
 }
-if($mode == "today")
+if(!$redis->exists('songtable'))
 {
-  	$today = date("m-d",time());
+	$resultarray["songtable"] = json_decode($redis->get("songtable"),true);
 }
-
-echo json_encode($jsonarray,JSON_UNESCAPED_UNICODE);
+if(!$redis->exists('songinfo'))
+{
+	$resultarray["songinfo"] = json_decode($redis->get("songinfo"),true);
+}
+echo json_encode($resultarray,JSON_UNESCAPED_UNICODE);
 ?>

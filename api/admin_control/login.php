@@ -4,6 +4,7 @@ if(isset($_POST['username']))
 {
   $username = md5(trim($_POST['username']));
   $password = md5(trim($_POST['password']));
+  //todo
   if($password == $row["password"])
   {
     die('{"mod":"success"}');

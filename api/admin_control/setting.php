@@ -3,21 +3,19 @@ include("class_include.php");
 switch($_POST['mode'])
 {
 	case "notice":
-		$message = $_POST['message']; 
-		$message = urlencode($message);
-		$sql = DB_Update("setting",array("notice"=>$message));
+		$value = urlencode($_POST['message']); 
 		break;
 	case "permission":
-		$off = $_POST["off"];
-		$sql = DB_Update("setting",array("permission"=>$off));
+		$value = $_POST["off"];
 		break;
 }
-$result = DB_Query($sql,$con);
-if($result)
+redis_overried_update($redis,"settings",$_POST['mode'],$value);
+echo '{"message":"操作成功！","mod":"success"}';
+
+$redis->save();
+function redis_overried_update($redis,$listname,$count,$value)
 {
-	echo '{"message":"操作成功！","mod":"success"}';
-}
-else
-{
-	echo '{"message":"Datebase Error：'.DB_Error($con).'","mod":"error"}';
+	$rows = json_decode($redis->get($listname),true);
+	$rows[$count]=$value;
+	$redis->SET($listname,json_encode($rows,JSON_UNESCAPED_UNICODE));
 }

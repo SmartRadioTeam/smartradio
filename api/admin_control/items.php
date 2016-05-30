@@ -1,34 +1,40 @@
 <?php
 include("class_include.php");
 $id = $_POST['id'];
-switch($_POST["mod"])
+if($_POST["mod"]=="lostandfound")
 {
-    case "played":
-        $sql = DB_Update("ticket_view",array("info"=>"1"),array("id"=>"=".$id));
-        break;
-    case "backplay":
-        $sql = DB_Update("ticket_view",array("info" => "0"),array("id" => "=".$id));
-        break;
-    case "delete":
-        $sql = DB_Delete("ticket_view",array("id"=>"=".$id));
-        break;
-    case "unplay":
-        $sql = DB_Update("ticket_view",array("info"=>"2"),array("id"=>"=".$id));
-        break;
-    case "deletelost":
-        $sql = DB_Delete("lostandfound",array("id" => "=".$id));
-        break;
-    default:
-        die('{"message":"参数错误！","mod":"error"}');
-        break;
+    redis_delete($redis,"lostandfound",$id);
+    redis_delete($redis,"lostandfound_view",$id);
 }
-$result = DB_Query($sql,$con);
-if($result)
+elseif($_POST["mod"]=="delete")
 {
-    echo '{"message":"操作成功！","mod":"success"}';
+    redis_delete($redis,"songtable",$id);
+    redis_delete($redis,"songtable_view",$id);
 }
 else
 {
-    echo '{"message":"Datebase Error：'.DB_Error($con).'","mod":"error"}';
+    switch($_POST["mod"])
+    {
+        case "played":
+            $table="songtable";
+            $count=$id;
+            $value="1";
+            break;
+        case "normalplay":
+            $table="songtable";
+            $count=$id;
+            $value="0";
+            break;
+        case "unplay":
+            $table="songtable";
+            $count=$id;
+            $value="2";
+            break;
+    }
+    redis_update($redis,"songtable",$id,"info",$value);
+    redis_update($redis,"songtable_view",$id,"info",$value);
+
 }
+$redis->SAVE();
+echo '{"message":"操作完成！","mod":"success"}';
 ?>

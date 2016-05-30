@@ -30,6 +30,9 @@ switch ($mod)
 	default:
 		die('{"message":"请不要提交空信息","mod":"error"}');
 }
+$redis->SAVE();
+
+
 
 //提交失物招领
 function submitlaf($redis,$user,$message,$uptime)
@@ -48,7 +51,7 @@ function submitlaf($redis,$user,$message,$uptime)
 	//写入
 	$row=array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip);
 	redis_listadditem($redis,"lostandfound",$row);
-	redis_listadditem($redis,"lostandfound",unset(unset($row["ip"])["uptime"]));
+	redis_listadditem($redis,"lostandfound_view",unset(unset($row["ip"])["uptime"]));
 	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 }
 //提交歌曲
@@ -82,12 +85,23 @@ function submitsong($redis,$user,$message,$uptime)
 }
 function get163musicinfo($redis,$songid)
 {
-	include("../163musicapi/command.php");
-	$resultmusic = json_decode(get_music_info($songid),true);  
+	$refer = "http://music.163.com/";
+    $header[] = "Cookie: appver=1.9.2.109452;";
+    $ch = curl_init();
+    $url = "http://music.163.com/api/song/detail/?id=" . $songid . "&ids=%5B" . $songid . "%5D";
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+    curl_setopt($ch, CURLOPT_REFERER, $refer);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    //发起请求结束
+	$resultmusic = json_decode($output,true);  
 	foreach($resultmusic["songs"][0]["artists"] as $artist)
 	{
-	   if(isset($artists))
-	   {
+	   	if(isset($artists))
+	   	{
 	      $artists .= "/".$artist["name"];
 	   	}
 	   	else
@@ -188,5 +202,6 @@ function Xss_replace($string)
 	$string = urlencode($string);
 	return $string;
 }
+
 
 ?>
