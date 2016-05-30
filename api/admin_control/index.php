@@ -1,54 +1,18 @@
 <?php
 include("class_include.php");
-if(isset($_GET['mode']))
+$resultarray["projectname"] = Project_Name;
+$resultarray["settings"] = json_decode($redis->get("setting"),true);
+if(!$redis->exists('lostandfound'))
 {
-    $mode = $_GET['mode'];
+	$resultarray["lostandfound"] = json_decode($redis->get("lostandfound"),true);
 }
-if($mode == "today")
+if(!$redis->exists('songtable'))
 {
-  	$today = date("m-d",time());
+	$resultarray["songtable"] = json_decode($redis->get("songtable"),true);
 }
-else if($mode == "search")
+if(!$redis->exists('songinfo'))
 {
- 	$arr = split('-' , $_POST['date']);
-  	$today = $arr[1].'-'.$arr[2]; 
+	$resultarray["songinfo"] = json_decode($redis->get("songinfo"),true);
 }
-if(!isset($today))
-{
-	$sql = DB_Select("ticket_view",null,"","*","`info`");
-}
-else
-{
-	$sql = DB_Select($mode == "search"?"ticket_log":"ticket_view",array('time' => "='".$today."'"),"","*","`info`");
-}
-$query = DB_Query($sql,$con);
-if(DB_Num_Rows($query)!=0)
-{
-	$sql = DB_Select("songtable");
-	$Songtable = DB_Query($sql,$con);
-	while($rowsongtable = DB_Fetch_Array($Songtable))
-	{
-	  	$songtablearr[$rowsongtable['sid']] = array(
-	  		"songtitle" => urldecode($rowsongtable["songtitle"]),
-	  		"songcover" => $rowsongtable["songcover"],
-	  		"songurl" => $rowsongtable["songurl"]
-	  		);
-	}
-	while($row = DB_Fetch_Array($query))
-	{
-		$resultarray["id"] = $row["id"];
-		$resultarray["ip"] = $row["ip"];
-		$resultarray["time"] = str_replace('-', '月', urldecode($row["time"]))."日 ".urldecode($row["option"]);
-		$resultarray["uptime"]= $row["uptime"];
-		$resultarray["info"] = $row["info"];
-		$resultarray["songtitle"] = $songtablearr[$row["songid"]]["songtitle"];
-		$resultarray["songcover"] = $songtablearr[$row["songid"]]["songcover"];
-		$resultarray["songurl"] = $songtablearr[$row["songid"]]["songurl"];
-		$resultarray["user"] = urldecode($row["user"]);
-		$resultarray["to"] = urldecode($row["to"]);
-		$resultarray["message"] = "「".urldecode($row["message"])."」";
-		$jsonarray[] = $resultarray;
-	}
-}
-echo json_encode($jsonarray,JSON_UNESCAPED_UNICODE);
+echo json_encode($resultarray,JSON_UNESCAPED_UNICODE);
 ?>
