@@ -14,7 +14,7 @@ while($row = DB_Fetch_Array($query))
 {
 	if($row["permission"]==false)
 	{
-		die("{'message':'您没有权限提交信息!','mod':'error'}")
+		die("{'message':'您没有权限提交信息!','mod':'error'}");
 	}
 	break;
 }
@@ -51,7 +51,9 @@ function submitlaf($redis,$user,$message,$uptime)
 	//写入
 	$row=array("user" => $user,"tel" => $tel,"message" => $message,"uptime" => $uptime,"ip" => $cip);
 	redis_listadditem($redis,"lostandfound",$row);
-	redis_listadditem($redis,"lostandfound_view",unset(unset($row["ip"])["uptime"]));
+	unset($row["ip"]);
+	unset($row["uptime"]);
+	redis_listadditem($redis,"lostandfound_view",$row);
 	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 }
 //提交歌曲
@@ -77,10 +79,10 @@ function submitsong($redis,$user,$message,$uptime)
 	$cip = urlencode(getip());
 	$option = urlencode($option);
 	$submitinfo = array("user" => $user,"songid" => $songid,"message" => $message,"to" => $to,"time" => $time,"ip" => $cip,"info" => "0","option" => $option);
-	$viewtableinfo = unset($submitinfo["ip"]);
-	$viewtableinfo = unset($viewtableinfo["option"]);
 	redis_listadditem($redis,"songtable",$submitinfo);
-	redis_listadditem($redis,"songtable_view",$viewtableinfo);
+	unset($submitinfo["ip"]);
+	unset($submitinfo["option"]);
+	redis_listadditem($redis,"songtable_view",$submitinfo);
 	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
 }
 function get163musicinfo($redis,$songid)

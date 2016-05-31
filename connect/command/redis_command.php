@@ -18,6 +18,6 @@ function redis_update($redis,$listname,$count,$option,$value)
 function redis_delete($redis,$listname,$count)
 {
 	$rows = json_decode($redis->get($listname),true);
-	$rows = unset($rows[$count]);
+	unset($rows[$count]);
 	$redis->SET($listname,json_encode($rows,JSON_UNESCAPED_UNICODE));
 }
