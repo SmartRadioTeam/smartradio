@@ -14,6 +14,7 @@ else
 {
 	$resultarray["lostandfound"]="[]";
 	$redis->SET("lostandfound_view","[]");
+	$redis->SET("lostandfound","[]");
 }
 if(!$redis->exists('songtable_view'))
 {
@@ -22,6 +23,7 @@ if(!$redis->exists('songtable_view'))
 else
 {
 	$resultarray["songtable"]="[]";
+	$redis->SET("songtable","[]");
 	$redis->SET("songtable_view","[]");
 }
 if(!$redis->exists('songinfo'))
