@@ -10,13 +10,28 @@ if(!$redis->exists('lostandfound'))
 {
 	$resultarray["lostandfound"] = json_decode($redis->get("lostandfound_view"),true);
 }
-if(!$redis->exists('songtable'))
+else
+{
+	$resultarray["lostandfound"]="[]";
+	$redis->SET("lostandfound_view","[]");
+}
+if(!$redis->exists('songtable_view'))
 {
 	$resultarray["songtable"] = json_decode($redis->get("songtable_view"),true);
+}
+else
+{
+	$resultarray["songtable"]="[]";
+	$redis->SET("songtable_view","[]");
 }
 if(!$redis->exists('songinfo'))
 {
 	$resultarray["songinfo"] = json_decode($redis->get("songinfo"),true);
+}
+else
+{
+	$resultarray["songinfo"]="[]";
+	$redis->SET("songinfo","[]");
 }
 echo json_encode($resultarray,JSON_UNESCAPED_UNICODE);
 ?>

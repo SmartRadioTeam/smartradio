@@ -8,16 +8,11 @@ if(strlen($message) > 280)
 	die('{"message":"祝福超过140字，请修改后重新提交！","mod":"error"}');
 } 
 $uptime = urlencode(date("Y-m-d H:i:s",time()));
-$sql = DB_Select("setting");
-$query = DB_Query($sql,$con);
-while($row = DB_Fetch_Array($query))
-{
-	if($row["permission"]==false)
+$setting=json_decode($redis->get("settings"));
+	if($setting["permission"]==false)
 	{
 		die("{'message':'您没有权限提交信息!','mod':'error'}");
 	}
-	break;
-}
 //(TODO)检测是否禁止投稿
 switch ($mod)
 {
