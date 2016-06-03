@@ -1,5 +1,5 @@
 <?php
-include("class_include.php");
+include "class_include.php";
 switch($_POST['mode'])
 {
 	case "notice":

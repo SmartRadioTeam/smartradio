@@ -1,5 +1,5 @@
 <?php
-include("class_include.php");
+include "class_include.php";
 $id = $_POST['id'];
 if($_POST["mod"]=="lostandfound")
 {
