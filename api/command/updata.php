@@ -113,37 +113,60 @@ function get163musicinfo($redis, $songid)
 function checktime($time)
 {
 	$timerarr = explode('/', $time);
-	//转换格式
-	$time = $timerarr[1] . '-' . $timerarr[2];
 	//检查点歌是否为今天，如果是今天，则延顺一天
-	if (date('m-d') == $time)
+	if (date('m-d') == $timerarr[1] . '-' . $timerarr[2])
 	{
 		$lastday = sprintf("%02d", $timerarr[2] + 1);
+		$lastday = casetime($timerarr[1], $lastday);
+	} else
+	{
+		$lastday = $timerarr[2];
 	}
 	//检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
-	$thistemptime = $timerarr[0] . "-" . $time;
+	$thistemptime = $timerarr[0] . "-" . $lastday;
 	$weekday = date('l', strtotime($thistemptime));
+	if ($weekday == "Saturday" || $weekday == "Sunday")
+	{
+		$lastday = islastday($thistemptime, $lastday, $timerarr[2], $weekday);
+		$lastday = casetime($timerarr[1], $lastday);
+	}
+	return $lastday;
+}
+
+function islastday($thistemptime, $lastday, $day, $weekday)
+{
 	if ($weekday == "Saturday")
 	{
-		$lastday = sprintf("%02d", $timerarr[2] + 2);
-	}
-	if ($weekday == "Sunday")
+		$lastday = sprintf("%02d", $day + 2);
+	} else if ($weekday == "Sunday")
 	{
-		$lastday = sprintf("%02d", $timerarr[2] + 1);
+		$lastday = sprintf("%02d", $day + 1);
 	}
-	return casetime($timerarr[1], $lastday);
+	return $lastday;
 }
 
 //计算是否超越天数
 function casetime($mouth, $day)
 {
-	$matcharray=array(1,3,5,7,8,10,12);
-	if (in_array($mouth,$matcharray) && $day <= 31)
+	$refushmouth = false;
+	$matcharray = array(1, 3, 5, 7, 8, 10, 12);
+	if (in_array($mouth, $matcharray) && $day < 31)
 	{
-		$time = sprintf("%02d", $mouth + 1) . '-01';
+		$refushmouth = true;
+	} else if (!in_array($mouth, $matcharray) || $mouth != 2 && $day < 30)
+	{
+		$refushmouth = true;
+	} else if ($mouth == 2 && $day < 29)
+	{
+		$refushmouth = true;
 	} else
 	{
 		$time = $mouth . '-' . $day;
+	}
+	if ($refushmouth)
+	{
+
+		$time = sprintf("%02d", $mouth + 1) . '-01';
 	}
 	return $time;
 }
