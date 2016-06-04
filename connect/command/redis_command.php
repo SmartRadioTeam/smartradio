@@ -23,9 +23,15 @@ function redis_update($redis, $listname, $count, $option, $value)
 	$redis->SET($listname, json_encode($rows, JSON_UNESCAPED_UNICODE));
 }
 
-function redis_delete($redis, $listname, $count)
+function redis_delete($redis, $listname, $table,$count)
 {
+	$i=0;
 	$rows = json_decode($redis->get($listname), true);
-	unset($rows[$count]);
+	foreach($rows[$table] as $value ){
+		if($value["id"]==$count){
+			unset($rows[$table][$i]);
+			$i++;
+		}
+	}
 	$redis->SET($listname, json_encode($rows, JSON_UNESCAPED_UNICODE));
 }

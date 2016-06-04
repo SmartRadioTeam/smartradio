@@ -41,7 +41,8 @@ function submitlaf($redis, $user, $message, $uptime)
 	$tel = Xss_replace($tel);
 	$message = Xss_replace($message);
 	//写入
-	$row = array("user" => $user, "tel" => $tel, "message" => $message, "uptime" => $uptime, "ip" => getip());
+	$id=$redis->incr("count_song");
+	$row = array("id"=>$id,"user" => $user, "tel" => $tel, "message" => $message, "uptime" => $uptime, "ip" => getip());
 	redis_listadditem($redis, "lostandfound", $row);
 	unset($row["ip"]);
 	unset($row["uptime"]);
@@ -68,7 +69,8 @@ function submitsong($redis, $user, $message, $uptime)
 	$message = Xss_replace($message);
 	$to = Xss_replace($to);
 	get163musicinfo($redis, $songid);
-	$submitinfo = array("user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" => $time, "ip" => getip(), "info" => "0", "option" => $option);
+	$id=$redis->incr("count_song");
+	$submitinfo = array("id"=>$id,"user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" => $time, "ip" => getip(), "info" => "0", "option" => $option);
 	redis_listadditem($redis, "songtable", $submitinfo);
 	unset($submitinfo["time"]);
 	unset($submitinfo["uptime"]);
