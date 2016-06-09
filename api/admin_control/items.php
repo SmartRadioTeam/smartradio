@@ -1,18 +1,19 @@
 <?php
 
 include "class_include.php";
-$id = $_POST['id'];
-if ($_POST["mod"] == "lostandfound")
+$id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_SPECIAL_CHARS);
+$mode=filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS);
+if ($mode == "lostandfound")
 {
 	redis_delete($redis, "lostandfound", $id);
 	redis_delete($redis, "lostandfound_view", $id);
-} elseif ($_POST["mod"] == "delete")
+} else if ($mode == "delete")
 {
 	redis_delete($redis, "songtable", $id);
 	redis_delete($redis, "songtable_view", $id);
 } else
 {
-	switch ($_POST["mod"])
+	switch ($mode)
 	{
 		case "played":
 			$table = "songtable";
@@ -34,5 +35,5 @@ if ($_POST["mod"] == "lostandfound")
 	redis_update($redis, "songtable_view", $id, "info", $value);
 }
 $redis->SAVE();
-echo '{"message":"操作完成！","mod":"success"}';
+echo '{"message":"操作完成！","mode":"success"}';
 ?>

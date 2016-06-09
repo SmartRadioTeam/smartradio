@@ -1,83 +1,73 @@
 <?php
 
 include("class_include.php");
-$mod = $_POST["mode"];
-$user = $_POST['user'];
-$message = $_POST['message'];
+$user = filter_input(INPUT_POST, "user", FILTER_SANITIZE_SPECIAL_CHARS);
+$message = filter_input(INPUT_POST, "message", FILTER_SANITIZE_SPECIAL_CHARS);
 if (strlen($message) > 280)
 {
-	die('{"message":"祝福超过140字，请修改后重新提交！","mod":"error"}');
+	die('{"message":"祝福超过140字，请修改后重新提交！","mode":"error"}');
 }
-$uptime = urlencode(date("Y-m-d H:i:s", time()));
+
+$uptime = date("Y-m-d H:i:s", time());
+
+//获取设置
 $setting = json_decode($redis->get("settings"), true);
 if ($setting["permission"] == 0)
 {
-	die("{'message':'您没有权限提交信息!','mod':'error'}");
+	die("{'message':'您没有权限提交信息!','mode':'error'}");
 }
-//(TODO)检测是否禁止投稿
-switch ($mod)
+switch (filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS))
 {
 	case "requestmusicpost":
-		submitsong($redis, $user, $message, $uptime);
+		if ($user == "" || $message == "" || $to == "")
+		{
+			die('{"message":"信息不能为空","mode":"error"}');
+		}
+		$songid = filter_input(INPUT_POST, "songid", FILTER_SANITIZE_SPECIAL_CHARS);
+		$to =filter_input(INPUT_POST, "to", FILTER_SANITIZE_SPECIAL_CHARS);
+		$time = filter_input(INPUT_POST, "time", FILTER_SANITIZE_SPECIAL_CHARS);
+		$option =filter_input(INPUT_POST, "option", FILTER_SANITIZE_SPECIAL_CHARS);
+		submitsong($redis, $user, $message, $to, $time, $option, $uptime);
 		break;
 	case "LostandfoundPost":
-		submitlaf($user, $message, $uptime);
+		$tel =filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
+		if ($tel == "" || $user == "" || $message == "")
+		{
+			die('{"message":"信息不能为空","mode":"error"}');
+		}
+		submitlaf($user, $message, $tel, $uptime);
 		break;
 	default:
-		die('{"message":"请不要提交空信息","mod":"error"}');
+		die('{"message":"请不要提交空信息","mode":"error"}');
 }
 $redis->SAVE();
 
 //提交失物招领
-function submitlaf($redis, $user, $message, $uptime)
+function submitlaf($redis, $user, $message, $tel, $uptime)
 {
-	$tel = $_POST['tel'];
-	if ($tel == "" || $user == "" || $message == "")
-	{
-		die('{"message":"信息不能为空","mod":"error"}');
-	}
-	//过滤
-	$user = Xss_replace($user);
-	$tel = Xss_replace($tel);
-	$message = Xss_replace($message);
 	//写入
-	$id=$redis->incr("count_song");
-	$row = array("id"=>$id,"user" => $user, "tel" => $tel, "message" => $message, "uptime" => $uptime, "ip" => getip());
+	$id = $redis->incr("count_song");
+	$row = array("id" => $id, "user" => $user, "tel" => $tel, "message" => $message, "uptime" => $uptime, "ip" => getip());
 	redis_listadditem($redis, "lostandfound", $row);
 	unset($row["ip"]);
 	unset($row["uptime"]);
 	redis_listadditem($redis, "lostandfound_view", $row);
-	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
+	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mode":"success"}';
 }
 
 //提交歌曲
-function submitsong($redis, $user, $message, $uptime)
+function submitsong($redis, $user, $message, $to, $time, $option, $uptime)
 {
-	$songid = $_POST['songid'];
-	$to = $_POST['to'];
-	$time = $_POST['time'];
-	$option = $_POST['option'];
-	$time = checktime($time);
-	//检查是否为空
-	if ($user == "" || $message == "" || $to == "")
-	{
-		die('{"message":"信息不能为空","mod":"error"}');
-	}
-	//过滤
-	$user = Xss_replace($user);
-	$songid = Xss_replace($songid);
-	$message = Xss_replace($message);
-	$to = Xss_replace($to);
 	get163musicinfo($redis, $songid);
-	$id=$redis->incr("count_song");
-	$submitinfo = array("id"=>$id,"user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" => $time, "ip" => getip(), "info" => "0", "option" => $option);
+	$id = $redis->incr("count_song");
+	$submitinfo = array("id" => $id, "user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" =>  checktime($time), "ip" => getip(), "info" => "0", "option" => $option);
 	redis_listadditem($redis, "songtable", $submitinfo);
 	unset($submitinfo["time"]);
 	unset($submitinfo["uptime"]);
 	unset($submitinfo["ip"]);
 	unset($submitinfo["option"]);
 	redis_listadditem($redis, "songtable_view", $submitinfo);
-	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mod":"success"}';
+	echo '{"message":"您的信息已经成功提交到数据库，请耐心等待广播站排序播放！谢谢！","mode":"success"}';
 }
 
 function get163musicinfo($redis, $songid)
@@ -189,13 +179,6 @@ function getip()
 		$cip = "无法获取ip数据";
 	}
 	return $cip;
-}
-
-function Xss_replace($string)
-{
-	$string = str_replace('<', '（', $string);
-	$string = str_replace('>', '）', $string);
-	return $string;
 }
 
 ?>

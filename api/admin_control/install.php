@@ -19,7 +19,13 @@ if (!$redis->exists('songtable_view'))
 }
 if (!$redis->exists('songinfo'))
 {
-	$resultarray["songinfo"] = "{}";
 	$redis->SET("songinfo", "{}");
+}
+if(!$redis->exists("usersession")){
+	$redis->SET("usersession", "{}");
+}
+if(!$redis->exists("usertable")){
+	
+	$redis->SET("usertable", "{}");
 }
 $redis->save();

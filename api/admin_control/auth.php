@@ -8,14 +8,9 @@ function auth($redis, $resultkey, $username)
 		if (getuserkey($username, $usernametimes[$username]) == $resultkey)
 		{
 			return true;
-		} else
-		{
-			return false;
 		}
-	} else
-	{
-		return false;
 	}
+	die("{'message':'鉴权失败！','mode':'loginauth_error'}");
 }
 
 function getuserkey($username, $time)

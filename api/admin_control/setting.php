@@ -1,17 +1,18 @@
 <?php
 
 include "class_include.php";
-switch ($_POST['mode'])
+$mode=filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS);
+switch ($mode)
 {
 	case "notice":
-		$value = urlencode($_POST['message']);
+		$value = filter_input(INPUT_POST, "message", FILTER_UNSAFE_RAW);
 		break;
 	case "permission":
-		$value = $_POST["off"];
+		$value = filter_input(INPUT_POST, "off", FILTER_SANITIZE_SPECIAL_CHARS);
 		break;
 }
-redis_overried_update($redis, "settings", $_POST['mode'], $value);
-echo '{"message":"操作成功！","mod":"success"}';
+redis_overried_update($redis, "settings", $mode, $value);
+echo '{"message":"操作成功！","mode":"success"}';
 $redis->save();
 
 function redis_overried_update($redis, $listname, $count, $value)
