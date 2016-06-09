@@ -1,7 +1,7 @@
 <?php
 
 include "class_include.php";
-$mode=filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS);
+$mode = filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS);
 switch ($mode)
 {
 	case "notice":
@@ -9,6 +9,9 @@ switch ($mode)
 		break;
 	case "permission":
 		$value = filter_input(INPUT_POST, "off", FILTER_SANITIZE_SPECIAL_CHARS);
+		break;
+	case "projectname":
+		$value = filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS);
 		break;
 }
 redis_overried_update($redis, "settings", $mode, $value);

@@ -2,7 +2,7 @@
 
 include "class_include.php";
 $id = filter_input(INPUT_POST, "id", FILTER_SANITIZE_SPECIAL_CHARS);
-$mode=filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS);
+$mode = filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS);
 if ($mode == "lostandfound")
 {
 	redis_delete($redis, "lostandfound", $id);

@@ -1,7 +1,6 @@
 <?php
 
 include("class_include.php");
-$resultarray["projectname"] = Project_Name;
 $resultarray["settings"] = json_decode($redis->get("settings"));
 $resultarray["lostandfound"] = json_decode($redis->get("lostandfound_view"));
 $resultarray["songtable"] = json_decode($redis->get("songtable_view"));

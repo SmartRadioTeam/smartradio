@@ -3,8 +3,9 @@
 include 'class_include.php';
 if (!$redis->exists("settings"))
 {
-	$settings["notice"]="欢迎使用smartradio!";
-	$settings["permission"]="0";
+	$settings["notice"] = "欢迎使用Smartradio!";
+	$settings["permission"] = "0";
+	$settings["projectname"]="Smartradio";
 	$redis->SET("settings", json_encode($settings));
 }
 if (!$redis->exists('lostandfound'))
@@ -21,11 +22,13 @@ if (!$redis->exists('songinfo'))
 {
 	$redis->SET("songinfo", "{}");
 }
-if(!$redis->exists("usersession")){
+if (!$redis->exists("usersession"))
+{
 	$redis->SET("usersession", "{}");
 }
-if(!$redis->exists("usertable")){
-	
+if (!$redis->exists("usertable"))
+{
+	$result["admin"] = "";
 	$redis->SET("usertable", "{}");
 }
 $redis->save();

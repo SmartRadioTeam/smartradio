@@ -25,6 +25,7 @@ switch ($mode)
 		break;
 }
 echo '{"message":"操作完成","mode":"success"}';
+
 function changepassword($redis, $username, $old_password, $new_password)
 {
 
