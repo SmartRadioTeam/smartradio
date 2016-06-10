@@ -4,7 +4,7 @@ include "class_include.php";
 $input_username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
 $input_password = md5(trim(filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS)));
 $mode = filter_input(INPUT_POST, 'mode', FILTER_SANITIZE_SPECIAL_CHARS);
-if (!isset($username))
+if (!isset($input_username))
 {
 	die('{"message":"请不要提交空数据！","mode":"error"}');
 }
@@ -82,5 +82,5 @@ function Login($redis, $username, $password)
 	{
 		redis_setlogininfo($redis, $time, $username);
 	}
-	die('{"mod":"success","authkey":"' . getuserkey($username, $time) . '"}');
+	die('{"mode":"success","authkey":"' . getuserkey($username, $time) . '"}');
 }

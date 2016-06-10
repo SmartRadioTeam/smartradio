@@ -2,4 +2,4 @@
 
 include "class_include.php";
 $resultarray["settings"] = json_decode($redis->get("settings"), true);
-echo json_encode($resultarray, JSON_UNESCAPED_UNICODE);
+echo json_encode($resultarray);

@@ -15,5 +15,5 @@ function auth($redis, $resultkey, $username)
 
 function getuserkey($username, $time)
 {
-	md5(md5($username . "times" . $time));
+	return md5(md5($username . "times" . $time));
 }
