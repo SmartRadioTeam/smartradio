@@ -19,18 +19,18 @@ if ($setting["permission"] == 0)
 switch (filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS))
 {
 	case "requestmusicpost":
+		$songid = filter_input(INPUT_POST, "songid", FILTER_SANITIZE_SPECIAL_CHARS);
+		$to = filter_input(INPUT_POST, "to", FILTER_SANITIZE_SPECIAL_CHARS);
+		$time = filter_input(INPUT_POST, "time", FILTER_SANITIZE_SPECIAL_CHARS);
+		$option = filter_input(INPUT_POST, "option", FILTER_SANITIZE_SPECIAL_CHARS);
 		if ($user == "" || $message == "" || $to == "")
 		{
 			die('{"message":"信息不能为空","mode":"error"}');
 		}
-		$songid = filter_input(INPUT_POST, "songid", FILTER_SANITIZE_SPECIAL_CHARS);
-		$to =filter_input(INPUT_POST, "to", FILTER_SANITIZE_SPECIAL_CHARS);
-		$time = filter_input(INPUT_POST, "time", FILTER_SANITIZE_SPECIAL_CHARS);
-		$option =filter_input(INPUT_POST, "option", FILTER_SANITIZE_SPECIAL_CHARS);
-		submitsong($redis, $user, $message, $to, $time, $option, $uptime);
+		submitsong($redis, $user, $message, $to, $time, $option, $uptime, $songid);
 		break;
 	case "LostandfoundPost":
-		$tel =filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
+		$tel = filter_input(INPUT_POST, "tel", FILTER_SANITIZE_SPECIAL_CHARS);
 		if ($tel == "" || $user == "" || $message == "")
 		{
 			die('{"message":"信息不能为空","mode":"error"}');
@@ -56,11 +56,11 @@ function submitlaf($redis, $user, $message, $tel, $uptime)
 }
 
 //提交歌曲
-function submitsong($redis, $user, $message, $to, $time, $option, $uptime)
+function submitsong($redis, $user, $message, $to, $time, $option, $uptime, $songid)
 {
 	get163musicinfo($redis, $songid);
 	$id = $redis->incr("count_song");
-	$submitinfo = array("id" => $id, "user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" =>  checktime($time), "ip" => getip(), "info" => "0", "option" => $option);
+	$submitinfo = array("id" => $id, "user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" => checktime($time), "ip" => getip(), "info" => "0", "option" => $option);
 	redis_listadditem($redis, "songtable", $submitinfo);
 	unset($submitinfo["time"]);
 	unset($submitinfo["uptime"]);
@@ -72,6 +72,10 @@ function submitsong($redis, $user, $message, $to, $time, $option, $uptime)
 
 function get163musicinfo($redis, $songid)
 {
+	$songinfo=  json_decode($redis->get("songinfo"));
+	if(array_key_exists($songid, $songinfo)){
+		return;
+	}
 	$refer = "http://music.163.com/";
 	$header[] = "Cookie: appver=1.9.2.109452;";
 	$ch = curl_init();
@@ -106,35 +110,29 @@ function checktime($time)
 {
 	$timerarr = explode('/', $time);
 	//检查点歌是否为今天，如果是今天，则延顺一天
-	if (date('m-d') == $timerarr[1] . '-' . $timerarr[2])
+	$time = $timerarr[1] . '-' . $timerarr[2];
+	if (date('m-d') == $time)
 	{
-		$lastday = sprintf("%02d", $timerarr[2] + 1);
-		$lastday = casetime($timerarr[1], $lastday);
-	} else
-	{
-		$lastday = $timerarr[2];
+		$time = casetime($timerarr[1], sprintf("%02d", $timerarr[2] + 1));
 	}
 	//检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
-	$thistemptime = $timerarr[0] . "-" . $lastday;
+	$timer = explode('/', $time);
+	$thistemptime = $timerarr[0] . "-" . $timer[0] . "-" . $timer[1];
 	$weekday = date('l', strtotime($thistemptime));
-	if ($weekday == "Saturday" || $weekday == "Sunday")
-	{
-		$lastday = islastday($thistemptime, $lastday, $timerarr[2], $weekday);
-		$lastday = casetime($timerarr[1], $lastday);
-	}
-	return $lastday;
-}
-
-function islastday($thistemptime, $lastday, $day, $weekday)
-{
 	if ($weekday == "Saturday")
 	{
-		$lastday = sprintf("%02d", $day + 2);
-	} else if ($weekday == "Sunday")
-	{
-		$lastday = sprintf("%02d", $day + 1);
+		$daytime = sprintf("%02d", $timer[1] + 2);
 	}
-	return $lastday;
+	if ($weekday == "Sunday")
+	{
+		$daytime = sprintf("%02d", $timer[1] + 1);
+	}
+	if (isset($daytime))
+	{
+		$time = casetime($timer[0], $time);
+		$time=str_replace('/', "-", $time);
+	}
+	return $time;
 }
 
 //计算是否超越天数
@@ -142,23 +140,25 @@ function casetime($mouth, $day)
 {
 	$refushmouth = false;
 	$matcharray = array(1, 3, 5, 7, 8, 10, 12);
-	if (in_array($mouth, $matcharray) && $day < 31)
+	if (in_array($mouth, $matcharray) && $day > 31)
 	{
 		$refushmouth = true;
-	} else if (!in_array($mouth, $matcharray) || $mouth != 2 && $day < 30)
+	} 
+	if ($mouth != 2 && $day > 30)
 	{
 		$refushmouth = true;
-	} else if ($mouth == 2 && $day < 29)
-	{
-		$refushmouth = true;
-	} else
-	{
-		$time = $mouth . '-' . $day;
 	}
+	if ($mouth == 2 && $day > 29)
+	{
+		$refushmouth = true;
+	}
+	//
 	if ($refushmouth)
 	{
-
-		$time = sprintf("%02d", $mouth + 1) . '-01';
+		$time = sprintf("%02d", $mouth + 1) . '/01';
+	} else
+	{
+		$time = $mouth . '/' . $day;
 	}
 	return $time;
 }

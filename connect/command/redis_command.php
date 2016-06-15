@@ -18,7 +18,7 @@ function redis_listadditem($redis, $listname, $row, $count = "")
 
 function cmp($a, $b)
 {
-	if ($a["option"] > $b["option"])
+	if ($a["info"] > $b["info"])
 	{
 		return 1;
 	}
@@ -27,7 +27,17 @@ function cmp($a, $b)
 function redis_update($redis, $listname, $count, $option, $value)
 {
 	$rows = json_decode($redis->get($listname), true);
-	$rows[$count][$option] = $value;
+	$i = 0;
+	foreach ($rows as $values)
+	{
+		if ($values["id"] == $count)
+		{
+			$values[$option] = $value;
+			$rows[$i] = $values;
+			break;
+		}
+		$i++;
+	}
 	usort($rows, "cmp");
 	$redis->SET($listname, json_encode($rows, JSON_UNESCAPED_UNICODE));
 }
@@ -38,11 +48,11 @@ function redis_delete($redis, $listname, $count)
 	$rows = json_decode($redis->get($listname), true);
 	foreach ($rows as $value)
 	{
-		if ($value["id"] == $count)
+		if ($value["id"] != $count)
 		{
-			unset($rows[$i]);
-			$i++;
+			$resultrow[] = $value;
 		}
+		$i++;
 	}
-	$redis->SET($listname, json_encode($rows, JSON_UNESCAPED_UNICODE));
+	$redis->SET($listname, json_encode($resultrow, JSON_UNESCAPED_UNICODE));
 }

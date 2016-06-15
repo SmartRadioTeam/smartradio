@@ -18,7 +18,7 @@ switch ($mode)
 		break;
 	case "changepassword":
 		$new_password = filter_input(INPUT_POST, "newpasswd", FILTER_SANITIZE_SPECIAL_CHARS);
-		changepassword($redis, $username, $input_password, $new_password);
+		changepassword($redis, $input_username, $input_password, $new_password);
 		break;
 	case "deluser":
 		deluser($redis, $input_username);
@@ -38,11 +38,6 @@ function changepassword($redis, $username, $old_password, $new_password)
 	$redis->SET("usertable", json_encode($row, JSON_UNESCAPED_UNICODE));
 }
 
-function redis_setlogininfo($redis, $time, $username)
-{
-	$resultinfo[$username] = $time;
-	$redis->SET("usersession", json_encode($resultinfo, JSON_UNESCAPED_UNICODE));
-}
 
 function adduser($redis, $username, $password)
 {
@@ -75,12 +70,7 @@ function Login($redis, $username, $password)
 	}
 	$time = time();
 	$resultinfo = json_decode($redis->get("usersession"), true);
-	if (!array_key_exists($username, $resultinfo))
-	{
-		redis_listadditem($redis, "usersession", $time);
-	} else
-	{
-		redis_setlogininfo($redis, $time, $username);
-	}
+	$resultinfo[$username] = $time;
+	$redis->SET("usersession", json_encode($resultinfo, JSON_UNESCAPED_UNICODE));
 	die('{"mode":"success","authkey":"' . getuserkey($username, $time) . '"}');
 }
