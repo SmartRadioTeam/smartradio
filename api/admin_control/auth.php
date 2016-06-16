@@ -10,7 +10,7 @@ function auth($redis, $resultkey, $username)
             return true;
         }
     }
-    die("{'message':'鉴权失败！','mode':'loginauth_error'}");
+    die("{'message':'鉴权失败！','mode':'error'}");
 }
 
 function getuserkey($username, $time)
