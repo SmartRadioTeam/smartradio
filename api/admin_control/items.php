@@ -42,4 +42,3 @@ foreach ($id as $ids)
 }
 $redis->SAVE();
 echo '{"command":"' . $mode . '","mode":"success","muilt":"' . $muilt . '"}';
-?>

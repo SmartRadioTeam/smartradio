@@ -35,7 +35,7 @@ switch (filter_input(INPUT_POST, "mode", FILTER_SANITIZE_SPECIAL_CHARS))
 		{
 			die('{"message":"信息不能为空","mode":"error"}');
 		}
-		submitlaf($user, $message, $tel, $uptime);
+		submitlaf($redis,$user, $message, $tel, $uptime);
 		break;
 	default:
 		die('{"message":"请不要提交空信息","mode":"error"}');
@@ -110,15 +110,13 @@ function checktime($time)
 {
 	$timerarr = explode('/', $time);
 	//检查点歌是否为今天，如果是今天，则延顺一天
-	$time = $timerarr[1] . '-' . $timerarr[2];
-	if (date('m-d') == $time)
+	if (date('m/d') == $timerarr[1]."/".$timerarr[2])
 	{
 		$time = casetime($timerarr[1], sprintf("%02d", $timerarr[2] + 1));
 	}
 	//检查提交/延顺后的时间是否为周末，如果是周末则延到下个星期一
 	$timer = explode('/', $time);
-	$thistemptime = $timerarr[0] . "-" . $timer[0] . "-" . $timer[1];
-	$weekday = date('l', strtotime($thistemptime));
+	$weekday = date('l', strtotime($timerarr[0] . "-" . $timer[0] . "-" . $timer[1]));
 	if ($weekday == "Saturday")
 	{
 		$daytime = sprintf("%02d", $timer[1] + 2);
@@ -130,17 +128,15 @@ function checktime($time)
 	if (isset($daytime))
 	{
 		$time = casetime($timer[0], $time);
-		$time=str_replace('/', "-", $time);
 	}
+	$time=str_replace('/', "-", $time);
 	return $time;
 }
 
 //计算是否超越天数
 function casetime($mouth, $day)
 {
-	$refushmouth = false;
-	$matcharray = array(1, 3, 5, 7, 8, 10, 12);
-	if (in_array($mouth, $matcharray) && $day > 31)
+	if (in_array($mouth, array(1, 3, 5, 7, 8, 10, 12)) && $day > 31)
 	{
 		$refushmouth = true;
 	} 
@@ -152,8 +148,7 @@ function casetime($mouth, $day)
 	{
 		$refushmouth = true;
 	}
-	//
-	if ($refushmouth)
+	if (isset($refushmouth))
 	{
 		$time = sprintf("%02d", $mouth + 1) . '/01';
 	} else
@@ -165,20 +160,19 @@ function casetime($mouth, $day)
 
 function getip()
 {
-	if (!empty($_SERVER["HTTP_CLIENT_IP"]))
+	
+	if (!empty(filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP', FILTER_FLAG_IPV4)))
 	{
-		$cip = $_SERVER["HTTP_CLIENT_IP"];
-	} else if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"]))
+		$cip = filter_input(INPUT_SERVER, 'HTTP_CLIENT_IP', FILTER_FLAG_IPV4);
+	} else if (!empty(filter_input(INPUT_SERVER, "HTTP_X_FORWARDED_FOR", FILTER_FLAG_IPV4)))
 	{
-		$cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
-	} else if (!empty($_SERVER["REMOTE_ADDR"]))
+		$cip = filter_input(INPUT_SERVER, "HTTP_X_FORWARDED_FOR", FILTER_FLAG_IPV4);
+	} else if (!empty(filter_input(INPUT_SERVER, "REMOTE_ADDR", FILTER_FLAG_IPV4)))
 	{
-		$cip = $_SERVER["REMOTE_ADDR"];
+		$cip = filter_input(INPUT_SERVER, "REMOTE_ADDR", FILTER_FLAG_IPV4);
 	} else
 	{
 		$cip = "无法获取ip数据";
 	}
 	return $cip;
 }
-
-?>

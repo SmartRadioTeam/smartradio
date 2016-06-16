@@ -46,6 +46,7 @@ function redis_delete($redis, $listname, $count)
 {
 	$i = 0;
 	$rows = json_decode($redis->get($listname), true);
+	$resultrow=array();
 	foreach ($rows as $value)
 	{
 		if ($value["id"] != $count)
