@@ -6,71 +6,79 @@ $input_password = md5(trim(filter_input(INPUT_POST, "password", FILTER_SANITIZE_
 $mode = filter_input(INPUT_POST, 'mode', FILTER_SANITIZE_SPECIAL_CHARS);
 if (!isset($input_username))
 {
-	die('{"message":"请不要提交空数据！","mode":"error"}');
+    die('{"message":"请不要提交空数据！","mode":"error"}');
 }
 switch ($mode)
 {
-	case "login":
-		Login($redis, $input_username, $input_password);
-		break;
-	case "adduser":
-		adduser($redis, $input_username, $input_password);
-		break;
-	case "changepassword":
-		$new_password = filter_input(INPUT_POST, "newpasswd", FILTER_SANITIZE_SPECIAL_CHARS);
-		changepassword($redis, $input_username, $input_password, $new_password);
-		break;
-	case "deluser":
-		deluser($redis, $input_username);
-		break;
+    case "login":
+        Login($redis, $input_username, $input_password);
+        break;
+    case "adduser":
+        adduser($redis, $input_username, $input_password);
+        break;
+    case "listuser":
+        listuser($redis);
+        break;
+    case "changepassword":
+        $new_password = filter_input(INPUT_POST, "newpasswd", FILTER_SANITIZE_SPECIAL_CHARS);
+        changepassword($redis, $input_username, $input_password, $new_password);
+        break;
+    case "deluser":
+        deluser($redis, $input_username);
+        break;
 }
 echo '{"message":"操作完成","mode":"success"}';
+function listuser($redis)
+{
+    $usertablekeys=array_keys(json_decode($redis->GET("usertable"),true));
+    die(json_encode($usertablekeys, JSON_UNESCAPED_UNICODE));
+}
 
 function changepassword($redis, $username, $old_password, $new_password)
 {
 
-	$row = json_decode($redis->get("usertable"), true);
-	if (!array_key_exists($username, $row) || $old_password != $row[$username])
-	{
-		die('{"message":"输入错误，请重新输入！","mode":"error"}');
-	}
-	$row[$username] = $new_password;
-	$redis->SET("usertable", json_encode($row, JSON_UNESCAPED_UNICODE));
+    $row = json_decode($redis->get("usertable"), true);
+    if (!array_key_exists($username, $row) || $old_password != $row[$username])
+    {
+        die('{"message":"输入错误，请重新输入！","mode":"error"}');
+    }
+    $row[$username] = $new_password;
+    $redis->SET("usertable", json_encode($row, JSON_UNESCAPED_UNICODE));
 }
 
 
 function adduser($redis, $username, $password)
 {
-	$row = json_decode($redis->get("usertable"), true);
-	if (array_key_exists($username, $row))
-	{
-		die('{"message":"用户已存在！","mode":"error"}');
-	}
-	$row[$username] = $password;
-	$redis->SET("usertable", json_encode($row, JSON_UNESCAPED_UNICODE));
+    $row = json_decode($redis->get("usertable"), true);
+    if (array_key_exists($username, $row))
+    {
+        die('{"message":"用户已存在！","mode":"error"}');
+    }
+    $row[$username] = $password;
+    $redis->SET("usertable", json_encode($row, JSON_UNESCAPED_UNICODE));
 }
 
 function deluser($redis, $username)
 {
-	$row = json_decode($redis->get("usertable"), true);
-	if (!array_key_exists($username, $row))
-	{
-		die('{"message":"用户不存在！","mode":"error"}');
-	}
-	unset($row[$username]);
-	$redis->SET("usertable", json_encode($row, JSON_UNESCAPED_UNICODE));
+    $row = json_decode($redis->get("usertable"), true);
+    if (!array_key_exists($username, $row))
+    {
+        die('{"message":"用户不存在！","mode":"error"}');
+    }
+    unset($row[$username]);
+    $redis->SET("usertable", json_encode($row, JSON_UNESCAPED_UNICODE));
 }
 
 function Login($redis, $username, $password)
 {
-	$row = json_decode($redis->get("usertable"), true);
-	if (!array_key_exists($username, $row) || $password != $row[$username])
-	{
-		die('{"message":"输入错误，请重新输入！","mode":"error"}');
-	}
-	$time = time();
-	$resultinfo = json_decode($redis->get("usersession"), true);
-	$resultinfo[$username] = $time;
-	$redis->SET("usersession", json_encode($resultinfo, JSON_UNESCAPED_UNICODE));
-	die('{"mode":"success","authkey":"' . getuserkey($username, $time) . '"}');
+    $row = json_decode($redis->get("usertable"), true);
+    if (!array_key_exists($username, $row) || $password != $row[$username])
+    {
+        die('{"message":"输入错误，请重新输入！","mode":"error"}');
+    }
+    $time = time();
+    $resultinfo = json_decode($redis->get("usersession"), true);
+    $resultinfo[$username] = $time;
+    $redis->SET("usersession", json_encode($resultinfo, JSON_UNESCAPED_UNICODE));
+    die('{"mode":"success","authkey":"' . getuserkey($username, $time) . '"}');
 }
