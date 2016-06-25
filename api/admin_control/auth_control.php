@@ -30,7 +30,7 @@ switch ($mode)
 echo '{"message":"操作完成","mode":"success"}';
 function listuser($redis)
 {
-    $usertablekeys=array_keys(json_decode($redis->GET("usertable"),true));
+    $usertablekeys = array_keys(json_decode($redis->GET("usertable"), true));
     die(json_encode($usertablekeys, JSON_UNESCAPED_UNICODE));
 }
 

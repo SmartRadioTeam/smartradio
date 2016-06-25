@@ -3,32 +3,32 @@
 include 'class_include.php';
 if (!$redis->exists("settings"))
 {
-	$settings["notice"] = "欢迎使用Smartradio!";
-	$settings["permission"] = "0";
-	$settings["projectname"]="Smartradio";
-	$redis->SET("settings", json_encode($settings));
+    $settings["notice"] = "欢迎使用Smartradio!";
+    $settings["permission"] = "0";
+    $settings["projectname"] = "Smartradio";
+    $redis->SET("settings", json_encode($settings));
 }
 if (!$redis->exists('lostandfound'))
 {
-	$redis->SET("lostandfound_view", "[]");
-	$redis->SET("lostandfound", "[]");
+    $redis->SET("lostandfound_view", "[]");
+    $redis->SET("lostandfound", "[]");
 }
 if (!$redis->exists('songtable_view'))
 {
-	$redis->SET("songtable", "[]");
-	$redis->SET("songtable_view", "[]");
+    $redis->SET("songtable", "[]");
+    $redis->SET("songtable_view", "[]");
 }
 if (!$redis->exists('songinfo'))
 {
-	$redis->SET("songinfo", "{}");
+    $redis->SET("songinfo", "{}");
 }
 if (!$redis->exists("usersession"))
 {
-	$redis->SET("usersession", "{}");
+    $redis->SET("usersession", "{}");
 }
 if (!$redis->exists("usertable"))
 {
-	$result["admin"] = "e10adc3949ba59abbe56e057f20f883e";
-	$redis->SET("usertable", json_encode($result));
+    $result["admin"] = "e10adc3949ba59abbe56e057f20f883e";
+    $redis->SET("usertable", json_encode($result));
 }
 $redis->save();

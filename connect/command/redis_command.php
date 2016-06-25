@@ -1,4 +1,4 @@
-<?php
+·<?php
 
 function redis_listadditem($redis, $listname, $row, $count = "")
 {

@@ -1,5 +1,4 @@
 <?php
-
 function auth($redis, $resultkey, $username)
 {
     $usernametimes = json_decode($redis->get("usersession"), true);
