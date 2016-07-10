@@ -128,7 +128,9 @@ function checktime($time)
     }
     if (isset($daytime))
     {
-        $time = casetime($timer[0], $time);
+        $time = casetime($timer[0], $daytime);
+    }else{
+        $time = $timerarr[1] . "/" . $timerarr[2];
     }
     return str_replace('/', "-", $time);
 }
