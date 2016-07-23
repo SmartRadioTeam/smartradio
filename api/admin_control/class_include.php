@@ -7,17 +7,17 @@ $location = substr(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL), 
 $mode = filter_input(INPUT_POST, 'mode', FILTER_SANITIZE_SPECIAL_CHARS);
 switch ($location)
 {
-	case "systeminfo.php":
-	case "tableinfo.php":
-		$resultkey = filter_input(INPUT_GET, "resultkey", FILTER_SANITIZE_SPECIAL_CHARS);
-		$user = filter_input(INPUT_GET, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-		break;
-	default:
-		$resultkey = filter_input(INPUT_POST, "resultkey", FILTER_SANITIZE_SPECIAL_CHARS);
-		$user = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+    case "systeminfo.php":
+    case "tableinfo.php":
+        $resultkey = filter_input(INPUT_GET, "resultkey", FILTER_SANITIZE_SPECIAL_CHARS);
+        $user = filter_input(INPUT_GET, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+        break;
+    default:
+        $resultkey = filter_input(INPUT_POST, "resultkey", FILTER_SANITIZE_SPECIAL_CHARS);
+        $user = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
 }
 if ($mode != "login" && $location != "systeminfo.php")
 {
-	auth($redis, $resultkey, $user);
+    auth($redis, $resultkey, $user);
 }
 ?>

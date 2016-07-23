@@ -1,12 +1,12 @@
 <?php
 include("class_include.php");
-cleantable($redis,"songtable");
-cleantable($redis,"songtable_view");
-echo "ok";
-function cleantable($redis,$listname){
+cleantable($redis, "songtable");
+cleantable($redis, "songtable_view");
+function cleantable($redis, $listname)
+{
     $i = 0;
     $rows = json_decode($redis->get($listname), true);
-    $resultrow=array();
+    $resultrow = array();
     foreach ($rows as $value)
     {
         if ($value["info"] == 0)
