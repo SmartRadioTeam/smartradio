@@ -4,7 +4,7 @@ include 'class_include.php';
 if (!$redis->exists("settings"))
 {
     $settings["notice"] = "欢迎使用Smartradio!";
-    $settings["permission"] = "0";
+    $settings["permission"] = 0;
     $settings["projectname"] = "Smartradio";
     $redis->SET("settings", json_encode($settings));
 }

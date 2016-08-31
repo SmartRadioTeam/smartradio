@@ -27,13 +27,13 @@ foreach ($id as $ids)
         switch ($mode)
         {
             case "played":
-                $value = "1";
+                $value = 1;
                 break;
             case "normalplay":
-                $value = "0";
+                $value = 0;
                 break;
             case "unplay":
-                $value = "2";
+                $value = 2;
                 break;
         }
         redis_update($redis, "songtable", $ids, "info", $value);

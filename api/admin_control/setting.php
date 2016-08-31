@@ -8,7 +8,7 @@ switch ($mode)
         $value = filter_input(INPUT_POST, "value", FILTER_UNSAFE_RAW);
         break;
     case "permission":
-        $value = filter_input(INPUT_POST, "value", FILTER_SANITIZE_SPECIAL_CHARS);
+        $value = (int)filter_input(INPUT_POST, "value", FILTER_SANITIZE_SPECIAL_CHARS);
         break;
     case "projectname":
         $value = filter_input(INPUT_POST, "value", FILTER_SANITIZE_SPECIAL_CHARS);

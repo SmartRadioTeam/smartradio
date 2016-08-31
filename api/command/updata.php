@@ -60,7 +60,7 @@ function submitsong($redis, $user, $message, $to, $time, $option, $uptime, $song
 {
     get163musicinfo($redis, $songid);
     $id = $redis->incr("count_song");
-    $submitinfo = array("id" => $id, "user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" => checktime($time), "ip" => getip(), "info" => "0", "option" => $option);
+    $submitinfo = array("id" => $id, "user" => $user, "songid" => $songid, "message" => $message, "to" => $to, "uptime" => $uptime, "time" => checktime($time), "ip" => getip(), "info" => 0, "option" => $option);
     redis_listadditem($redis, "songtable", $submitinfo);
     unset($submitinfo["time"]);
     unset($submitinfo["uptime"]);
